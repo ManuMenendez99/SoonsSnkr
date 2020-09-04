@@ -1,0 +1,97 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-light blue-grey lighten-5 navbar navbar-expand-lg" [containerInside]="false">
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><span class="navbar-brand">Nighty Cloud</span></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+
+
+
+      <li class="nav-item active">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.welcome' | translate | firstLetterCap }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'moments.events' | translate | firstLetterCap }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'moments.promotions' | translate | firstLetterCap }}</a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.chat' | translate | firstLetterCap }}</a>
+      </li>
+
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          {{ 'common-words.private' | translate | firstLetterCap }}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect>{{ 'local-objects.tables' | translate | firstLetterCap }}</a>
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect>{{ 'local-objects.products' | translate | firstLetterCap }}</a>
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect>{{ 'moments.promotions' | translate | firstLetterCap }}</a>
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect>{{ 'local-objects.tickets' | translate | firstLetterCap }}</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect>{{ 'job.workers' | translate | firstLetterCap }}</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect>{{ 'common-words.configuration' | translate | firstLetterCap }}</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          {{'places.local' | translate | firstLetterCap}}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect>{{ 'places.bar' | translate | firstLetterCap }}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>{{ 'places.restaurant' | translate | firstLetterCap }}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>{{ 'places.disco' | translate | firstLetterCap }}</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect>{{ 'common-words.all' | translate | firstLetterCap }}</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.contact-us' | translate | firstLetterCap }}</a>
+      </li>
+      <!-- Dropdown -->
+
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <button mat-button color="primary" (click)="firebase.login()">Login</button>
+        <button mat-button color="accent" (click)="firebase.register()">Register</button>
+      </li>
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <i class="fas fa-user"></i><span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect>Action</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>Another action</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>Something else here</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" mdbWavesEffect>Separated link</a>
+        </div>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+</mdb-navbar>
+<!--/.Navbar-->

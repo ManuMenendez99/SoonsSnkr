@@ -1,0 +1,11 @@
+
+<nighty-navbar></nighty-navbar>
+
+<div class="wrapper min-vh-100" (click)="quitarTight()" id="tighting">
+    <div class="wrap">
+        <router-outlet></router-outlet>
+        <!-- <div>{{ 'site.welcome' | translate }}</div> -->
+    </div>
+</div>
+
+<nighty-footer (mouseenter)="_insideFooter = true"  (mouseleave)="_insideFooter = false" *ngIf="mostrarBarra()"></nighty-footer>
