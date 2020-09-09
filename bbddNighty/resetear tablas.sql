@@ -1,3 +1,4 @@
+use nighty;
 DELETE FROM tiposProductos;
 DELETE FROM productos;
 DELETE FROM marcas;
@@ -59,7 +60,7 @@ DELETE FROM archivosEmpresa;
 DELETE FROM archivosEstablecimiento;
 DELETE FROM archivosPromocion;
 DELETE FROM archivosCategoria;
-DELETE FROM archivosMarca
+DELETE FROM archivosMarca;
 DELETE FROM archivosProducto;
 DELETE FROM tiposPromociones;
 DELETE FROM promocionesProductos;

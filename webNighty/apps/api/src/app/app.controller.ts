@@ -4,7 +4,7 @@ import { diskStorage } from 'multer'
 import { extname } from 'path'
 import "fs";
 import { AppService } from './app.service';
-import { SqlInsert, SqlInsertSelect, SqlUpdate } from '@nighty/interfaces-sql';
+import { SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion } from '@nighty/interfaces-sql';
 import { encriptar } from "@nighty/encriptado";
 import pool from './database';
 
@@ -76,6 +76,11 @@ d
       const ruta = 'E:\\FTPSERVER\\ARCHIVOSSUBIDOS\\' + mime + "\\" + nombre
       res.download(ruta, nombre.substr(nombre.indexOf("~") + 4));
     })
+  }
+
+  @Post('habilitacion')
+  habilitacionUsuario(@Body() habilitacion: Habilitacion) {
+    return this.appService.habilitacionUsuario(habilitacion)
   }
 }
 

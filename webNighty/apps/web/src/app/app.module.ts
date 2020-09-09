@@ -32,6 +32,9 @@ import * as firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/firestore';
 import 'firebase/app';
+
+firebase.initializeApp(config)
+
 import { MaterialModule } from './modules/angular/material/material.module';
 import { LoginComponent } from './components/dialogs/usuario/sesion/login/login.component';
 import { RegisterComponent } from './components/dialogs/usuario/sesion/register/register.component';
@@ -40,13 +43,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { PostRegistroComponent } from './components/dialogs/usuario/sesion/post-registro/post-registro.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormGroupsModule } from '@nighty/form-group';
+import { InfiniteLoaderComponent } from './components/layers/infinite-loader/infinite-loader.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent],
+  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent],
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,

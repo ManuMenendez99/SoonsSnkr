@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SqlSelect, SqlInsert, SqlInsertSelect, SqlUpdate } from "@nighty/interfaces-sql";
+import { SqlSelect, SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion } from "@nighty/interfaces-sql";
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +33,10 @@ export class APIService {
 
   download(codigo: string) {
     this.http.get(`${this.API_URI}/download/${codigo}`)
+  }
+
+  habilitacion(habilitacion: Habilitacion) {
+    return this.http.put(`${this.API_URI}/habilitacion`, habilitacion)
   }
 
 }

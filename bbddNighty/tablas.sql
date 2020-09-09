@@ -458,7 +458,6 @@ create table Usuarios (
     categoria int not null,
     uid text not null,
     estado varchar(60),
-    password text,
     motivoInhabilitacion int default null,
     logInWith int(3) not null comment '1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter',
     creado text not null,
@@ -848,6 +847,7 @@ CONSTRAINT fkPublicidadPromocion FOREIGN KEY (promocion) REFERENCES promociones 
 create table UsuariosRegistrandose(
 	id int auto_increment not null,
     email varchar(256) not null,
+    logInWith int(1) not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkUsuariosRegistrandose PRIMARY KEY (id),

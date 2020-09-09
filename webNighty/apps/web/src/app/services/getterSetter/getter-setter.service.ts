@@ -40,9 +40,11 @@ export class GetterSetterService {
     this.realizarOperacion("Amigos", amigos).subscribe(
       () => {
         if (amigos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Amigos.indexOf(amigos)
           this.datos.Amigos[i] = amigos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Amigos[]>(`${this.API_URI}all/Amigos`).subscribe(
             res => {
               this.datos.Amigos = new Array<Amigos>()
@@ -88,9 +90,11 @@ export class GetterSetterService {
     this.realizarOperacion("Archivos", archivos).subscribe(
       () => {
         if (archivos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Archivos.indexOf(archivos)
           this.datos.Archivos[i] = archivos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Archivos[]>(`${this.API_URI}all/Archivos`).subscribe(
             res => {
               this.datos.Archivos = new Array<Archivos>()
@@ -134,9 +138,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosCategoria", archivoscategoria).subscribe(
       () => {
         if (archivoscategoria.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosCategoria.indexOf(archivoscategoria)
           this.datos.ArchivosCategoria[i] = archivoscategoria
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosCategoria[]>(`${this.API_URI}all/ArchivosCategoria`).subscribe(
             res => {
               this.datos.ArchivosCategoria = new Array<ArchivosCategoria>()
@@ -180,9 +186,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEmpresa", archivosempresa).subscribe(
       () => {
         if (archivosempresa.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEmpresa.indexOf(archivosempresa)
           this.datos.ArchivosEmpresa[i] = archivosempresa
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosEmpresa[]>(`${this.API_URI}all/ArchivosEmpresa`).subscribe(
             res => {
               this.datos.ArchivosEmpresa = new Array<ArchivosEmpresa>()
@@ -226,9 +234,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEstablecimiento", archivosestablecimiento).subscribe(
       () => {
         if (archivosestablecimiento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEstablecimiento.indexOf(archivosestablecimiento)
           this.datos.ArchivosEstablecimiento[i] = archivosestablecimiento
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosEstablecimiento[]>(`${this.API_URI}all/ArchivosEstablecimiento`).subscribe(
             res => {
               this.datos.ArchivosEstablecimiento = new Array<ArchivosEstablecimiento>()
@@ -272,9 +282,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEvento", archivosevento).subscribe(
       () => {
         if (archivosevento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEvento.indexOf(archivosevento)
           this.datos.ArchivosEvento[i] = archivosevento
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosEvento[]>(`${this.API_URI}all/ArchivosEvento`).subscribe(
             res => {
               this.datos.ArchivosEvento = new Array<ArchivosEvento>()
@@ -318,9 +330,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosMarca", archivosmarca).subscribe(
       () => {
         if (archivosmarca.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosMarca.indexOf(archivosmarca)
           this.datos.ArchivosMarca[i] = archivosmarca
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosMarca[]>(`${this.API_URI}all/ArchivosMarca`).subscribe(
             res => {
               this.datos.ArchivosMarca = new Array<ArchivosMarca>()
@@ -364,9 +378,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosProducto", archivosproducto).subscribe(
       () => {
         if (archivosproducto.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosProducto.indexOf(archivosproducto)
           this.datos.ArchivosProducto[i] = archivosproducto
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosProducto[]>(`${this.API_URI}all/ArchivosProducto`).subscribe(
             res => {
               this.datos.ArchivosProducto = new Array<ArchivosProducto>()
@@ -410,9 +426,11 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosPromocion", archivospromocion).subscribe(
       () => {
         if (archivospromocion.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosPromocion.indexOf(archivospromocion)
           this.datos.ArchivosPromocion[i] = archivospromocion
         } else {
+          this.toastr.show("Creado")
           this.http.get<ArchivosPromocion[]>(`${this.API_URI}all/ArchivosPromocion`).subscribe(
             res => {
               this.datos.ArchivosPromocion = new Array<ArchivosPromocion>()
@@ -456,9 +474,11 @@ export class GetterSetterService {
     this.realizarOperacion("Caracteristicas", caracteristicas).subscribe(
       () => {
         if (caracteristicas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Caracteristicas.indexOf(caracteristicas)
           this.datos.Caracteristicas[i] = caracteristicas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Caracteristicas[]>(`${this.API_URI}all/Caracteristicas`).subscribe(
             res => {
               this.datos.Caracteristicas = new Array<Caracteristicas>()
@@ -502,9 +522,11 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasDeProductos", caracteristicasdeproductos).subscribe(
       () => {
         if (caracteristicasdeproductos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasDeProductos.indexOf(caracteristicasdeproductos)
           this.datos.CaracteristicasDeProductos[i] = caracteristicasdeproductos
         } else {
+          this.toastr.show("Creado")
           this.http.get<CaracteristicasDeProductos[]>(`${this.API_URI}all/CaracteristicasDeProductos`).subscribe(
             res => {
               this.datos.CaracteristicasDeProductos = new Array<CaracteristicasDeProductos>()
@@ -548,9 +570,11 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasEvento", caracteristicasevento).subscribe(
       () => {
         if (caracteristicasevento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasEvento.indexOf(caracteristicasevento)
           this.datos.CaracteristicasEvento[i] = caracteristicasevento
         } else {
+          this.toastr.show("Creado")
           this.http.get<CaracteristicasEvento[]>(`${this.API_URI}all/CaracteristicasEvento`).subscribe(
             res => {
               this.datos.CaracteristicasEvento = new Array<CaracteristicasEvento>()
@@ -594,9 +618,11 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasProducto", caracteristicasproducto).subscribe(
       () => {
         if (caracteristicasproducto.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasProducto.indexOf(caracteristicasproducto)
           this.datos.CaracteristicasProducto[i] = caracteristicasproducto
         } else {
+          this.toastr.show("Creado")
           this.http.get<CaracteristicasProducto[]>(`${this.API_URI}all/CaracteristicasProducto`).subscribe(
             res => {
               this.datos.CaracteristicasProducto = new Array<CaracteristicasProducto>()
@@ -640,9 +666,11 @@ export class GetterSetterService {
     this.realizarOperacion("Categorias", categorias).subscribe(
       () => {
         if (categorias.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Categorias.indexOf(categorias)
           this.datos.Categorias[i] = categorias
         } else {
+          this.toastr.show("Creado")
           this.http.get<Categorias[]>(`${this.API_URI}all/Categorias`).subscribe(
             res => {
               this.datos.Categorias = new Array<Categorias>()
@@ -686,9 +714,11 @@ export class GetterSetterService {
     this.realizarOperacion("Descripciones", descripciones).subscribe(
       () => {
         if (descripciones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Descripciones.indexOf(descripciones)
           this.datos.Descripciones[i] = descripciones
         } else {
+          this.toastr.show("Creado")
           this.http.get<Descripciones[]>(`${this.API_URI}all/Descripciones`).subscribe(
             res => {
               this.datos.Descripciones = new Array<Descripciones>()
@@ -732,9 +762,11 @@ export class GetterSetterService {
     this.realizarOperacion("DescripcionesEvento", descripcionesevento).subscribe(
       () => {
         if (descripcionesevento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.DescripcionesEvento.indexOf(descripcionesevento)
           this.datos.DescripcionesEvento[i] = descripcionesevento
         } else {
+          this.toastr.show("Creado")
           this.http.get<DescripcionesEvento[]>(`${this.API_URI}all/DescripcionesEvento`).subscribe(
             res => {
               this.datos.DescripcionesEvento = new Array<DescripcionesEvento>()
@@ -778,9 +810,11 @@ export class GetterSetterService {
     this.realizarOperacion("DiasMes", diasmes).subscribe(
       () => {
         if (diasmes.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.DiasMes.indexOf(diasmes)
           this.datos.DiasMes[i] = diasmes
         } else {
+          this.toastr.show("Creado")
           this.http.get<DiasMes[]>(`${this.API_URI}all/DiasMes`).subscribe(
             res => {
               this.datos.DiasMes = new Array<DiasMes>()
@@ -824,9 +858,11 @@ export class GetterSetterService {
     this.realizarOperacion("DiasSemana", diassemana).subscribe(
       () => {
         if (diassemana.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.DiasSemana.indexOf(diassemana)
           this.datos.DiasSemana[i] = diassemana
         } else {
+          this.toastr.show("Creado")
           this.http.get<DiasSemana[]>(`${this.API_URI}all/DiasSemana`).subscribe(
             res => {
               this.datos.DiasSemana = new Array<DiasSemana>()
@@ -870,9 +906,11 @@ export class GetterSetterService {
     this.realizarOperacion("Direcciones", direcciones).subscribe(
       () => {
         if (direcciones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Direcciones.indexOf(direcciones)
           this.datos.Direcciones[i] = direcciones
         } else {
+          this.toastr.show("Creado")
           this.http.get<Direcciones[]>(`${this.API_URI}all/Direcciones`).subscribe(
             res => {
               this.datos.Direcciones = new Array<Direcciones>()
@@ -916,9 +954,11 @@ export class GetterSetterService {
     this.realizarOperacion("DireccionesPersona", direccionespersona).subscribe(
       () => {
         if (direccionespersona.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.DireccionesPersona.indexOf(direccionespersona)
           this.datos.DireccionesPersona[i] = direccionespersona
         } else {
+          this.toastr.show("Creado")
           this.http.get<DireccionesPersona[]>(`${this.API_URI}all/DireccionesPersona`).subscribe(
             res => {
               this.datos.DireccionesPersona = new Array<DireccionesPersona>()
@@ -959,9 +999,11 @@ export class GetterSetterService {
     this.realizarOperacion("Emails", emails).subscribe(
       () => {
         if (emails.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Emails.indexOf(emails)
           this.datos.Emails[i] = emails
         } else {
+          this.toastr.show("Creado")
           this.http.get<Emails[]>(`${this.API_URI}all/Emails`).subscribe(
             res => {
               this.datos.Emails = new Array<Emails>()
@@ -1005,9 +1047,11 @@ export class GetterSetterService {
     this.realizarOperacion("EmailsPersona", emailspersona).subscribe(
       () => {
         if (emailspersona.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.EmailsPersona.indexOf(emailspersona)
           this.datos.EmailsPersona[i] = emailspersona
         } else {
+          this.toastr.show("Creado")
           this.http.get<EmailsPersona[]>(`${this.API_URI}all/EmailsPersona`).subscribe(
             res => {
               this.datos.EmailsPersona = new Array<EmailsPersona>()
@@ -1051,9 +1095,11 @@ export class GetterSetterService {
     this.realizarOperacion("Empresas", empresas).subscribe(
       () => {
         if (empresas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Empresas.indexOf(empresas)
           this.datos.Empresas[i] = empresas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Empresas[]>(`${this.API_URI}all/Empresas`).subscribe(
             res => {
               this.datos.Empresas = new Array<Empresas>()
@@ -1097,9 +1143,11 @@ export class GetterSetterService {
     this.realizarOperacion("Establecimientos", establecimientos).subscribe(
       () => {
         if (establecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Establecimientos.indexOf(establecimientos)
           this.datos.Establecimientos[i] = establecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Establecimientos[]>(`${this.API_URI}all/Establecimientos`).subscribe(
             res => {
               this.datos.Establecimientos = new Array<Establecimientos>()
@@ -1143,9 +1191,11 @@ export class GetterSetterService {
     this.realizarOperacion("Eventos", eventos).subscribe(
       () => {
         if (eventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Eventos.indexOf(eventos)
           this.datos.Eventos[i] = eventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Eventos[]>(`${this.API_URI}all/Eventos`).subscribe(
             res => {
               this.datos.Eventos = new Array<Eventos>()
@@ -1189,9 +1239,11 @@ export class GetterSetterService {
     this.realizarOperacion("EventosEstablecimientos", eventosestablecimientos).subscribe(
       () => {
         if (eventosestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.EventosEstablecimientos.indexOf(eventosestablecimientos)
           this.datos.EventosEstablecimientos[i] = eventosestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<EventosEstablecimientos[]>(`${this.API_URI}all/EventosEstablecimientos`).subscribe(
             res => {
               this.datos.EventosEstablecimientos = new Array<EventosEstablecimientos>()
@@ -1235,9 +1287,11 @@ export class GetterSetterService {
     this.realizarOperacion("FaxsPersona", faxspersona).subscribe(
       () => {
         if (faxspersona.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.FaxsPersona.indexOf(faxspersona)
           this.datos.FaxsPersona[i] = faxspersona
         } else {
+          this.toastr.show("Creado")
           this.http.get<FaxsPersona[]>(`${this.API_URI}all/FaxsPersona`).subscribe(
             res => {
               this.datos.FaxsPersona = new Array<FaxsPersona>()
@@ -1281,9 +1335,11 @@ export class GetterSetterService {
     this.realizarOperacion("Fechas", fechas).subscribe(
       () => {
         if (fechas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Fechas.indexOf(fechas)
           this.datos.Fechas[i] = fechas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Fechas[]>(`${this.API_URI}all/Fechas`).subscribe(
             res => {
               this.datos.Fechas = new Array<Fechas>()
@@ -1327,9 +1383,11 @@ export class GetterSetterService {
     this.realizarOperacion("Grupos", grupos).subscribe(
       () => {
         if (grupos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Grupos.indexOf(grupos)
           this.datos.Grupos[i] = grupos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Grupos[]>(`${this.API_URI}all/Grupos`).subscribe(
             res => {
               this.datos.Grupos = new Array<Grupos>()
@@ -1373,9 +1431,11 @@ export class GetterSetterService {
     this.realizarOperacion("GruposConsumicion", gruposconsumicion).subscribe(
       () => {
         if (gruposconsumicion.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.GruposConsumicion.indexOf(gruposconsumicion)
           this.datos.GruposConsumicion[i] = gruposconsumicion
         } else {
+          this.toastr.show("Creado")
           this.http.get<GruposConsumicion[]>(`${this.API_URI}all/GruposConsumicion`).subscribe(
             res => {
               this.datos.GruposConsumicion = new Array<GruposConsumicion>()
@@ -1419,9 +1479,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesEstablecimientos", horariodiasmesestablecimientos).subscribe(
       () => {
         if (horariodiasmesestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesEstablecimientos.indexOf(horariodiasmesestablecimientos)
           this.datos.HorarioDiasMesEstablecimientos[i] = horariodiasmesestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasMesEstablecimientos[]>(`${this.API_URI}all/HorarioDiasMesEstablecimientos`).subscribe(
             res => {
               this.datos.HorarioDiasMesEstablecimientos = new Array<HorarioDiasMesEstablecimientos>()
@@ -1465,9 +1527,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesEventos", horariodiasmeseventos).subscribe(
       () => {
         if (horariodiasmeseventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesEventos.indexOf(horariodiasmeseventos)
           this.datos.HorarioDiasMesEventos[i] = horariodiasmeseventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasMesEventos[]>(`${this.API_URI}all/HorarioDiasMesEventos`).subscribe(
             res => {
               this.datos.HorarioDiasMesEventos = new Array<HorarioDiasMesEventos>()
@@ -1511,9 +1575,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesPromociones", horariodiasmespromociones).subscribe(
       () => {
         if (horariodiasmespromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesPromociones.indexOf(horariodiasmespromociones)
           this.datos.HorarioDiasMesPromociones[i] = horariodiasmespromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasMesPromociones[]>(`${this.API_URI}all/HorarioDiasMesPromociones`).subscribe(
             res => {
               this.datos.HorarioDiasMesPromociones = new Array<HorarioDiasMesPromociones>()
@@ -1557,9 +1623,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaEstablecimientos", horariodiassemanaestablecimientos).subscribe(
       () => {
         if (horariodiassemanaestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaEstablecimientos.indexOf(horariodiassemanaestablecimientos)
           this.datos.HorarioDiasSemanaEstablecimientos[i] = horariodiassemanaestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasSemanaEstablecimientos[]>(`${this.API_URI}all/HorarioDiasSemanaEstablecimientos`).subscribe(
             res => {
               this.datos.HorarioDiasSemanaEstablecimientos = new Array<HorarioDiasSemanaEstablecimientos>()
@@ -1603,9 +1671,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaEventos", horariodiassemanaeventos).subscribe(
       () => {
         if (horariodiassemanaeventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaEventos.indexOf(horariodiassemanaeventos)
           this.datos.HorarioDiasSemanaEventos[i] = horariodiassemanaeventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasSemanaEventos[]>(`${this.API_URI}all/HorarioDiasSemanaEventos`).subscribe(
             res => {
               this.datos.HorarioDiasSemanaEventos = new Array<HorarioDiasSemanaEventos>()
@@ -1649,9 +1719,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaPromociones", horariodiassemanapromociones).subscribe(
       () => {
         if (horariodiassemanapromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaPromociones.indexOf(horariodiassemanapromociones)
           this.datos.HorarioDiasSemanaPromociones[i] = horariodiassemanapromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioDiasSemanaPromociones[]>(`${this.API_URI}all/HorarioDiasSemanaPromociones`).subscribe(
             res => {
               this.datos.HorarioDiasSemanaPromociones = new Array<HorarioDiasSemanaPromociones>()
@@ -1695,9 +1767,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasEstablecimientos", horariofechasestablecimientos).subscribe(
       () => {
         if (horariofechasestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasEstablecimientos.indexOf(horariofechasestablecimientos)
           this.datos.HorarioFechasEstablecimientos[i] = horariofechasestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioFechasEstablecimientos[]>(`${this.API_URI}all/HorarioFechasEstablecimientos`).subscribe(
             res => {
               this.datos.HorarioFechasEstablecimientos = new Array<HorarioFechasEstablecimientos>()
@@ -1741,9 +1815,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasEventos", horariofechaseventos).subscribe(
       () => {
         if (horariofechaseventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasEventos.indexOf(horariofechaseventos)
           this.datos.HorarioFechasEventos[i] = horariofechaseventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioFechasEventos[]>(`${this.API_URI}all/HorarioFechasEventos`).subscribe(
             res => {
               this.datos.HorarioFechasEventos = new Array<HorarioFechasEventos>()
@@ -1787,9 +1863,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasPromociones", horariofechaspromociones).subscribe(
       () => {
         if (horariofechaspromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasPromociones.indexOf(horariofechaspromociones)
           this.datos.HorarioFechasPromociones[i] = horariofechaspromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioFechasPromociones[]>(`${this.API_URI}all/HorarioFechasPromociones`).subscribe(
             res => {
               this.datos.HorarioFechasPromociones = new Array<HorarioFechasPromociones>()
@@ -1833,9 +1911,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasEstablecimientos", horariohorasestablecimientos).subscribe(
       () => {
         if (horariohorasestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasEstablecimientos.indexOf(horariohorasestablecimientos)
           this.datos.HorarioHorasEstablecimientos[i] = horariohorasestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioHorasEstablecimientos[]>(`${this.API_URI}all/HorarioHorasEstablecimientos`).subscribe(
             res => {
               this.datos.HorarioHorasEstablecimientos = new Array<HorarioHorasEstablecimientos>()
@@ -1879,9 +1959,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasEventos", horariohoraseventos).subscribe(
       () => {
         if (horariohoraseventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasEventos.indexOf(horariohoraseventos)
           this.datos.HorarioHorasEventos[i] = horariohoraseventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioHorasEventos[]>(`${this.API_URI}all/HorarioHorasEventos`).subscribe(
             res => {
               this.datos.HorarioHorasEventos = new Array<HorarioHorasEventos>()
@@ -1925,9 +2007,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasPromociones", horariohoraspromociones).subscribe(
       () => {
         if (horariohoraspromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasPromociones.indexOf(horariohoraspromociones)
           this.datos.HorarioHorasPromociones[i] = horariohoraspromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioHorasPromociones[]>(`${this.API_URI}all/HorarioHorasPromociones`).subscribe(
             res => {
               this.datos.HorarioHorasPromociones = new Array<HorarioHorasPromociones>()
@@ -1971,9 +2055,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesEstablecimientos", horariomesesestablecimientos).subscribe(
       () => {
         if (horariomesesestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesEstablecimientos.indexOf(horariomesesestablecimientos)
           this.datos.HorarioMesesEstablecimientos[i] = horariomesesestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioMesesEstablecimientos[]>(`${this.API_URI}all/HorarioMesesEstablecimientos`).subscribe(
             res => {
               this.datos.HorarioMesesEstablecimientos = new Array<HorarioMesesEstablecimientos>()
@@ -2017,9 +2103,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesEventos", horariomeseseventos).subscribe(
       () => {
         if (horariomeseseventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesEventos.indexOf(horariomeseseventos)
           this.datos.HorarioMesesEventos[i] = horariomeseseventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioMesesEventos[]>(`${this.API_URI}all/HorarioMesesEventos`).subscribe(
             res => {
               this.datos.HorarioMesesEventos = new Array<HorarioMesesEventos>()
@@ -2063,9 +2151,11 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesPromociones", horariomesespromociones).subscribe(
       () => {
         if (horariomesespromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesPromociones.indexOf(horariomesespromociones)
           this.datos.HorarioMesesPromociones[i] = horariomesespromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<HorarioMesesPromociones[]>(`${this.API_URI}all/HorarioMesesPromociones`).subscribe(
             res => {
               this.datos.HorarioMesesPromociones = new Array<HorarioMesesPromociones>()
@@ -2109,9 +2199,11 @@ export class GetterSetterService {
     this.realizarOperacion("Horas", horas).subscribe(
       () => {
         if (horas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Horas.indexOf(horas)
           this.datos.Horas[i] = horas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Horas[]>(`${this.API_URI}all/Horas`).subscribe(
             res => {
               this.datos.Horas = new Array<Horas>()
@@ -2155,9 +2247,11 @@ export class GetterSetterService {
     this.realizarOperacion("Invitados", invitados).subscribe(
       () => {
         if (invitados.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Invitados.indexOf(invitados)
           this.datos.Invitados[i] = invitados
         } else {
+          this.toastr.show("Creado")
           this.http.get<Invitados[]>(`${this.API_URI}all/Invitados`).subscribe(
             res => {
               this.datos.Invitados = new Array<Invitados>()
@@ -2201,9 +2295,11 @@ export class GetterSetterService {
     this.realizarOperacion("LineasTicket", lineasticket).subscribe(
       () => {
         if (lineasticket.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.LineasTicket.indexOf(lineasticket)
           this.datos.LineasTicket[i] = lineasticket
         } else {
+          this.toastr.show("Creado")
           this.http.get<LineasTicket[]>(`${this.API_URI}all/LineasTicket`).subscribe(
             res => {
               this.datos.LineasTicket = new Array<LineasTicket>()
@@ -2247,9 +2343,11 @@ export class GetterSetterService {
     this.realizarOperacion("Marcas", marcas).subscribe(
       () => {
         if (marcas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Marcas.indexOf(marcas)
           this.datos.Marcas[i] = marcas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Marcas[]>(`${this.API_URI}all/Marcas`).subscribe(
             res => {
               this.datos.Marcas = new Array<Marcas>()
@@ -2293,9 +2391,11 @@ export class GetterSetterService {
     this.realizarOperacion("MesasEstablecimiento", mesasestablecimiento).subscribe(
       () => {
         if (mesasestablecimiento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.MesasEstablecimiento.indexOf(mesasestablecimiento)
           this.datos.MesasEstablecimiento[i] = mesasestablecimiento
         } else {
+          this.toastr.show("Creado")
           this.http.get<MesasEstablecimiento[]>(`${this.API_URI}all/MesasEstablecimiento`).subscribe(
             res => {
               this.datos.MesasEstablecimiento = new Array<MesasEstablecimiento>()
@@ -2339,9 +2439,11 @@ export class GetterSetterService {
     this.realizarOperacion("Meses", meses).subscribe(
       () => {
         if (meses.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Meses.indexOf(meses)
           this.datos.Meses[i] = meses
         } else {
+          this.toastr.show("Creado")
           this.http.get<Meses[]>(`${this.API_URI}all/Meses`).subscribe(
             res => {
               this.datos.Meses = new Array<Meses>()
@@ -2385,9 +2487,11 @@ export class GetterSetterService {
     this.realizarOperacion("MiembrosGrupos", miembrosgrupos).subscribe(
       () => {
         if (miembrosgrupos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.MiembrosGrupos.indexOf(miembrosgrupos)
           this.datos.MiembrosGrupos[i] = miembrosgrupos
         } else {
+          this.toastr.show("Creado")
           this.http.get<MiembrosGrupos[]>(`${this.API_URI}all/MiembrosGrupos`).subscribe(
             res => {
               this.datos.MiembrosGrupos = new Array<MiembrosGrupos>()
@@ -2431,9 +2535,11 @@ export class GetterSetterService {
     this.realizarOperacion("MiembrosGruposConsumicion", miembrosgruposconsumicion).subscribe(
       () => {
         if (miembrosgruposconsumicion.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.MiembrosGruposConsumicion.indexOf(miembrosgruposconsumicion)
           this.datos.MiembrosGruposConsumicion[i] = miembrosgruposconsumicion
         } else {
+          this.toastr.show("Creado")
           this.http.get<MiembrosGruposConsumicion[]>(`${this.API_URI}all/MiembrosGruposConsumicion`).subscribe(
             res => {
               this.datos.MiembrosGruposConsumicion = new Array<MiembrosGruposConsumicion>()
@@ -2523,9 +2629,11 @@ export class GetterSetterService {
     this.realizarOperacion("Paises", paises).subscribe(
       () => {
         if (paises.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Paises.indexOf(paises)
           this.datos.Paises[i] = paises
         } else {
+          this.toastr.show("Creado")
           this.http.get<Paises[]>(`${this.API_URI}all/Paises`).subscribe(
             res => {
               this.datos.Paises = new Array<Paises>()
@@ -2569,9 +2677,11 @@ export class GetterSetterService {
     this.realizarOperacion("Personas", personas).subscribe(
       () => {
         if (personas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Personas.indexOf(personas)
           this.datos.Personas[i] = personas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Personas[]>(`${this.API_URI}all/Personas`).subscribe(
             res => {
               this.datos.Personas = new Array<Personas>()
@@ -2615,9 +2725,11 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoEmpresa", personascontactoempresa).subscribe(
       () => {
         if (personascontactoempresa.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoEmpresa.indexOf(personascontactoempresa)
           this.datos.PersonasContactoEmpresa[i] = personascontactoempresa
         } else {
+          this.toastr.show("Creado")
           this.http.get<PersonasContactoEmpresa[]>(`${this.API_URI}all/PersonasContactoEmpresa`).subscribe(
             res => {
               this.datos.PersonasContactoEmpresa = new Array<PersonasContactoEmpresa>()
@@ -2661,9 +2773,11 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoEstablecimiento", personascontactoestablecimiento).subscribe(
       () => {
         if (personascontactoestablecimiento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoEstablecimiento.indexOf(personascontactoestablecimiento)
           this.datos.PersonasContactoEstablecimiento[i] = personascontactoestablecimiento
         } else {
+          this.toastr.show("Creado")
           this.http.get<PersonasContactoEstablecimiento[]>(`${this.API_URI}all/PersonasContactoEstablecimiento`).subscribe(
             res => {
               this.datos.PersonasContactoEstablecimiento = new Array<PersonasContactoEstablecimiento>()
@@ -2707,9 +2821,11 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoMarcas", personascontactomarcas).subscribe(
       () => {
         if (personascontactomarcas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoMarcas.indexOf(personascontactomarcas)
           this.datos.PersonasContactoMarcas[i] = personascontactomarcas
         } else {
+          this.toastr.show("Creado")
           this.http.get<PersonasContactoMarcas[]>(`${this.API_URI}all/PersonasContactoMarcas`).subscribe(
             res => {
               this.datos.PersonasContactoMarcas = new Array<PersonasContactoMarcas>()
@@ -2753,9 +2869,11 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasEstablecimientos", personasestablecimientos).subscribe(
       () => {
         if (personasestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PersonasEstablecimientos.indexOf(personasestablecimientos)
           this.datos.PersonasEstablecimientos[i] = personasestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<PersonasEstablecimientos[]>(`${this.API_URI}all/PersonasEstablecimientos`).subscribe(
             res => {
               this.datos.PersonasEstablecimientos = new Array<PersonasEstablecimientos>()
@@ -2799,9 +2917,11 @@ export class GetterSetterService {
     this.realizarOperacion("Productos", productos).subscribe(
       () => {
         if (productos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Productos.indexOf(productos)
           this.datos.Productos[i] = productos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Productos[]>(`${this.API_URI}all/Productos`).subscribe(
             res => {
               this.datos.Productos = new Array<Productos>()
@@ -2845,9 +2965,11 @@ export class GetterSetterService {
     this.realizarOperacion("Promociones", promociones).subscribe(
       () => {
         if (promociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Promociones.indexOf(promociones)
           this.datos.Promociones[i] = promociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<Promociones[]>(`${this.API_URI}all/Promociones`).subscribe(
             res => {
               this.datos.Promociones = new Array<Promociones>()
@@ -2891,9 +3013,11 @@ export class GetterSetterService {
     this.realizarOperacion("PromocionesProductos", promocionesproductos).subscribe(
       () => {
         if (promocionesproductos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PromocionesProductos.indexOf(promocionesproductos)
           this.datos.PromocionesProductos[i] = promocionesproductos
         } else {
+          this.toastr.show("Creado")
           this.http.get<PromocionesProductos[]>(`${this.API_URI}all/PromocionesProductos`).subscribe(
             res => {
               this.datos.PromocionesProductos = new Array<PromocionesProductos>()
@@ -2937,9 +3061,11 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEmpresa", publicidadempresa).subscribe(
       () => {
         if (publicidadempresa.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEmpresa.indexOf(publicidadempresa)
           this.datos.PublicidadEmpresa[i] = publicidadempresa
         } else {
+          this.toastr.show("Creado")
           this.http.get<PublicidadEmpresa[]>(`${this.API_URI}all/PublicidadEmpresa`).subscribe(
             res => {
               this.datos.PublicidadEmpresa = new Array<PublicidadEmpresa>()
@@ -2983,9 +3109,11 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEstablecimiento", publicidadestablecimiento).subscribe(
       () => {
         if (publicidadestablecimiento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEstablecimiento.indexOf(publicidadestablecimiento)
           this.datos.PublicidadEstablecimiento[i] = publicidadestablecimiento
         } else {
+          this.toastr.show("Creado")
           this.http.get<PublicidadEstablecimiento[]>(`${this.API_URI}all/PublicidadEstablecimiento`).subscribe(
             res => {
               this.datos.PublicidadEstablecimiento = new Array<PublicidadEstablecimiento>()
@@ -3029,9 +3157,11 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEvento", publicidadevento).subscribe(
       () => {
         if (publicidadevento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEvento.indexOf(publicidadevento)
           this.datos.PublicidadEvento[i] = publicidadevento
         } else {
+          this.toastr.show("Creado")
           this.http.get<PublicidadEvento[]>(`${this.API_URI}all/PublicidadEvento`).subscribe(
             res => {
               this.datos.PublicidadEvento = new Array<PublicidadEvento>()
@@ -3075,9 +3205,11 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadProducto", publicidadproducto).subscribe(
       () => {
         if (publicidadproducto.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadProducto.indexOf(publicidadproducto)
           this.datos.PublicidadProducto[i] = publicidadproducto
         } else {
+          this.toastr.show("Creado")
           this.http.get<PublicidadProducto[]>(`${this.API_URI}all/PublicidadProducto`).subscribe(
             res => {
               this.datos.PublicidadProducto = new Array<PublicidadProducto>()
@@ -3121,9 +3253,11 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadPromocion", publicidadpromocion).subscribe(
       () => {
         if (publicidadpromocion.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadPromocion.indexOf(publicidadpromocion)
           this.datos.PublicidadPromocion[i] = publicidadpromocion
         } else {
+          this.toastr.show("Creado")
           this.http.get<PublicidadPromocion[]>(`${this.API_URI}all/PublicidadPromocion`).subscribe(
             res => {
               this.datos.PublicidadPromocion = new Array<PublicidadPromocion>()
@@ -3167,9 +3301,11 @@ export class GetterSetterService {
     this.realizarOperacion("Puestos", puestos).subscribe(
       () => {
         if (puestos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Puestos.indexOf(puestos)
           this.datos.Puestos[i] = puestos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Puestos[]>(`${this.API_URI}all/Puestos`).subscribe(
             res => {
               this.datos.Puestos = new Array<Puestos>()
@@ -3213,9 +3349,11 @@ export class GetterSetterService {
     this.realizarOperacion("Requisitos", requisitos).subscribe(
       () => {
         if (requisitos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Requisitos.indexOf(requisitos)
           this.datos.Requisitos[i] = requisitos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Requisitos[]>(`${this.API_URI}all/Requisitos`).subscribe(
             res => {
               this.datos.Requisitos = new Array<Requisitos>()
@@ -3259,9 +3397,11 @@ export class GetterSetterService {
     this.realizarOperacion("RequisitosEvento", requisitosevento).subscribe(
       () => {
         if (requisitosevento.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.RequisitosEvento.indexOf(requisitosevento)
           this.datos.RequisitosEvento[i] = requisitosevento
         } else {
+          this.toastr.show("Creado")
           this.http.get<RequisitosEvento[]>(`${this.API_URI}all/RequisitosEvento`).subscribe(
             res => {
               this.datos.RequisitosEvento = new Array<RequisitosEvento>()
@@ -3305,9 +3445,11 @@ export class GetterSetterService {
     this.realizarOperacion("Telefonos", telefonos).subscribe(
       () => {
         if (telefonos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Telefonos.indexOf(telefonos)
           this.datos.Telefonos[i] = telefonos
         } else {
+          this.toastr.show("Creado")
           this.http.get<Telefonos[]>(`${this.API_URI}all/Telefonos`).subscribe(
             res => {
               this.datos.Telefonos = new Array<Telefonos>()
@@ -3351,9 +3493,11 @@ export class GetterSetterService {
     this.realizarOperacion("TelefonosPersona", telefonospersona).subscribe(
       () => {
         if (telefonospersona.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TelefonosPersona.indexOf(telefonospersona)
           this.datos.TelefonosPersona[i] = telefonospersona
         } else {
+          this.toastr.show("Creado")
           this.http.get<TelefonosPersona[]>(`${this.API_URI}all/TelefonosPersona`).subscribe(
             res => {
               this.datos.TelefonosPersona = new Array<TelefonosPersona>()
@@ -3397,9 +3541,11 @@ export class GetterSetterService {
     this.realizarOperacion("Tickets", tickets).subscribe(
       () => {
         if (tickets.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Tickets.indexOf(tickets)
           this.datos.Tickets[i] = tickets
         } else {
+          this.toastr.show("Creado")
           this.http.get<Tickets[]>(`${this.API_URI}all/Tickets`).subscribe(
             res => {
               this.datos.Tickets = new Array<Tickets>()
@@ -3443,9 +3589,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposCategorias", tiposcategorias).subscribe(
       () => {
         if (tiposcategorias.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposCategorias.indexOf(tiposcategorias)
           this.datos.TiposCategorias[i] = tiposcategorias
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposCategorias[]>(`${this.API_URI}all/TiposCategorias`).subscribe(
             res => {
               this.datos.TiposCategorias = new Array<TiposCategorias>()
@@ -3489,9 +3637,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposEstablecimientos", tiposestablecimientos).subscribe(
       () => {
         if (tiposestablecimientos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposEstablecimientos.indexOf(tiposestablecimientos)
           this.datos.TiposEstablecimientos[i] = tiposestablecimientos
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposEstablecimientos[]>(`${this.API_URI}all/TiposEstablecimientos`).subscribe(
             res => {
               this.datos.TiposEstablecimientos = new Array<TiposEstablecimientos>()
@@ -3535,9 +3685,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposEventos", tiposeventos).subscribe(
       () => {
         if (tiposeventos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposEventos.indexOf(tiposeventos)
           this.datos.TiposEventos[i] = tiposeventos
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposEventos[]>(`${this.API_URI}all/TiposEventos`).subscribe(
             res => {
               this.datos.TiposEventos = new Array<TiposEventos>()
@@ -3581,9 +3733,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposMesas", tiposmesas).subscribe(
       () => {
         if (tiposmesas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposMesas.indexOf(tiposmesas)
           this.datos.TiposMesas[i] = tiposmesas
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposMesas[]>(`${this.API_URI}all/TiposMesas`).subscribe(
             res => {
               this.datos.TiposMesas = new Array<TiposMesas>()
@@ -3627,9 +3781,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposProductos", tiposproductos).subscribe(
       () => {
         if (tiposproductos.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposProductos.indexOf(tiposproductos)
           this.datos.TiposProductos[i] = tiposproductos
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposProductos[]>(`${this.API_URI}all/TiposProductos`).subscribe(
             res => {
               this.datos.TiposProductos = new Array<TiposProductos>()
@@ -3673,9 +3829,11 @@ export class GetterSetterService {
     this.realizarOperacion("TiposPromociones", tipospromociones).subscribe(
       () => {
         if (tipospromociones.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.TiposPromociones.indexOf(tipospromociones)
           this.datos.TiposPromociones[i] = tipospromociones
         } else {
+          this.toastr.show("Creado")
           this.http.get<TiposPromociones[]>(`${this.API_URI}all/TiposPromociones`).subscribe(
             res => {
               this.datos.TiposPromociones = new Array<TiposPromociones>()
@@ -3719,9 +3877,11 @@ export class GetterSetterService {
     this.realizarOperacion("Usuarios", usuarios).subscribe(
       () => {
         if (usuarios.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Usuarios.indexOf(usuarios)
           this.datos.Usuarios[i] = usuarios
         } else {
+          this.toastr.show("Creado")
           this.http.get<Usuarios[]>(`${this.API_URI}all/Usuarios`).subscribe(
             res => {
               this.datos.Usuarios = new Array<Usuarios>()
@@ -3810,9 +3970,11 @@ export class GetterSetterService {
     this.realizarOperacion("Ventajas", ventajas).subscribe(
       () => {
         if (ventajas.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.Ventajas.indexOf(ventajas)
           this.datos.Ventajas[i] = ventajas
         } else {
+          this.toastr.show("Creado")
           this.http.get<Ventajas[]>(`${this.API_URI}all/Ventajas`).subscribe(
             res => {
               this.datos.Ventajas = new Array<Ventajas>()
@@ -3856,9 +4018,11 @@ export class GetterSetterService {
     this.realizarOperacion("VentajasCategorias", ventajascategorias).subscribe(
       () => {
         if (ventajascategorias.id != null) {
+          this.toastr.show("Actualizado")
           const i = this.datos.VentajasCategorias.indexOf(ventajascategorias)
           this.datos.VentajasCategorias[i] = ventajascategorias
         } else {
+          this.toastr.show("Creado")
           this.http.get<VentajasCategorias[]>(`${this.API_URI}all/VentajasCategorias`).subscribe(
             res => {
               this.datos.VentajasCategorias = new Array<VentajasCategorias>()
@@ -3888,33 +4052,33 @@ export class GetterSetterService {
 
   private formarInsert(tabla: string, elemento: any) {
     const claves = Object.keys(elemento)
-    claves.splice(claves.indexOf("id"))
-    elemento.realizado = new Date()
+    if (elemento.id !== undefined && elemento.id !== null && elemento.id !== "") {
+      claves.splice(claves.indexOf("id"))
+    }
+    elemento.creado = new Date()
     elemento.modificado = new Date()
     const respuesta: SqlInsert = {
       tabla: tabla,
-      valores: this.formarCampoValor(elemento, claves)
+      valores: this.formarCampoValor(elemento)
     }
     return respuesta
   }
 
   private formarUpdate(tabla: string, elemento: any) {
-    const claves = Object.keys(elemento)
     elemento.modificado = new Date()
-    claves.splice(claves.indexOf("creado"), 1)
     const respuesta: SqlUpdate = {
       tabla: tabla,
-      valores: this.formarCampoValor(elemento, claves),
+      valores: this.formarCampoValor(elemento),
       where: [{ campo: "id", logico: "=", valor: elemento.id }]
     }
     return respuesta
   }
 
-  private formarCampoValor(elemento: any, campos: Array<String>) {
-    return campos.map(x => {
+  private formarCampoValor(elemento: any) {
+    return Object.keys(elemento).map(x => {
       return {
         campo: String(x),
-        valor: elemento.x
+        valor: elemento[x]
       }
     })
 

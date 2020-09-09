@@ -703,7 +703,6 @@ export interface Usuarios {
   categoria: number
   uid: string
   estado: string
-  password?: string
   // 1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter
   logInWith: number
   motivoInhabilitacion?: number
@@ -715,6 +714,7 @@ export interface UsuariosRegistrandose {
   id?: number
   email: string
   creado?: Date,
+  logInWith: number,
   modificado?: Date
 }
 

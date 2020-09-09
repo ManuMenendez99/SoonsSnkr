@@ -7,17 +7,22 @@ import { CustomValidators } from './custom-validators';
   imports: [CommonModule]
 })
 export class FormGroupsModule {
-    loginForm = new FormGroup({
-        correo: new FormControl(null, [Validators.required]),
-        password: new FormControl(null, [Validators.required]),
-        keepSesion: new FormControl(false)
-      })
+  loginForm = new FormGroup({
+    correo: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
+    keepSesion: new FormControl(false)
+  })
+
+  registerForm = new FormGroup({
+    correo: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [
+      Validators.required,
+      CustomValidators.patternValidator(/\d/, { hasNumber: true }),
+      CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
+      CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
+      CustomValidators.patternValidator(/[!@#$%^&*()_+-={};':"|,.<>]/, { hasSpecialCharacters: true }),
+      Validators.minLength(6)
+    ])
+  })
 }
 
-
-// Validators.required,
-// CustomValidators.patternValidator(/\d/, { hasNumber: true }),
-// CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-// CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-// CustomValidators.patternValidator(/[!@#$%^&*()_+-={};':"|,.<>]/, { hasSpecialCharacters: true }),
-// Validators.minLength(8)

@@ -20,11 +20,15 @@ export class LoginComponent implements OnInit {
 
   tryLogin() {
     // this.dialog.close({ changeDialogAtSignIn: false, usuario: { correo: this.correoValue, password: this.passwordValue, keepSesion: this.keepSesionValue  } })
-    this.dialog.close({ changeDialogAtSignIn: false, usuario: { correo: "manolo.meniba@gmail.com", password: "@Magacela199_9_12!", keepSesion: this.keepSesionValue  } })
+    this.dialog.close({ loginWith: 1, changeDialogAtSignIn: false, usuario: { correo: "manolo.meniba@gmail.com", password: "@Magacela199_9_122!", keepSesion: this.keepSesionValue } })
   }
 
   changeLoginToRegister() {
-    this.dialog.close({ changeDialogAtSignIn: true, usuario: undefined })
+    this.dialog.close({ loginWith: 0, changeDialogAtSignIn: true, usuario: undefined })
+  }
+
+  loginWith(loginWith: number) {
+    this.dialog.close({ loginWith: loginWith, changeDialogAtSignIn: false, usuario: undefined })
   }
 
 

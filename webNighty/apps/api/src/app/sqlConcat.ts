@@ -19,7 +19,7 @@ export class ConcatSqlService {
     }
 
     hacerInsert(JsonInsert: SqlInsert) {
-        const insert = "Insert into " + JsonInsert.tabla + "( " + JsonInsert.valores.map(x => x.campo).join(",") + ")" + (JsonInsert.valores.length !== 0 ? 'values' : 'value') + "(" + JsonInsert.valores.map(x => this.formatoCampo(x.valor)).join(",")
+        const insert = "Insert into " + JsonInsert.tabla + "( " + JsonInsert.valores.map(x => x.campo).join(",") + ")" + (JsonInsert.valores.length !== 0 ? 'values' : 'value') + "(" + JsonInsert.valores.map(x => this.formatoCampo(x.valor)).join(",") + ")"
 
         return insert
     }

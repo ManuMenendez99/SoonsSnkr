@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Personas, Usuarios } from '@nighty/models';
 import { GetterSetterService } from '../getterSetter/getter-setter.service';
+import { LoginService } from '../firebase/login.service';
 
 @Injectable({
   providedIn: 'root'

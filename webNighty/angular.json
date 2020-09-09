@@ -24,7 +24,8 @@
               "@firebase/util",
               "@firebase/auth",
               "@firebase/app",
-              "@firebase/firestore"
+              "@firebase/firestore",
+              "@firebase/component"
             ],
             "outputPath": "dist/apps/web",
             "index": "apps/web/src/index.html",
