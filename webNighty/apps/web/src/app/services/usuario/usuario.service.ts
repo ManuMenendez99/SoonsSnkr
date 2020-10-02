@@ -10,6 +10,14 @@ export class UsuarioService {
 
   constructor(private getterSetter: GetterSetterService) { }
 
+  procedimientoCreacionUsuario(usuario: Usuarios, persona: Personas, keepSesion: boolean) {
+    this.createPersona(persona)
+    
+    setTimeout(() => {
+      this.createUsuario(usuario)
+    }, 10)
+  }
+
   createPersona(persona: Personas) {
     this.getterSetter.setPersonas(persona)
   }

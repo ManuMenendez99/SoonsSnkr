@@ -26,12 +26,10 @@ export class LoginComponent implements OnInit {
   changeLoginToRegister() {
     this.dialog.close({ loginWith: 0, changeDialogAtSignIn: true, usuario: undefined })
   }
-
-  loginWith(loginWith: number) {
-    this.dialog.close({ loginWith: loginWith, changeDialogAtSignIn: false, usuario: undefined })
+  
+  loginViaSocial(social: number) {
+    this.dialog.close({ loginWith: social, changeDialogAtSignIn: false, usuario: { correo: null, password: null, keepSesion: this.keepSesionValue } })
   }
-
-
 
   get correo() { return this.loginFormulario.get('correo') }
   get contraseña() { return this.loginFormulario.get('contraseña') }

@@ -24,11 +24,11 @@ export class DialogsService {
     return this.abrirDialog(RegisterComponent)
   }
 
-  abrirPostRegistro() {
-    return this.abrirDialog(PostRegistroComponent)
+  abrirPostRegistro(social: number) {
+    return this.abrirDialog(PostRegistroComponent, { SignInWith: social })
   }
 
-  abrirDialog(componente: ComponentType<any>) {
-    return this.dialog.open(componente, { panelClass: "app-full-bleed-dialog" })
+  abrirDialog(componente: ComponentType<any>, data?: any) {
+    return this.dialog.open(componente, { panelClass: "app-full-bleed-dialog", data: data })
   }
 }

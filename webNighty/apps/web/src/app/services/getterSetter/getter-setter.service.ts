@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion } from '@nighty/models';
 import { APIService } from '../api/api.service';
 import { HttpClient } from '@angular/common/http';
-import { SqlInsert, SqlUpdate } from '@nighty/interfaces-sql';
+import { SqlInsert, SqlUpdate, SqlDelete } from '@nighty/interfaces-sql';
 import { SqlCampoValor } from "@nighty/interfaces-sql";
 import { ToastrService } from 'ngx-toastr';
 
@@ -40,7 +40,6 @@ export class GetterSetterService {
     this.realizarOperacion("Amigos", amigos).subscribe(
       () => {
         if (amigos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Amigos.indexOf(amigos)
           this.datos.Amigos[i] = amigos
         } else {
@@ -64,7 +63,14 @@ export class GetterSetterService {
     )
   }
 
-
+  public deleteAmigos(amigos: Amigos) {
+    this.realizarOperacion("Amigos", amigos, true).subscribe(
+      () => {
+        const i = this.datos.Amigos.indexOf(amigos)
+        this.datos.Amigos.splice(i, 1)
+      }
+    )
+  }
 
   public get Archivos(): Observable<Archivos[]> {
     if (this.datos.Archivos.length !== 0. && !this.datos.reiniciarArchivos) {
@@ -90,7 +96,6 @@ export class GetterSetterService {
     this.realizarOperacion("Archivos", archivos).subscribe(
       () => {
         if (archivos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Archivos.indexOf(archivos)
           this.datos.Archivos[i] = archivos
         } else {
@@ -110,6 +115,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivos(archivos: Archivos) {
+    this.realizarOperacion("Archivos", archivos, true).subscribe(
+      () => {
+        const i = this.datos.Archivos.indexOf(archivos)
+        this.datos.Archivos.splice(i, 1)
       }
     )
   }
@@ -138,7 +152,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosCategoria", archivoscategoria).subscribe(
       () => {
         if (archivoscategoria.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosCategoria.indexOf(archivoscategoria)
           this.datos.ArchivosCategoria[i] = archivoscategoria
         } else {
@@ -158,6 +171,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosCategoria(archivoscategoria: ArchivosCategoria) {
+    this.realizarOperacion("ArchivosCategoria", archivoscategoria, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosCategoria.indexOf(archivoscategoria)
+        this.datos.ArchivosCategoria.splice(i, 1)
       }
     )
   }
@@ -186,7 +208,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEmpresa", archivosempresa).subscribe(
       () => {
         if (archivosempresa.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEmpresa.indexOf(archivosempresa)
           this.datos.ArchivosEmpresa[i] = archivosempresa
         } else {
@@ -206,6 +227,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosEmpresa(archivosempresa: ArchivosEmpresa) {
+    this.realizarOperacion("ArchivosEmpresa", archivosempresa, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosEmpresa.indexOf(archivosempresa)
+        this.datos.ArchivosEmpresa.splice(i, 1)
       }
     )
   }
@@ -234,7 +264,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEstablecimiento", archivosestablecimiento).subscribe(
       () => {
         if (archivosestablecimiento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEstablecimiento.indexOf(archivosestablecimiento)
           this.datos.ArchivosEstablecimiento[i] = archivosestablecimiento
         } else {
@@ -254,6 +283,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosEstablecimiento(archivosestablecimiento: ArchivosEstablecimiento) {
+    this.realizarOperacion("ArchivosEstablecimiento", archivosestablecimiento, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosEstablecimiento.indexOf(archivosestablecimiento)
+        this.datos.ArchivosEstablecimiento.splice(i, 1)
       }
     )
   }
@@ -282,7 +320,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosEvento", archivosevento).subscribe(
       () => {
         if (archivosevento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosEvento.indexOf(archivosevento)
           this.datos.ArchivosEvento[i] = archivosevento
         } else {
@@ -302,6 +339,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosEvento(archivosevento: ArchivosEvento) {
+    this.realizarOperacion("ArchivosEvento", archivosevento, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosEvento.indexOf(archivosevento)
+        this.datos.ArchivosEvento.splice(i, 1)
       }
     )
   }
@@ -330,7 +376,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosMarca", archivosmarca).subscribe(
       () => {
         if (archivosmarca.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosMarca.indexOf(archivosmarca)
           this.datos.ArchivosMarca[i] = archivosmarca
         } else {
@@ -350,6 +395,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosMarca(archivosmarca: ArchivosMarca) {
+    this.realizarOperacion("ArchivosMarca", archivosmarca, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosMarca.indexOf(archivosmarca)
+        this.datos.ArchivosMarca.splice(i, 1)
       }
     )
   }
@@ -378,7 +432,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosProducto", archivosproducto).subscribe(
       () => {
         if (archivosproducto.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosProducto.indexOf(archivosproducto)
           this.datos.ArchivosProducto[i] = archivosproducto
         } else {
@@ -398,6 +451,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosProducto(archivosproducto: ArchivosProducto) {
+    this.realizarOperacion("ArchivosProducto", archivosproducto, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosProducto.indexOf(archivosproducto)
+        this.datos.ArchivosProducto.splice(i, 1)
       }
     )
   }
@@ -426,7 +488,6 @@ export class GetterSetterService {
     this.realizarOperacion("ArchivosPromocion", archivospromocion).subscribe(
       () => {
         if (archivospromocion.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.ArchivosPromocion.indexOf(archivospromocion)
           this.datos.ArchivosPromocion[i] = archivospromocion
         } else {
@@ -446,6 +507,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteArchivosPromocion(archivospromocion: ArchivosPromocion) {
+    this.realizarOperacion("ArchivosPromocion", archivospromocion, true).subscribe(
+      () => {
+        const i = this.datos.ArchivosPromocion.indexOf(archivospromocion)
+        this.datos.ArchivosPromocion.splice(i, 1)
       }
     )
   }
@@ -474,7 +544,6 @@ export class GetterSetterService {
     this.realizarOperacion("Caracteristicas", caracteristicas).subscribe(
       () => {
         if (caracteristicas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Caracteristicas.indexOf(caracteristicas)
           this.datos.Caracteristicas[i] = caracteristicas
         } else {
@@ -494,6 +563,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteCaracteristicas(caracteristicas: Caracteristicas) {
+    this.realizarOperacion("Caracteristicas", caracteristicas, true).subscribe(
+      () => {
+        const i = this.datos.Caracteristicas.indexOf(caracteristicas)
+        this.datos.Caracteristicas.splice(i, 1)
       }
     )
   }
@@ -522,7 +600,6 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasDeProductos", caracteristicasdeproductos).subscribe(
       () => {
         if (caracteristicasdeproductos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasDeProductos.indexOf(caracteristicasdeproductos)
           this.datos.CaracteristicasDeProductos[i] = caracteristicasdeproductos
         } else {
@@ -542,6 +619,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteCaracteristicasDeProductos(caracteristicasdeproductos: CaracteristicasDeProductos) {
+    this.realizarOperacion("CaracteristicasDeProductos", caracteristicasdeproductos, true).subscribe(
+      () => {
+        const i = this.datos.CaracteristicasDeProductos.indexOf(caracteristicasdeproductos)
+        this.datos.CaracteristicasDeProductos.splice(i, 1)
       }
     )
   }
@@ -570,7 +656,6 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasEvento", caracteristicasevento).subscribe(
       () => {
         if (caracteristicasevento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasEvento.indexOf(caracteristicasevento)
           this.datos.CaracteristicasEvento[i] = caracteristicasevento
         } else {
@@ -590,6 +675,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteCaracteristicasEvento(caracteristicasevento: CaracteristicasEvento) {
+    this.realizarOperacion("CaracteristicasEvento", caracteristicasevento, true).subscribe(
+      () => {
+        const i = this.datos.CaracteristicasEvento.indexOf(caracteristicasevento)
+        this.datos.CaracteristicasEvento.splice(i, 1)
       }
     )
   }
@@ -618,7 +712,6 @@ export class GetterSetterService {
     this.realizarOperacion("CaracteristicasProducto", caracteristicasproducto).subscribe(
       () => {
         if (caracteristicasproducto.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.CaracteristicasProducto.indexOf(caracteristicasproducto)
           this.datos.CaracteristicasProducto[i] = caracteristicasproducto
         } else {
@@ -638,6 +731,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteCaracteristicasProducto(caracteristicasproducto: CaracteristicasProducto) {
+    this.realizarOperacion("CaracteristicasProducto", caracteristicasproducto, true).subscribe(
+      () => {
+        const i = this.datos.CaracteristicasProducto.indexOf(caracteristicasproducto)
+        this.datos.CaracteristicasProducto.splice(i, 1)
       }
     )
   }
@@ -666,7 +768,6 @@ export class GetterSetterService {
     this.realizarOperacion("Categorias", categorias).subscribe(
       () => {
         if (categorias.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Categorias.indexOf(categorias)
           this.datos.Categorias[i] = categorias
         } else {
@@ -686,6 +787,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteCategorias(categorias: Categorias) {
+    this.realizarOperacion("Categorias", categorias, true).subscribe(
+      () => {
+        const i = this.datos.Categorias.indexOf(categorias)
+        this.datos.Categorias.splice(i, 1)
       }
     )
   }
@@ -714,7 +824,6 @@ export class GetterSetterService {
     this.realizarOperacion("Descripciones", descripciones).subscribe(
       () => {
         if (descripciones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Descripciones.indexOf(descripciones)
           this.datos.Descripciones[i] = descripciones
         } else {
@@ -734,6 +843,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDescripciones(descripciones: Descripciones) {
+    this.realizarOperacion("Descripciones", descripciones, true).subscribe(
+      () => {
+        const i = this.datos.Descripciones.indexOf(descripciones)
+        this.datos.Descripciones.splice(i, 1)
       }
     )
   }
@@ -762,7 +880,6 @@ export class GetterSetterService {
     this.realizarOperacion("DescripcionesEvento", descripcionesevento).subscribe(
       () => {
         if (descripcionesevento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.DescripcionesEvento.indexOf(descripcionesevento)
           this.datos.DescripcionesEvento[i] = descripcionesevento
         } else {
@@ -782,6 +899,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDescripcionesEvento(descripcionesevento: DescripcionesEvento) {
+    this.realizarOperacion("DescripcionesEvento", descripcionesevento, true).subscribe(
+      () => {
+        const i = this.datos.DescripcionesEvento.indexOf(descripcionesevento)
+        this.datos.DescripcionesEvento.splice(i, 1)
       }
     )
   }
@@ -810,7 +936,6 @@ export class GetterSetterService {
     this.realizarOperacion("DiasMes", diasmes).subscribe(
       () => {
         if (diasmes.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.DiasMes.indexOf(diasmes)
           this.datos.DiasMes[i] = diasmes
         } else {
@@ -830,6 +955,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDiasMes(diasmes: DiasMes) {
+    this.realizarOperacion("DiasMes", diasmes, true).subscribe(
+      () => {
+        const i = this.datos.DiasMes.indexOf(diasmes)
+        this.datos.DiasMes.splice(i, 1)
       }
     )
   }
@@ -858,7 +992,6 @@ export class GetterSetterService {
     this.realizarOperacion("DiasSemana", diassemana).subscribe(
       () => {
         if (diassemana.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.DiasSemana.indexOf(diassemana)
           this.datos.DiasSemana[i] = diassemana
         } else {
@@ -878,6 +1011,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDiasSemana(diassemana: DiasSemana) {
+    this.realizarOperacion("DiasSemana", diassemana, true).subscribe(
+      () => {
+        const i = this.datos.DiasSemana.indexOf(diassemana)
+        this.datos.DiasSemana.splice(i, 1)
       }
     )
   }
@@ -906,7 +1048,6 @@ export class GetterSetterService {
     this.realizarOperacion("Direcciones", direcciones).subscribe(
       () => {
         if (direcciones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Direcciones.indexOf(direcciones)
           this.datos.Direcciones[i] = direcciones
         } else {
@@ -926,6 +1067,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDirecciones(direcciones: Direcciones) {
+    this.realizarOperacion("Direcciones", direcciones, true).subscribe(
+      () => {
+        const i = this.datos.Direcciones.indexOf(direcciones)
+        this.datos.Direcciones.splice(i, 1)
       }
     )
   }
@@ -954,7 +1104,6 @@ export class GetterSetterService {
     this.realizarOperacion("DireccionesPersona", direccionespersona).subscribe(
       () => {
         if (direccionespersona.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.DireccionesPersona.indexOf(direccionespersona)
           this.datos.DireccionesPersona[i] = direccionespersona
         } else {
@@ -974,6 +1123,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteDireccionesPersona(direccionespersona: DireccionesPersona) {
+    this.realizarOperacion("DireccionesPersona", direccionespersona, true).subscribe(
+      () => {
+        const i = this.datos.DireccionesPersona.indexOf(direccionespersona)
+        this.datos.DireccionesPersona.splice(i, 1)
       }
     )
   }
@@ -999,7 +1157,6 @@ export class GetterSetterService {
     this.realizarOperacion("Emails", emails).subscribe(
       () => {
         if (emails.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Emails.indexOf(emails)
           this.datos.Emails[i] = emails
         } else {
@@ -1019,6 +1176,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEmails(emails: Emails) {
+    this.realizarOperacion("Emails", emails, true).subscribe(
+      () => {
+        const i = this.datos.Emails.indexOf(emails)
+        this.datos.Emails.splice(i, 1)
       }
     )
   }
@@ -1047,7 +1213,6 @@ export class GetterSetterService {
     this.realizarOperacion("EmailsPersona", emailspersona).subscribe(
       () => {
         if (emailspersona.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.EmailsPersona.indexOf(emailspersona)
           this.datos.EmailsPersona[i] = emailspersona
         } else {
@@ -1067,6 +1232,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEmailsPersona(emailspersona: EmailsPersona) {
+    this.realizarOperacion("EmailsPersona", emailspersona, true).subscribe(
+      () => {
+        const i = this.datos.EmailsPersona.indexOf(emailspersona)
+        this.datos.EmailsPersona.splice(i, 1)
       }
     )
   }
@@ -1095,7 +1269,6 @@ export class GetterSetterService {
     this.realizarOperacion("Empresas", empresas).subscribe(
       () => {
         if (empresas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Empresas.indexOf(empresas)
           this.datos.Empresas[i] = empresas
         } else {
@@ -1115,6 +1288,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEmpresas(empresas: Empresas) {
+    this.realizarOperacion("Empresas", empresas, true).subscribe(
+      () => {
+        const i = this.datos.Empresas.indexOf(empresas)
+        this.datos.Empresas.splice(i, 1)
       }
     )
   }
@@ -1143,7 +1325,6 @@ export class GetterSetterService {
     this.realizarOperacion("Establecimientos", establecimientos).subscribe(
       () => {
         if (establecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Establecimientos.indexOf(establecimientos)
           this.datos.Establecimientos[i] = establecimientos
         } else {
@@ -1163,6 +1344,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEstablecimientos(establecimientos: Establecimientos) {
+    this.realizarOperacion("Establecimientos", establecimientos, true).subscribe(
+      () => {
+        const i = this.datos.Establecimientos.indexOf(establecimientos)
+        this.datos.Establecimientos.splice(i, 1)
       }
     )
   }
@@ -1191,7 +1381,6 @@ export class GetterSetterService {
     this.realizarOperacion("Eventos", eventos).subscribe(
       () => {
         if (eventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Eventos.indexOf(eventos)
           this.datos.Eventos[i] = eventos
         } else {
@@ -1211,6 +1400,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEventos(eventos: Eventos) {
+    this.realizarOperacion("Eventos", eventos, true).subscribe(
+      () => {
+        const i = this.datos.Eventos.indexOf(eventos)
+        this.datos.Eventos.splice(i, 1)
       }
     )
   }
@@ -1239,7 +1437,6 @@ export class GetterSetterService {
     this.realizarOperacion("EventosEstablecimientos", eventosestablecimientos).subscribe(
       () => {
         if (eventosestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.EventosEstablecimientos.indexOf(eventosestablecimientos)
           this.datos.EventosEstablecimientos[i] = eventosestablecimientos
         } else {
@@ -1259,6 +1456,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteEventosEstablecimientos(eventosestablecimientos: EventosEstablecimientos) {
+    this.realizarOperacion("EventosEstablecimientos", eventosestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.EventosEstablecimientos.indexOf(eventosestablecimientos)
+        this.datos.EventosEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -1287,7 +1493,6 @@ export class GetterSetterService {
     this.realizarOperacion("FaxsPersona", faxspersona).subscribe(
       () => {
         if (faxspersona.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.FaxsPersona.indexOf(faxspersona)
           this.datos.FaxsPersona[i] = faxspersona
         } else {
@@ -1307,6 +1512,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteFaxsPersona(faxspersona: FaxsPersona) {
+    this.realizarOperacion("FaxsPersona", faxspersona, true).subscribe(
+      () => {
+        const i = this.datos.FaxsPersona.indexOf(faxspersona)
+        this.datos.FaxsPersona.splice(i, 1)
       }
     )
   }
@@ -1335,7 +1549,6 @@ export class GetterSetterService {
     this.realizarOperacion("Fechas", fechas).subscribe(
       () => {
         if (fechas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Fechas.indexOf(fechas)
           this.datos.Fechas[i] = fechas
         } else {
@@ -1355,6 +1568,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteFechas(fechas: Fechas) {
+    this.realizarOperacion("Fechas", fechas, true).subscribe(
+      () => {
+        const i = this.datos.Fechas.indexOf(fechas)
+        this.datos.Fechas.splice(i, 1)
       }
     )
   }
@@ -1383,7 +1605,6 @@ export class GetterSetterService {
     this.realizarOperacion("Grupos", grupos).subscribe(
       () => {
         if (grupos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Grupos.indexOf(grupos)
           this.datos.Grupos[i] = grupos
         } else {
@@ -1403,6 +1624,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteGrupos(grupos: Grupos) {
+    this.realizarOperacion("Grupos", grupos, true).subscribe(
+      () => {
+        const i = this.datos.Grupos.indexOf(grupos)
+        this.datos.Grupos.splice(i, 1)
       }
     )
   }
@@ -1431,7 +1661,6 @@ export class GetterSetterService {
     this.realizarOperacion("GruposConsumicion", gruposconsumicion).subscribe(
       () => {
         if (gruposconsumicion.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.GruposConsumicion.indexOf(gruposconsumicion)
           this.datos.GruposConsumicion[i] = gruposconsumicion
         } else {
@@ -1451,6 +1680,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteGruposConsumicion(gruposconsumicion: GruposConsumicion) {
+    this.realizarOperacion("GruposConsumicion", gruposconsumicion, true).subscribe(
+      () => {
+        const i = this.datos.GruposConsumicion.indexOf(gruposconsumicion)
+        this.datos.GruposConsumicion.splice(i, 1)
       }
     )
   }
@@ -1479,7 +1717,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesEstablecimientos", horariodiasmesestablecimientos).subscribe(
       () => {
         if (horariodiasmesestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesEstablecimientos.indexOf(horariodiasmesestablecimientos)
           this.datos.HorarioDiasMesEstablecimientos[i] = horariodiasmesestablecimientos
         } else {
@@ -1499,6 +1736,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasMesEstablecimientos(horariodiasmesestablecimientos: HorarioDiasMesEstablecimientos) {
+    this.realizarOperacion("HorarioDiasMesEstablecimientos", horariodiasmesestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasMesEstablecimientos.indexOf(horariodiasmesestablecimientos)
+        this.datos.HorarioDiasMesEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -1527,7 +1773,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesEventos", horariodiasmeseventos).subscribe(
       () => {
         if (horariodiasmeseventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesEventos.indexOf(horariodiasmeseventos)
           this.datos.HorarioDiasMesEventos[i] = horariodiasmeseventos
         } else {
@@ -1547,6 +1792,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasMesEventos(horariodiasmeseventos: HorarioDiasMesEventos) {
+    this.realizarOperacion("HorarioDiasMesEventos", horariodiasmeseventos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasMesEventos.indexOf(horariodiasmeseventos)
+        this.datos.HorarioDiasMesEventos.splice(i, 1)
       }
     )
   }
@@ -1575,7 +1829,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasMesPromociones", horariodiasmespromociones).subscribe(
       () => {
         if (horariodiasmespromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasMesPromociones.indexOf(horariodiasmespromociones)
           this.datos.HorarioDiasMesPromociones[i] = horariodiasmespromociones
         } else {
@@ -1595,6 +1848,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasMesPromociones(horariodiasmespromociones: HorarioDiasMesPromociones) {
+    this.realizarOperacion("HorarioDiasMesPromociones", horariodiasmespromociones, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasMesPromociones.indexOf(horariodiasmespromociones)
+        this.datos.HorarioDiasMesPromociones.splice(i, 1)
       }
     )
   }
@@ -1623,7 +1885,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaEstablecimientos", horariodiassemanaestablecimientos).subscribe(
       () => {
         if (horariodiassemanaestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaEstablecimientos.indexOf(horariodiassemanaestablecimientos)
           this.datos.HorarioDiasSemanaEstablecimientos[i] = horariodiassemanaestablecimientos
         } else {
@@ -1643,6 +1904,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasSemanaEstablecimientos(horariodiassemanaestablecimientos: HorarioDiasSemanaEstablecimientos) {
+    this.realizarOperacion("HorarioDiasSemanaEstablecimientos", horariodiassemanaestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasSemanaEstablecimientos.indexOf(horariodiassemanaestablecimientos)
+        this.datos.HorarioDiasSemanaEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -1671,7 +1941,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaEventos", horariodiassemanaeventos).subscribe(
       () => {
         if (horariodiassemanaeventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaEventos.indexOf(horariodiassemanaeventos)
           this.datos.HorarioDiasSemanaEventos[i] = horariodiassemanaeventos
         } else {
@@ -1691,6 +1960,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasSemanaEventos(horariodiassemanaeventos: HorarioDiasSemanaEventos) {
+    this.realizarOperacion("HorarioDiasSemanaEventos", horariodiassemanaeventos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasSemanaEventos.indexOf(horariodiassemanaeventos)
+        this.datos.HorarioDiasSemanaEventos.splice(i, 1)
       }
     )
   }
@@ -1719,7 +1997,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioDiasSemanaPromociones", horariodiassemanapromociones).subscribe(
       () => {
         if (horariodiassemanapromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioDiasSemanaPromociones.indexOf(horariodiassemanapromociones)
           this.datos.HorarioDiasSemanaPromociones[i] = horariodiassemanapromociones
         } else {
@@ -1739,6 +2016,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioDiasSemanaPromociones(horariodiassemanapromociones: HorarioDiasSemanaPromociones) {
+    this.realizarOperacion("HorarioDiasSemanaPromociones", horariodiassemanapromociones, true).subscribe(
+      () => {
+        const i = this.datos.HorarioDiasSemanaPromociones.indexOf(horariodiassemanapromociones)
+        this.datos.HorarioDiasSemanaPromociones.splice(i, 1)
       }
     )
   }
@@ -1767,7 +2053,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasEstablecimientos", horariofechasestablecimientos).subscribe(
       () => {
         if (horariofechasestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasEstablecimientos.indexOf(horariofechasestablecimientos)
           this.datos.HorarioFechasEstablecimientos[i] = horariofechasestablecimientos
         } else {
@@ -1787,6 +2072,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioFechasEstablecimientos(horariofechasestablecimientos: HorarioFechasEstablecimientos) {
+    this.realizarOperacion("HorarioFechasEstablecimientos", horariofechasestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioFechasEstablecimientos.indexOf(horariofechasestablecimientos)
+        this.datos.HorarioFechasEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -1815,7 +2109,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasEventos", horariofechaseventos).subscribe(
       () => {
         if (horariofechaseventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasEventos.indexOf(horariofechaseventos)
           this.datos.HorarioFechasEventos[i] = horariofechaseventos
         } else {
@@ -1835,6 +2128,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioFechasEventos(horariofechaseventos: HorarioFechasEventos) {
+    this.realizarOperacion("HorarioFechasEventos", horariofechaseventos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioFechasEventos.indexOf(horariofechaseventos)
+        this.datos.HorarioFechasEventos.splice(i, 1)
       }
     )
   }
@@ -1863,7 +2165,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioFechasPromociones", horariofechaspromociones).subscribe(
       () => {
         if (horariofechaspromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioFechasPromociones.indexOf(horariofechaspromociones)
           this.datos.HorarioFechasPromociones[i] = horariofechaspromociones
         } else {
@@ -1883,6 +2184,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioFechasPromociones(horariofechaspromociones: HorarioFechasPromociones) {
+    this.realizarOperacion("HorarioFechasPromociones", horariofechaspromociones, true).subscribe(
+      () => {
+        const i = this.datos.HorarioFechasPromociones.indexOf(horariofechaspromociones)
+        this.datos.HorarioFechasPromociones.splice(i, 1)
       }
     )
   }
@@ -1911,7 +2221,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasEstablecimientos", horariohorasestablecimientos).subscribe(
       () => {
         if (horariohorasestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasEstablecimientos.indexOf(horariohorasestablecimientos)
           this.datos.HorarioHorasEstablecimientos[i] = horariohorasestablecimientos
         } else {
@@ -1931,6 +2240,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioHorasEstablecimientos(horariohorasestablecimientos: HorarioHorasEstablecimientos) {
+    this.realizarOperacion("HorarioHorasEstablecimientos", horariohorasestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioHorasEstablecimientos.indexOf(horariohorasestablecimientos)
+        this.datos.HorarioHorasEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -1959,7 +2277,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasEventos", horariohoraseventos).subscribe(
       () => {
         if (horariohoraseventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasEventos.indexOf(horariohoraseventos)
           this.datos.HorarioHorasEventos[i] = horariohoraseventos
         } else {
@@ -1979,6 +2296,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioHorasEventos(horariohoraseventos: HorarioHorasEventos) {
+    this.realizarOperacion("HorarioHorasEventos", horariohoraseventos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioHorasEventos.indexOf(horariohoraseventos)
+        this.datos.HorarioHorasEventos.splice(i, 1)
       }
     )
   }
@@ -2007,7 +2333,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioHorasPromociones", horariohoraspromociones).subscribe(
       () => {
         if (horariohoraspromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioHorasPromociones.indexOf(horariohoraspromociones)
           this.datos.HorarioHorasPromociones[i] = horariohoraspromociones
         } else {
@@ -2027,6 +2352,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioHorasPromociones(horariohoraspromociones: HorarioHorasPromociones) {
+    this.realizarOperacion("HorarioHorasPromociones", horariohoraspromociones, true).subscribe(
+      () => {
+        const i = this.datos.HorarioHorasPromociones.indexOf(horariohoraspromociones)
+        this.datos.HorarioHorasPromociones.splice(i, 1)
       }
     )
   }
@@ -2055,7 +2389,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesEstablecimientos", horariomesesestablecimientos).subscribe(
       () => {
         if (horariomesesestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesEstablecimientos.indexOf(horariomesesestablecimientos)
           this.datos.HorarioMesesEstablecimientos[i] = horariomesesestablecimientos
         } else {
@@ -2075,6 +2408,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioMesesEstablecimientos(horariomesesestablecimientos: HorarioMesesEstablecimientos) {
+    this.realizarOperacion("HorarioMesesEstablecimientos", horariomesesestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioMesesEstablecimientos.indexOf(horariomesesestablecimientos)
+        this.datos.HorarioMesesEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -2103,7 +2445,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesEventos", horariomeseseventos).subscribe(
       () => {
         if (horariomeseseventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesEventos.indexOf(horariomeseseventos)
           this.datos.HorarioMesesEventos[i] = horariomeseseventos
         } else {
@@ -2123,6 +2464,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioMesesEventos(horariomeseseventos: HorarioMesesEventos) {
+    this.realizarOperacion("HorarioMesesEventos", horariomeseseventos, true).subscribe(
+      () => {
+        const i = this.datos.HorarioMesesEventos.indexOf(horariomeseseventos)
+        this.datos.HorarioMesesEventos.splice(i, 1)
       }
     )
   }
@@ -2151,7 +2501,6 @@ export class GetterSetterService {
     this.realizarOperacion("HorarioMesesPromociones", horariomesespromociones).subscribe(
       () => {
         if (horariomesespromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.HorarioMesesPromociones.indexOf(horariomesespromociones)
           this.datos.HorarioMesesPromociones[i] = horariomesespromociones
         } else {
@@ -2171,6 +2520,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHorarioMesesPromociones(horariomesespromociones: HorarioMesesPromociones) {
+    this.realizarOperacion("HorarioMesesPromociones", horariomesespromociones, true).subscribe(
+      () => {
+        const i = this.datos.HorarioMesesPromociones.indexOf(horariomesespromociones)
+        this.datos.HorarioMesesPromociones.splice(i, 1)
       }
     )
   }
@@ -2199,7 +2557,6 @@ export class GetterSetterService {
     this.realizarOperacion("Horas", horas).subscribe(
       () => {
         if (horas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Horas.indexOf(horas)
           this.datos.Horas[i] = horas
         } else {
@@ -2219,6 +2576,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteHoras(horas: Horas) {
+    this.realizarOperacion("Horas", horas, true).subscribe(
+      () => {
+        const i = this.datos.Horas.indexOf(horas)
+        this.datos.Horas.splice(i, 1)
       }
     )
   }
@@ -2247,7 +2613,6 @@ export class GetterSetterService {
     this.realizarOperacion("Invitados", invitados).subscribe(
       () => {
         if (invitados.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Invitados.indexOf(invitados)
           this.datos.Invitados[i] = invitados
         } else {
@@ -2267,6 +2632,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteInvitados(invitados: Invitados) {
+    this.realizarOperacion("Invitados", invitados, true).subscribe(
+      () => {
+        const i = this.datos.Invitados.indexOf(invitados)
+        this.datos.Invitados.splice(i, 1)
       }
     )
   }
@@ -2295,7 +2669,6 @@ export class GetterSetterService {
     this.realizarOperacion("LineasTicket", lineasticket).subscribe(
       () => {
         if (lineasticket.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.LineasTicket.indexOf(lineasticket)
           this.datos.LineasTicket[i] = lineasticket
         } else {
@@ -2315,6 +2688,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteLineasTicket(lineasticket: LineasTicket) {
+    this.realizarOperacion("LineasTicket", lineasticket, true).subscribe(
+      () => {
+        const i = this.datos.LineasTicket.indexOf(lineasticket)
+        this.datos.LineasTicket.splice(i, 1)
       }
     )
   }
@@ -2343,7 +2725,6 @@ export class GetterSetterService {
     this.realizarOperacion("Marcas", marcas).subscribe(
       () => {
         if (marcas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Marcas.indexOf(marcas)
           this.datos.Marcas[i] = marcas
         } else {
@@ -2363,6 +2744,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteMarcas(marcas: Marcas) {
+    this.realizarOperacion("Marcas", marcas, true).subscribe(
+      () => {
+        const i = this.datos.Marcas.indexOf(marcas)
+        this.datos.Marcas.splice(i, 1)
       }
     )
   }
@@ -2391,7 +2781,6 @@ export class GetterSetterService {
     this.realizarOperacion("MesasEstablecimiento", mesasestablecimiento).subscribe(
       () => {
         if (mesasestablecimiento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.MesasEstablecimiento.indexOf(mesasestablecimiento)
           this.datos.MesasEstablecimiento[i] = mesasestablecimiento
         } else {
@@ -2411,6 +2800,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteMesasEstablecimiento(mesasestablecimiento: MesasEstablecimiento) {
+    this.realizarOperacion("MesasEstablecimiento", mesasestablecimiento, true).subscribe(
+      () => {
+        const i = this.datos.MesasEstablecimiento.indexOf(mesasestablecimiento)
+        this.datos.MesasEstablecimiento.splice(i, 1)
       }
     )
   }
@@ -2439,7 +2837,6 @@ export class GetterSetterService {
     this.realizarOperacion("Meses", meses).subscribe(
       () => {
         if (meses.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Meses.indexOf(meses)
           this.datos.Meses[i] = meses
         } else {
@@ -2459,6 +2856,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteMeses(meses: Meses) {
+    this.realizarOperacion("Meses", meses, true).subscribe(
+      () => {
+        const i = this.datos.Meses.indexOf(meses)
+        this.datos.Meses.splice(i, 1)
       }
     )
   }
@@ -2487,7 +2893,6 @@ export class GetterSetterService {
     this.realizarOperacion("MiembrosGrupos", miembrosgrupos).subscribe(
       () => {
         if (miembrosgrupos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.MiembrosGrupos.indexOf(miembrosgrupos)
           this.datos.MiembrosGrupos[i] = miembrosgrupos
         } else {
@@ -2507,6 +2912,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteMiembrosGrupos(miembrosgrupos: MiembrosGrupos) {
+    this.realizarOperacion("MiembrosGrupos", miembrosgrupos, true).subscribe(
+      () => {
+        const i = this.datos.MiembrosGrupos.indexOf(miembrosgrupos)
+        this.datos.MiembrosGrupos.splice(i, 1)
       }
     )
   }
@@ -2535,7 +2949,6 @@ export class GetterSetterService {
     this.realizarOperacion("MiembrosGruposConsumicion", miembrosgruposconsumicion).subscribe(
       () => {
         if (miembrosgruposconsumicion.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.MiembrosGruposConsumicion.indexOf(miembrosgruposconsumicion)
           this.datos.MiembrosGruposConsumicion[i] = miembrosgruposconsumicion
         } else {
@@ -2555,6 +2968,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteMiembrosGruposConsumicion(miembrosgruposconsumicion: MiembrosGruposConsumicion) {
+    this.realizarOperacion("MiembrosGruposConsumicion", miembrosgruposconsumicion, true).subscribe(
+      () => {
+        const i = this.datos.MiembrosGruposConsumicion.indexOf(miembrosgruposconsumicion)
+        this.datos.MiembrosGruposConsumicion.splice(i, 1)
       }
     )
   }
@@ -2604,6 +3026,15 @@ export class GetterSetterService {
     )
   }
 
+  public deleteMotivosInhabilitacion(motivosinhabilitacion: MotivosInhabilitacion) {
+    this.realizarOperacion("MotivosInhabilitacion", motivosinhabilitacion, true).subscribe(
+      () => {
+        const i = this.datos.MotivosInhabilitacion.indexOf(motivosinhabilitacion)
+        this.datos.MotivosInhabilitacion.splice(i, 1)
+      }
+    )
+  }
+
   public get Paises(): Observable<Paises[]> {
     if (this.datos.Paises.length !== 0 && !this.datos.reiniciarPaises) {
       return of(this.datos.Paises)
@@ -2629,7 +3060,6 @@ export class GetterSetterService {
     this.realizarOperacion("Paises", paises).subscribe(
       () => {
         if (paises.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Paises.indexOf(paises)
           this.datos.Paises[i] = paises
         } else {
@@ -2649,6 +3079,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePaises(paises: Paises) {
+    this.realizarOperacion("Paises", paises, true).subscribe(
+      () => {
+        const i = this.datos.Paises.indexOf(paises)
+        this.datos.Paises.splice(i, 1)
       }
     )
   }
@@ -2677,7 +3116,6 @@ export class GetterSetterService {
     this.realizarOperacion("Personas", personas).subscribe(
       () => {
         if (personas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Personas.indexOf(personas)
           this.datos.Personas[i] = personas
         } else {
@@ -2697,6 +3135,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePersonas(personas: Personas) {
+    this.realizarOperacion("Personas", personas, true).subscribe(
+      () => {
+        const i = this.datos.Personas.indexOf(personas)
+        this.datos.Personas.splice(i, 1)
       }
     )
   }
@@ -2725,7 +3172,6 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoEmpresa", personascontactoempresa).subscribe(
       () => {
         if (personascontactoempresa.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoEmpresa.indexOf(personascontactoempresa)
           this.datos.PersonasContactoEmpresa[i] = personascontactoempresa
         } else {
@@ -2745,6 +3191,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePersonasContactoEmpresa(personascontactoempresa: PersonasContactoEmpresa) {
+    this.realizarOperacion("PersonasContactoEmpresa", personascontactoempresa, true).subscribe(
+      () => {
+        const i = this.datos.PersonasContactoEmpresa.indexOf(personascontactoempresa)
+        this.datos.PersonasContactoEmpresa.splice(i, 1)
       }
     )
   }
@@ -2773,7 +3228,6 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoEstablecimiento", personascontactoestablecimiento).subscribe(
       () => {
         if (personascontactoestablecimiento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoEstablecimiento.indexOf(personascontactoestablecimiento)
           this.datos.PersonasContactoEstablecimiento[i] = personascontactoestablecimiento
         } else {
@@ -2793,6 +3247,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePersonasContactoEstablecimiento(personascontactoestablecimiento: PersonasContactoEstablecimiento) {
+    this.realizarOperacion("PersonasContactoEstablecimiento", personascontactoestablecimiento, true).subscribe(
+      () => {
+        const i = this.datos.PersonasContactoEstablecimiento.indexOf(personascontactoestablecimiento)
+        this.datos.PersonasContactoEstablecimiento.splice(i, 1)
       }
     )
   }
@@ -2821,7 +3284,6 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasContactoMarcas", personascontactomarcas).subscribe(
       () => {
         if (personascontactomarcas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PersonasContactoMarcas.indexOf(personascontactomarcas)
           this.datos.PersonasContactoMarcas[i] = personascontactomarcas
         } else {
@@ -2841,6 +3303,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePersonasContactoMarcas(personascontactomarcas: PersonasContactoMarcas) {
+    this.realizarOperacion("PersonasContactoMarcas", personascontactomarcas, true).subscribe(
+      () => {
+        const i = this.datos.PersonasContactoMarcas.indexOf(personascontactomarcas)
+        this.datos.PersonasContactoMarcas.splice(i, 1)
       }
     )
   }
@@ -2869,7 +3340,6 @@ export class GetterSetterService {
     this.realizarOperacion("PersonasEstablecimientos", personasestablecimientos).subscribe(
       () => {
         if (personasestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PersonasEstablecimientos.indexOf(personasestablecimientos)
           this.datos.PersonasEstablecimientos[i] = personasestablecimientos
         } else {
@@ -2889,6 +3359,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePersonasEstablecimientos(personasestablecimientos: PersonasEstablecimientos) {
+    this.realizarOperacion("PersonasEstablecimientos", personasestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.PersonasEstablecimientos.indexOf(personasestablecimientos)
+        this.datos.PersonasEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -2917,7 +3396,6 @@ export class GetterSetterService {
     this.realizarOperacion("Productos", productos).subscribe(
       () => {
         if (productos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Productos.indexOf(productos)
           this.datos.Productos[i] = productos
         } else {
@@ -2937,6 +3415,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteProductos(productos: Productos) {
+    this.realizarOperacion("Productos", productos, true).subscribe(
+      () => {
+        const i = this.datos.Productos.indexOf(productos)
+        this.datos.Productos.splice(i, 1)
       }
     )
   }
@@ -2965,7 +3452,6 @@ export class GetterSetterService {
     this.realizarOperacion("Promociones", promociones).subscribe(
       () => {
         if (promociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Promociones.indexOf(promociones)
           this.datos.Promociones[i] = promociones
         } else {
@@ -2985,6 +3471,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePromociones(promociones: Promociones) {
+    this.realizarOperacion("Promociones", promociones, true).subscribe(
+      () => {
+        const i = this.datos.Promociones.indexOf(promociones)
+        this.datos.Promociones.splice(i, 1)
       }
     )
   }
@@ -3013,7 +3508,6 @@ export class GetterSetterService {
     this.realizarOperacion("PromocionesProductos", promocionesproductos).subscribe(
       () => {
         if (promocionesproductos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PromocionesProductos.indexOf(promocionesproductos)
           this.datos.PromocionesProductos[i] = promocionesproductos
         } else {
@@ -3033,6 +3527,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePromocionesProductos(promocionesproductos: PromocionesProductos) {
+    this.realizarOperacion("PromocionesProductos", promocionesproductos, true).subscribe(
+      () => {
+        const i = this.datos.PromocionesProductos.indexOf(promocionesproductos)
+        this.datos.PromocionesProductos.splice(i, 1)
       }
     )
   }
@@ -3061,7 +3564,6 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEmpresa", publicidadempresa).subscribe(
       () => {
         if (publicidadempresa.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEmpresa.indexOf(publicidadempresa)
           this.datos.PublicidadEmpresa[i] = publicidadempresa
         } else {
@@ -3081,6 +3583,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePublicidadEmpresa(publicidadempresa: PublicidadEmpresa) {
+    this.realizarOperacion("PublicidadEmpresa", publicidadempresa, true).subscribe(
+      () => {
+        const i = this.datos.PublicidadEmpresa.indexOf(publicidadempresa)
+        this.datos.PublicidadEmpresa.splice(i, 1)
       }
     )
   }
@@ -3109,7 +3620,6 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEstablecimiento", publicidadestablecimiento).subscribe(
       () => {
         if (publicidadestablecimiento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEstablecimiento.indexOf(publicidadestablecimiento)
           this.datos.PublicidadEstablecimiento[i] = publicidadestablecimiento
         } else {
@@ -3129,6 +3639,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePublicidadEstablecimiento(publicidadestablecimiento: PublicidadEstablecimiento) {
+    this.realizarOperacion("PublicidadEstablecimiento", publicidadestablecimiento, true).subscribe(
+      () => {
+        const i = this.datos.PublicidadEstablecimiento.indexOf(publicidadestablecimiento)
+        this.datos.PublicidadEstablecimiento.splice(i, 1)
       }
     )
   }
@@ -3157,7 +3676,6 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadEvento", publicidadevento).subscribe(
       () => {
         if (publicidadevento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadEvento.indexOf(publicidadevento)
           this.datos.PublicidadEvento[i] = publicidadevento
         } else {
@@ -3177,6 +3695,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePublicidadEvento(publicidadevento: PublicidadEvento) {
+    this.realizarOperacion("PublicidadEvento", publicidadevento, true).subscribe(
+      () => {
+        const i = this.datos.PublicidadEvento.indexOf(publicidadevento)
+        this.datos.PublicidadEvento.splice(i, 1)
       }
     )
   }
@@ -3205,7 +3732,6 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadProducto", publicidadproducto).subscribe(
       () => {
         if (publicidadproducto.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadProducto.indexOf(publicidadproducto)
           this.datos.PublicidadProducto[i] = publicidadproducto
         } else {
@@ -3225,6 +3751,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePublicidadProducto(publicidadproducto: PublicidadProducto) {
+    this.realizarOperacion("PublicidadProducto", publicidadproducto, true).subscribe(
+      () => {
+        const i = this.datos.PublicidadProducto.indexOf(publicidadproducto)
+        this.datos.PublicidadProducto.splice(i, 1)
       }
     )
   }
@@ -3253,7 +3788,6 @@ export class GetterSetterService {
     this.realizarOperacion("PublicidadPromocion", publicidadpromocion).subscribe(
       () => {
         if (publicidadpromocion.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.PublicidadPromocion.indexOf(publicidadpromocion)
           this.datos.PublicidadPromocion[i] = publicidadpromocion
         } else {
@@ -3273,6 +3807,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePublicidadPromocion(publicidadpromocion: PublicidadPromocion) {
+    this.realizarOperacion("PublicidadPromocion", publicidadpromocion, true).subscribe(
+      () => {
+        const i = this.datos.PublicidadPromocion.indexOf(publicidadpromocion)
+        this.datos.PublicidadPromocion.splice(i, 1)
       }
     )
   }
@@ -3301,7 +3844,6 @@ export class GetterSetterService {
     this.realizarOperacion("Puestos", puestos).subscribe(
       () => {
         if (puestos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Puestos.indexOf(puestos)
           this.datos.Puestos[i] = puestos
         } else {
@@ -3321,6 +3863,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deletePuestos(puestos: Puestos) {
+    this.realizarOperacion("Puestos", puestos, true).subscribe(
+      () => {
+        const i = this.datos.Puestos.indexOf(puestos)
+        this.datos.Puestos.splice(i, 1)
       }
     )
   }
@@ -3349,7 +3900,6 @@ export class GetterSetterService {
     this.realizarOperacion("Requisitos", requisitos).subscribe(
       () => {
         if (requisitos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Requisitos.indexOf(requisitos)
           this.datos.Requisitos[i] = requisitos
         } else {
@@ -3369,6 +3919,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteRequisitos(requisitos: Requisitos) {
+    this.realizarOperacion("Requisitos", requisitos, true).subscribe(
+      () => {
+        const i = this.datos.Requisitos.indexOf(requisitos)
+        this.datos.Requisitos.splice(i, 1)
       }
     )
   }
@@ -3397,7 +3956,6 @@ export class GetterSetterService {
     this.realizarOperacion("RequisitosEvento", requisitosevento).subscribe(
       () => {
         if (requisitosevento.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.RequisitosEvento.indexOf(requisitosevento)
           this.datos.RequisitosEvento[i] = requisitosevento
         } else {
@@ -3417,6 +3975,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteRequisitosEvento(requisitosevento: RequisitosEvento) {
+    this.realizarOperacion("RequisitosEvento", requisitosevento, true).subscribe(
+      () => {
+        const i = this.datos.RequisitosEvento.indexOf(requisitosevento)
+        this.datos.RequisitosEvento.splice(i, 1)
       }
     )
   }
@@ -3445,7 +4012,6 @@ export class GetterSetterService {
     this.realizarOperacion("Telefonos", telefonos).subscribe(
       () => {
         if (telefonos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Telefonos.indexOf(telefonos)
           this.datos.Telefonos[i] = telefonos
         } else {
@@ -3465,6 +4031,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTelefonos(telefonos: Telefonos) {
+    this.realizarOperacion("Telefonos", telefonos, true).subscribe(
+      () => {
+        const i = this.datos.Telefonos.indexOf(telefonos)
+        this.datos.Telefonos.splice(i, 1)
       }
     )
   }
@@ -3493,7 +4068,6 @@ export class GetterSetterService {
     this.realizarOperacion("TelefonosPersona", telefonospersona).subscribe(
       () => {
         if (telefonospersona.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TelefonosPersona.indexOf(telefonospersona)
           this.datos.TelefonosPersona[i] = telefonospersona
         } else {
@@ -3513,6 +4087,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTelefonosPersona(telefonospersona: TelefonosPersona) {
+    this.realizarOperacion("TelefonosPersona", telefonospersona, true).subscribe(
+      () => {
+        const i = this.datos.TelefonosPersona.indexOf(telefonospersona)
+        this.datos.TelefonosPersona.splice(i, 1)
       }
     )
   }
@@ -3541,7 +4124,6 @@ export class GetterSetterService {
     this.realizarOperacion("Tickets", tickets).subscribe(
       () => {
         if (tickets.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Tickets.indexOf(tickets)
           this.datos.Tickets[i] = tickets
         } else {
@@ -3561,6 +4143,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTickets(tickets: Tickets) {
+    this.realizarOperacion("Tickets", tickets, true).subscribe(
+      () => {
+        const i = this.datos.Tickets.indexOf(tickets)
+        this.datos.Tickets.splice(i, 1)
       }
     )
   }
@@ -3589,7 +4180,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposCategorias", tiposcategorias).subscribe(
       () => {
         if (tiposcategorias.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposCategorias.indexOf(tiposcategorias)
           this.datos.TiposCategorias[i] = tiposcategorias
         } else {
@@ -3609,6 +4199,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposCategorias(tiposcategorias: TiposCategorias) {
+    this.realizarOperacion("TiposCategorias", tiposcategorias, true).subscribe(
+      () => {
+        const i = this.datos.TiposCategorias.indexOf(tiposcategorias)
+        this.datos.TiposCategorias.splice(i, 1)
       }
     )
   }
@@ -3637,7 +4236,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposEstablecimientos", tiposestablecimientos).subscribe(
       () => {
         if (tiposestablecimientos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposEstablecimientos.indexOf(tiposestablecimientos)
           this.datos.TiposEstablecimientos[i] = tiposestablecimientos
         } else {
@@ -3657,6 +4255,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposEstablecimientos(tiposestablecimientos: TiposEstablecimientos) {
+    this.realizarOperacion("TiposEstablecimientos", tiposestablecimientos, true).subscribe(
+      () => {
+        const i = this.datos.TiposEstablecimientos.indexOf(tiposestablecimientos)
+        this.datos.TiposEstablecimientos.splice(i, 1)
       }
     )
   }
@@ -3685,7 +4292,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposEventos", tiposeventos).subscribe(
       () => {
         if (tiposeventos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposEventos.indexOf(tiposeventos)
           this.datos.TiposEventos[i] = tiposeventos
         } else {
@@ -3705,6 +4311,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposEventos(tiposeventos: TiposEventos) {
+    this.realizarOperacion("TiposEventos", tiposeventos, true).subscribe(
+      () => {
+        const i = this.datos.TiposEventos.indexOf(tiposeventos)
+        this.datos.TiposEventos.splice(i, 1)
       }
     )
   }
@@ -3733,7 +4348,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposMesas", tiposmesas).subscribe(
       () => {
         if (tiposmesas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposMesas.indexOf(tiposmesas)
           this.datos.TiposMesas[i] = tiposmesas
         } else {
@@ -3753,6 +4367,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposMesas(tiposmesas: TiposMesas) {
+    this.realizarOperacion("TiposMesas", tiposmesas, true).subscribe(
+      () => {
+        const i = this.datos.TiposMesas.indexOf(tiposmesas)
+        this.datos.TiposMesas.splice(i, 1)
       }
     )
   }
@@ -3781,7 +4404,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposProductos", tiposproductos).subscribe(
       () => {
         if (tiposproductos.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposProductos.indexOf(tiposproductos)
           this.datos.TiposProductos[i] = tiposproductos
         } else {
@@ -3801,6 +4423,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposProductos(tiposproductos: TiposProductos) {
+    this.realizarOperacion("TiposProductos", tiposproductos, true).subscribe(
+      () => {
+        const i = this.datos.TiposProductos.indexOf(tiposproductos)
+        this.datos.TiposProductos.splice(i, 1)
       }
     )
   }
@@ -3829,7 +4460,6 @@ export class GetterSetterService {
     this.realizarOperacion("TiposPromociones", tipospromociones).subscribe(
       () => {
         if (tipospromociones.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.TiposPromociones.indexOf(tipospromociones)
           this.datos.TiposPromociones[i] = tipospromociones
         } else {
@@ -3849,6 +4479,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteTiposPromociones(tipospromociones: TiposPromociones) {
+    this.realizarOperacion("TiposPromociones", tipospromociones, true).subscribe(
+      () => {
+        const i = this.datos.TiposPromociones.indexOf(tipospromociones)
+        this.datos.TiposPromociones.splice(i, 1)
       }
     )
   }
@@ -3877,7 +4516,6 @@ export class GetterSetterService {
     this.realizarOperacion("Usuarios", usuarios).subscribe(
       () => {
         if (usuarios.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Usuarios.indexOf(usuarios)
           this.datos.Usuarios[i] = usuarios
         } else {
@@ -3897,6 +4535,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteUsuarios(usuarios: Usuarios) {
+    this.realizarOperacion("Usuarios", usuarios, true).subscribe(
+      () => {
+        const i = this.datos.Usuarios.indexOf(usuarios)
+        this.datos.Usuarios.splice(i, 1)
       }
     )
   }
@@ -3946,6 +4593,15 @@ export class GetterSetterService {
     )
   }
 
+  public deleteUsuariosRegistrandose(usuariosregistrandose: UsuariosRegistrandose) {
+    this.realizarOperacion("UsuariosRegistrandose", usuariosregistrandose, true).subscribe(
+      () => {
+        const i = this.datos.UsuariosRegistrandose.indexOf(usuariosregistrandose)
+        this.datos.UsuariosRegistrandose.splice(i, 1)
+      }
+    )
+  }
+
   public get Ventajas(): Observable<Ventajas[]> {
     if (this.datos.Ventajas.length !== 0 && !this.datos.reiniciarVentajas) {
       return of(this.datos.Ventajas)
@@ -3970,7 +4626,6 @@ export class GetterSetterService {
     this.realizarOperacion("Ventajas", ventajas).subscribe(
       () => {
         if (ventajas.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.Ventajas.indexOf(ventajas)
           this.datos.Ventajas[i] = ventajas
         } else {
@@ -3990,6 +4645,15 @@ export class GetterSetterService {
       err => {
         this.toastr.error("Error")
         console.log(err)
+      }
+    )
+  }
+
+  public deleteVentajas(ventajas: Ventajas) {
+    this.realizarOperacion("Ventajas", ventajas, true).subscribe(
+      () => {
+        const i = this.datos.Ventajas.indexOf(ventajas)
+        this.datos.Ventajas.splice(i, 1)
       }
     )
   }
@@ -4018,7 +4682,6 @@ export class GetterSetterService {
     this.realizarOperacion("VentajasCategorias", ventajascategorias).subscribe(
       () => {
         if (ventajascategorias.id != null) {
-          this.toastr.show("Actualizado")
           const i = this.datos.VentajasCategorias.indexOf(ventajascategorias)
           this.datos.VentajasCategorias[i] = ventajascategorias
         } else {
@@ -4042,11 +4705,24 @@ export class GetterSetterService {
     )
   }
 
-  private realizarOperacion(tabla: string, elemento: any) {
-    if (elemento.id != null) {
-      return this.api.put(this.formarUpdate(tabla, elemento))
+  public deleteVentajasCategorias(ventajascategorias: VentajasCategorias) {
+    this.realizarOperacion("VentajasCategorias", ventajascategorias, true).subscribe(
+      () => {
+        const i = this.datos.VentajasCategorias.indexOf(ventajascategorias)
+        this.datos.VentajasCategorias.splice(i, 1)
+      }
+    )
+  }
+
+  private realizarOperacion(tabla: string, elemento: any, borrar?: boolean) {
+    if (borrar) {
+      return this.api.delete(this.formarDelete(tabla, elemento))
     } else {
-      return this.api.post(this.formarInsert(tabla, elemento))
+      if (elemento.id != null) {
+        return this.api.put(this.formarUpdate(tabla, elemento))
+      } else {
+        return this.api.post(this.formarInsert(tabla, elemento))
+      }
     }
   }
 
@@ -4074,6 +4750,14 @@ export class GetterSetterService {
     return respuesta
   }
 
+  private formarDelete(tabla: string, elemento: any) {
+    const respuesta: SqlDelete = {
+      tabla: tabla,
+      where: [{ campo: "id", logico: "=", valor: elemento.id }]
+    }
+    return respuesta
+  }
+
   private formarCampoValor(elemento: any) {
     return Object.keys(elemento).map(x => {
       return {
@@ -4081,7 +4765,6 @@ export class GetterSetterService {
         valor: elemento[x]
       }
     })
-
   }
 
 }

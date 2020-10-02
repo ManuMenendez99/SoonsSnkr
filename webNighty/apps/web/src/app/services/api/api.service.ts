@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SqlSelect, SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion } from "@nighty/interfaces-sql";
+import { SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion, SqlDelete } from "@nighty/interfaces-sql";
 
 @Injectable({
   providedIn: 'root'
@@ -11,24 +11,28 @@ export class APIService {
 
   API_URI = "http://localhost:3333/api/"
 
-  get(data: SqlSelect) {
-    return this.http.get(`${this.API_URI}/${JSON.stringify(data)}` )
+  get(data: string) {
+    return this.http.get(`${this.API_URI}/${data}`)
   }
 
   post(data: SqlInsert) {
-    return this.http.post(this.API_URI,data)
+    return this.http.post(this.API_URI, data)
   }
 
   postSelect(data: SqlInsertSelect) {
-    return this.http.post(`${this.API_URI}/select`,data)
+    return this.http.post(`${this.API_URI}/select`, data)
   }
 
   put(data: SqlUpdate) {
-    return this.http.put(`${this.API_URI}`,data)
+    return this.http.put(`${this.API_URI}`, data)
+  }
+
+  delete(data: SqlDelete) {
+    return this.http.delete(`${this.API_URI}/${JSON.stringify(data)}`)
   }
 
   upload(usuario: number, file: File) {
-    return this.http.post(`${this.API_URI}/upload/${usuario}`,file)
+    return this.http.post(`${this.API_URI}/upload/${usuario}`, file)
   }
 
   download(codigo: string) {

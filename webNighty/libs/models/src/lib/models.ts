@@ -101,7 +101,6 @@ export interface Caracteristicas {
 export interface CaracteristicasDeProductos {
   id?: number
   caracteristica: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -126,7 +125,6 @@ export interface CaracteristicasProducto {
 export interface Categorias {
   id?: number
   nombre: string
-  descripcion: string
   tipoCategoria: number
   creado?: Date
   modificado?: Date
@@ -603,7 +601,6 @@ export interface PublicidadPromocion {
 export interface Puestos {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -652,7 +649,6 @@ export interface Tickets {
 export interface TiposCategorias {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -660,7 +656,6 @@ export interface TiposCategorias {
 export interface TiposEstablecimientos {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -668,7 +663,6 @@ export interface TiposEstablecimientos {
 export interface TiposEventos {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -676,7 +670,6 @@ export interface TiposEventos {
 export interface TiposMesas {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -684,7 +677,6 @@ export interface TiposMesas {
 export interface TiposProductos {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -692,7 +684,6 @@ export interface TiposProductos {
 export interface TiposPromociones {
   id?: number
   nombre: string
-  descripcion: string
   creado?: Date
   modificado?: Date
 }
@@ -721,7 +712,6 @@ export interface UsuariosRegistrandose {
 export interface Ventajas {
   id?: number
   nombre: string
-  descripcion: string
   promocion: number
   creado?: Date
   modificado?: Date

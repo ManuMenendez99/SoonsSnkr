@@ -26,11 +26,15 @@ export class RegisterComponent implements OnInit {
     this.dialog.close({ changeDialogAtSignIn: true, usuario: undefined })
   }
 
+  loginViaSocial(social: number) {
+    this.dialog.close({ loginWith: social, changeDialogAtSignIn: false, usuario: { correo: this.correoValue, password: this.passwordValue, keepSesion: false } })
+  }
+
   get correo() { return this.formGroups.registerForm.get('correo') }
   get password() { return this.formGroups.registerForm.get('password') }
 
-  get correoValue() { return this.formGroups.registerForm.value.correo}
-  get passwordValue() { return this.formGroups.registerForm.value.password}
+  get correoValue() { return this.formGroups.registerForm.value.correo }
+  get passwordValue() { return this.formGroups.registerForm.value.password }
 
   get formulario() { return this.formGroups.registerForm }
 }

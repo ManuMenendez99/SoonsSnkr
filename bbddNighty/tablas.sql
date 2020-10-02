@@ -5,7 +5,6 @@ use nighty;
 create table TiposProductos (
 	id int auto_increment not null,
     nombre varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTiposProductos PRIMARY KEY (id));
@@ -39,7 +38,6 @@ CONSTRAINT pkEmpresas PRIMARY KEY (id));
 create table TiposEstablecimientos (
 	id int not null auto_increment,
     nombre varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTiposEstablecimientos PRIMARY KEY (id));
@@ -59,7 +57,6 @@ CONSTRAINT fkEstablecimientosEmpresa FOREIGN KEY (empresa) REFERENCES empresas (
 create table TiposEventos(
 	id int auto_increment not null,
     nombre text not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTiposEventos PRIMARY KEY (id));
@@ -389,7 +386,6 @@ CONSTRAINT fkHorarioFechasPromocionesPromocion FOREIGN KEY (promocion) REFERENCE
 create table TiposCategorias (
 	id int auto_increment not null,
     nombre varchar(50) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTiposCategorias PRIMARY KEY (id));
@@ -397,7 +393,6 @@ CONSTRAINT pkTiposCategorias PRIMARY KEY (id));
 create table Categorias (
 	id int auto_increment not null,
     nombre text not null,
-    descripcion text not null,
     tipoCategoria int not null,
     creado text not null,
     modificado text not null,
@@ -415,7 +410,6 @@ CONSTRAINT pkVentajasCategorias PRIMARY KEY (id));
 create table Ventajas (
 	id int auto_increment not null,
     nombre varchar(45) not null,
-    descripcion text not null,
     promocion int not null,
     creado text not null,
     modificado text not null,
@@ -426,7 +420,6 @@ CONSTRAINT fkVentajasPromocion FOREIGN KEY (promocion) REFERENCES promociones (i
 create table Puestos (
 	id int not null auto_increment,
     nombre varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkPuestos PRIMARY KEY (id)
@@ -655,7 +648,6 @@ CONSTRAINT pkArchivosProductoProducto FOREIGN KEY (producto) REFERENCES producto
 create table TiposPromociones (
 	id int auto_increment not null,
     nombre varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkPromociones PRIMARY KEY (id));
@@ -674,7 +666,6 @@ CONSTRAINT fkPromocionesProductosProducto FOREIGN key (Producto) REFERENCES prod
 create table CaracteristicasDeProductos (
     id int auto_increment not null,
     caracteristica varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkCaracteristicasProducto PRIMARY KEY (id));
@@ -760,7 +751,6 @@ CONSTRAINT pkTicket PRIMARY KEY (id));
 create table TiposMesas (
 	id int auto_increment not null,
     nombre varchar(45) not null,
-    descripcion text not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTipoMesa PRIMARY KEY (id));
@@ -847,7 +837,7 @@ CONSTRAINT fkPublicidadPromocion FOREIGN KEY (promocion) REFERENCES promociones 
 create table UsuariosRegistrandose(
 	id int auto_increment not null,
     email varchar(256) not null,
-    logInWith int(1) not null,
+    logInWith int not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkUsuariosRegistrandose PRIMARY KEY (id),

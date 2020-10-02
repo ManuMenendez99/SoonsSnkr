@@ -1,22 +1,10 @@
 import { Injectable } from '@angular/core';
-import { SqlWhere, SqlSelect, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete } from '@nighty/interfaces-sql';
+import { SqlWhere, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete } from '@nighty/interfaces-sql';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConcatSqlService {
-
-    hacerSelect(JsonSelect: SqlSelect) {
-        const select = "Select " + (JsonSelect.select.length !== 0 ? JsonSelect.select.join(",") : '*')
-        const from = JsonSelect.from.length !== 0 ? this.formarFrom(JsonSelect.from) : null
-        const where = JsonSelect.where.length !== 0 ? this.formarWhere(JsonSelect.where) : null
-        const groupBy = JsonSelect.groupBy.length !== 0 ? " group by " + JsonSelect.groupBy.join(",") : null
-        const having = JsonSelect.having.length !== 0 ? this.formarWhere(JsonSelect.having) : null
-        const orderBy = JsonSelect.orderBy.length !== 0 ? JsonSelect.orderBy.map(x => x.campo + x.orden).join(",") : null
-        const limit = JsonSelect.limit ? " limit" + JsonSelect.limit : null
-
-        return select + from + where + groupBy + having + orderBy + limit
-    }
 
     hacerInsert(JsonInsert: SqlInsert) {
         const insert = "Insert into " + JsonInsert.tabla + "( " + JsonInsert.valores.map(x => x.campo).join(",") + ")" + (JsonInsert.valores.length !== 0 ? 'values' : 'value') + "(" + JsonInsert.valores.map(x => this.formatoCampo(x.valor)).join(",") + ")"
@@ -25,7 +13,7 @@ export class ConcatSqlService {
     }
 
     hacerInsertConSelect(JsonInsert: SqlInsertSelect) {
-        const insert = "Insert into " + JsonInsert.tabla + " " + this.hacerSelect(JsonInsert.select)
+        const insert = "Insert into " + JsonInsert.tabla + " " + JsonInsert.select
     
         return insert
     }

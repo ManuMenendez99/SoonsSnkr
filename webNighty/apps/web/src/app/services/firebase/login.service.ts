@@ -5,7 +5,6 @@ import 'firebase/auth';
 
 import { ToastrService } from "ngx-toastr";
 import { GetterSetterService } from '../getterSetter/getter-setter.service';
-import { EncriptadoService } from '../encriptado/encriptado.service';
 import { UsuariosRegistrandose, Usuarios, MotivosInhabilitacion } from '@nighty/models';
 import { DialogsService } from '../dialogs/dialogs.service';
 import { APIService } from '../api/api.service';
@@ -21,7 +20,6 @@ export class LoginService {
 
   constructor(
     private api: APIService,
-    private encriptado: EncriptadoService,
     private error: DeteccionErrorService,
     private dialog: DialogsService,
     private getterSetter: GetterSetterService,
@@ -37,7 +35,120 @@ export class LoginService {
           } else if ([2, 3, 4].includes(result.loginWith)) {
             this.loginViaSocial(result.loginWith, result.usuario.keepSesion)
           } else if (result.usuario !== undefined) {
-            const passwordEncriptada = this.encriptado.encriptar(result.usuario.password)
+            this.existeUsuario(result.usuario.correo).subscribe(
+              (res: Array<any>) => {
+                if (length !== 0) {
+
+                } else {
+                  if (this.validarDatos(res["ep_id"])) {
+                    if (res["ep_orden"] === 1) {
+                      // Correo como principal, bien, ahora tenemos que ver si es usuario o solo persona
+                      if (this.validarDatos(res["u_id"])) {
+                        // Esta es la cuenta de un usuario, vamos a ver si se loggea mediante correo y contraseña 
+                        if (res["u_logInWith"] === 1) {
+                          // Se loggea mediante correo y contraseña
+                          // vamos a ver si la contraseña la acepta o no mediante firebase
+                          hacerLogin(res["u_id"])
+                        } else {
+                          // Se loggea mediante social
+                          cambiarASocial(res["u_logInWith"], result.usuario.keepSesion)
+                        }
+                      } else {
+                        // Esta es la cuenta de una persona solo
+                        usuarioNoExiste()
+                      }
+                    } else {
+                      // El correo no esta como principal
+                      correoNoPrincipal()
+                    }
+                  } else if (this.validarDatos(res["ur_id"])) {
+                    // No hay que loggearlo, solo se loggea tras haber terminado de completar sus datos, hasta entonces el usuario no esta dentro de su cuenta
+                    if (res["ur_logInWith"] === 1) {
+                      this.postRegistro(res["ur_logInWith"])
+                    } else {
+                      this.toastr.warning("Este correo esta asociado al inicio de sesión mediante " + (res["ur_logInWith"] === 2 ? 'Google' : res["ur_logInWith"] === 2 ? 'Facebook' : res["ur_logInWith"] === 3 ? 'Twitter' : 'ERROR'))
+                    }
+                  } else if (this.validarDatos(res["e_id"])) {
+                    // Aqui no deberia de llegar nunca, solo si un bar o un restaurante tiene el email como principal y alguien esta intentando crear una cuenta con ese, 
+                    correoParaLocal()
+                  } else {
+                    console.log("Error de aserción")
+                  }
+                }
+
+                function cambiarASocial(social: number, keepSesion: boolean) {
+                  let mensaje = ""
+                  switch (social) {
+                    case 2:
+                      mensaje = "Este usuario se loggea mediante Google"
+                      break;
+                    case 3:
+                      mensaje = "Este usuario se loggea mediante Facebook"
+
+                      break;
+                    case 4:
+                      mensaje = "Este usuario se loggea mediante Twitter"
+
+                      break;
+
+                    default:
+                      break;
+                  }
+                  this.toastr.warning(mensaje, "Tipo de inicio de sesion INCORRECTO")
+                  this.loginViaSocial(social, keepSesion)
+                }
+
+                function hacerLogin(idUsuario: number) {
+                  firebase.auth().signInWithEmailAndPassword(result.usuario.correo, result.usuario.password).then(
+                    RESGoogle => {
+                      this.firebaseUser = RESGoogle.user
+                      if (this.verifyEmail()) {
+                        if (result.usuario.keepSesion) {
+                          this.getterSetter.usuarios.subscribe(
+                            RESUsuarios => {
+                              const usuarioEncontrado = RESUsuarios.find(x => x.id === res[idUsuario])
+                              localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
+                            },
+                            err => {
+                              this.errorEnGetterAndSetter(err, "usuarios")
+                            }
+                          )
+                        }
+                        this.toastr.success("Has iniciado sesión", "Contraseña correcta")
+                      } else {
+                        this.toastr.warning("El usuario no ha verificado todavía su email")
+                      }
+                    }
+                  ).catch(
+                    err => {
+                      const error = this.error.detectarError(err)
+                      this.toastr.error(error, "Error en el inicio de sesion")
+                      console.log("Error en el inicio de sesion de firebase")
+                      console.log(error)
+                    }
+                  )
+                }
+
+                function usuarioNoExiste() {
+                  this.toastr.warning("Trata de registrarte con nosotros", "USUARIO NO EXISTENTE")
+                  this.register()
+                }
+                
+                function correoNoPrincipal() {
+                  this.dialog.warning("Este usuario tiene un correo principal diferente al proporcionado", "CORREO SECUNDARIO")
+                }
+
+                function correoParaLocal() {
+                  this.toastr.show("Este correo se esta usando para una empresa, no se podra utilizar para uso personal")
+                }
+              },
+              err => {
+                const error = "Error en la obtención de datos de la existencia del usuario"
+                this.toastr.error(error)
+                console.log(error + " en vista")
+                console.log(err)
+              }
+            )
             this.getterSetter.Emails.subscribe(
               RESEmails => {
                 const emailsPulido = RESEmails.find(x => x.email === result.usuario.correo)
@@ -52,7 +163,7 @@ export class LoginService {
                               const usuariosPulido = RESUsuarios.find(x => x.persona === emailsPersonaPulido.persona)
                               if (this.validarDatos(usuariosPulido)) {
                                 if (usuariosPulido.logInWith === 1) {
-                                  firebase.auth().signInWithEmailAndPassword(result.usuario.correo, passwordEncriptada).then(
+                                  firebase.auth().signInWithEmailAndPassword(result.usuario.correo, result.usuario.password).then(
                                     RESGoogle => {
                                       this.firebaseUser = RESGoogle.user
                                       if (this.verifyEmail()) {
@@ -62,8 +173,8 @@ export class LoginService {
                                         this.toastr.success("Has iniciado sesión", "Contraseña correcta")
                                       } else {
                                         this.toastr.warning("El usuario no ha verificado todavía su email")
-                                        this.dialog.abrirPostRegistro()
                                       }
+                                      this.dialog.abrirPostRegistro(1)
                                     }
                                   ).catch(
                                     err => {
@@ -119,9 +230,8 @@ export class LoginService {
                       if (this.validarDatos(usuariosRegistrandosePulidos)) {
                         if (usuariosRegistrandosePulidos.logInWith === 1) {
                           this.toastr.show("El usuario todavía no ha creado su cuenta")
-                          this.dialog.abrirPostRegistro()
+                          this.dialog.abrirPostRegistro(1)
                         } else {
-                          this.toastr.warning("Este correo esta asociado al inicio de sesión mediante " + (usuariosRegistrandosePulidos.logInWith === 2 ? 'Google' : usuariosRegistrandosePulidos.logInWith === 2 ? 'Facebook' : usuariosRegistrandosePulidos.logInWith === 3 ? 'Twitter' : 'ERROR'))
                         }
                       } else {
                         this.toastr.error("No se ha encontrado el email en nuestra base de datos")
@@ -143,7 +253,11 @@ export class LoginService {
     )
   }
 
-  loginViaSocial(social: 2 | 3 | 4, keepSesion: boolean) {
+  postRegistro(logInWith: number) {
+    this.dialog.abrirPostRegistro(logInWith)
+  }
+
+  loginViaSocial(social: number, keepSesion: boolean) {
     let provider = null
     switch (social) {
       case 2:
@@ -188,7 +302,7 @@ export class LoginService {
                           const usuariosRegistrandose: UsuariosRegistrandose = { email: this.firebaseUser.email, logInWith: social }
                           this.getterSetter.setUsuariosRegistrandose(usuariosRegistrandose)
                           this.toastr.success("Completa tus datos para continuar", "CUENTA CREADA")
-                          this.dialog.abrirPostRegistro()
+                          this.dialog.abrirPostRegistro(social)
                         }
                       },
                       err => {
@@ -200,7 +314,7 @@ export class LoginService {
                     const usuariosRegistrandose: UsuariosRegistrandose = { email: this.firebaseUser.email, logInWith: social }
                     this.getterSetter.setUsuariosRegistrandose(usuariosRegistrandose)
                     this.toastr.success("Completa tus datos para continuar", "CUENTA CREADA")
-                    this.dialog.abrirPostRegistro()
+                    this.dialog.abrirPostRegistro(social)
                   }
                 }
               )
@@ -209,18 +323,18 @@ export class LoginService {
                 RESUsuariosRegistrandose => {
                   const usuariosRegistrandosePulidos = RESUsuariosRegistrandose.find(x => x.email === this.firebaseUser.email)
                   if (this.validarDatos(usuariosRegistrandosePulidos)) {
-                    this.toastr.success("Completa tus datos para continuar", "CUENTA CREADA")
-                    this.dialog.abrirPostRegistro()
-                  } else {
                     if (usuariosRegistrandosePulidos.logInWith === social) {
-                      const usuariosRegistrandose: UsuariosRegistrandose = { email: this.firebaseUser.email, logInWith: social }
-                      this.getterSetter.setUsuariosRegistrandose(usuariosRegistrandose)
                       this.toastr.success("Completa tus datos para continuar", "CUENTA CREADA")
-                      this.dialog.abrirPostRegistro()
+                      this.dialog.abrirPostRegistro(social)
                     } else {
                       this.toastr.warning("Este correo ya se esta usando para otro usuario")
                       this.logout()
                     }
+                  } else {
+                    const usuariosRegistrandose: UsuariosRegistrandose = { email: this.firebaseUser.email, logInWith: social }
+                    this.getterSetter.setUsuariosRegistrandose(usuariosRegistrandose)
+                    this.toastr.success("Completa tus datos para continuar", "CUENTA CREADA")
+                    this.dialog.abrirPostRegistro(social)
                   }
                 },
                 err => {
@@ -251,10 +365,12 @@ export class LoginService {
         if (result !== undefined) {
           if (result.changeDialogAtSignIn) {
             this.login()
+          } else if ([2, 3, 4].includes(result.loginWith)) {
+            this.loginViaSocial(result.loginWith, result.usuario.keepSesion)
           } else if (result.usuario !== undefined) {
             this.getterSetter.Emails.subscribe(
               RESEmails => {
-                const emailsFiltrados = RESEmails.filter(result.usuario.correo)
+                const emailsFiltrados = RESEmails.filter(x => x.email === result.usuario.correo)
                 if (emailsFiltrados.length !== 0) {
                   this.getterSetter.EmailsPersona.subscribe(
                     RESEmailsPersona => {
@@ -272,7 +388,7 @@ export class LoginService {
                                     RESGoogleSignIn => {
                                       this.firebaseUser = RESGoogleSignIn.user
                                       this.toastr.warning("Usuario ya creado procediendo al registro completo", "Usuario ya creado")
-                                      this.dialog.abrirPostRegistro()
+                                      this.dialog.abrirPostRegistro(1)
                                     }
                                   ).catch(
                                     err => {
@@ -311,7 +427,7 @@ export class LoginService {
                             RESGoogleSignIn => {
                               this.firebaseUser = RESGoogleSignIn.user
                               this.toastr.warning("Usuario ya creado procediendo al registro completo", "Usuario ya creado")
-                              this.dialog.abrirPostRegistro()
+                              this.dialog.abrirPostRegistro(1)
                             }
                           ).catch(
                             err => {
@@ -322,6 +438,7 @@ export class LoginService {
                           )
                         } else {
                           this.toastr.warning("Este correo esta asociado al inicio de sesión mediante " + (usuariosRegistrandosePulidos.logInWith === 2 ? 'Google' : usuariosRegistrandosePulidos.logInWith === 2 ? 'Facebook' : usuariosRegistrandosePulidos.logInWith === 3 ? 'Twitter' : 'ERROR'))
+                          this.loginViaSocial(usuariosRegistrandosePulidos.logInWith, result.usuario.keepSesion)
                         }
                       } else {
                         this.hacerRegister(result.usuario.correo, result.usuario.password)
@@ -349,7 +466,7 @@ export class LoginService {
         const usuariosRegistrandose: UsuariosRegistrandose = { email: correo, logInWith: 1 }
         this.getterSetter.setUsuariosRegistrandose(usuariosRegistrandose)
         this.toastr.success("Verifica tu correo electrónico para continuar", "CUENTA CREADA")
-        this.dialog.abrirPostRegistro()
+        this.dialog.abrirPostRegistro(1)
       }
     ).catch(
       err => {
@@ -435,5 +552,11 @@ export class LoginService {
     } else {
       return false
     }
+  }
+
+  private existeUsuario(email: string) {
+    return this.api.get(`
+    select * from existeUsuario where ur_email = "${email}" or e_email = "${email}"`
+    )
   }
 }

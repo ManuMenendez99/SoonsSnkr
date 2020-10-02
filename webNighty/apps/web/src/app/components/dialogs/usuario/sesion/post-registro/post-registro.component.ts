@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 // tslint:disable: nx-enforce-module-boundaries
 import { LoginService } from 'apps/web/src/app/services/firebase/login.service';
 import { UsuarioService } from 'apps/web/src/app/services/usuario/usuario.service';
 
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'nighty-post-registro',
@@ -15,7 +16,11 @@ export class PostRegistroComponent implements OnInit {
 
   _isEmailVerified: boolean
 
-  constructor(public usuarioService: UsuarioService) { }
+  constructor(
+    public usuarioService: UsuarioService,
+    public dialogRef: MatDialogRef<PostRegistroComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { SignInWith: number }
+  ) { }
 
   ngOnInit(): void {
     this.verifyEmail()
@@ -39,6 +44,14 @@ export class PostRegistroComponent implements OnInit {
         }
       )
     }, 500)
+  }
+
+  get isLoggedViaSocial() {
+    if ([2, 3, 4].includes(this.data.SignInWith)) {
+      return false
+    } else {
+      return true
+    }
   }
 
 }
