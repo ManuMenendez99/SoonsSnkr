@@ -17,8 +17,10 @@ export interface Archivos {
   extension: string
   size: number
   usuario: number
+  direccionOnline?: string
   creado?: Date
   modificado?: Date
+  archivoFoto?: boolean
 }
 
 export interface ArchivosCategoria {
@@ -475,11 +477,9 @@ export interface Paises {
 
 export interface Personas {
   id?: number
-  dap: string
   nombre: string
   apellidos: string
   fechaNacimiento: Date
-  archivoFoto?: number
   creado?: Date
   modificado?: Date
 }
@@ -693,6 +693,7 @@ export interface Usuarios {
   persona: number
   categoria: number
   uid: string
+  dap: string
   estado: string
   // 1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter
   logInWith: number
@@ -703,7 +704,8 @@ export interface Usuarios {
 
 export interface UsuariosRegistrandose {
   id?: number
-  email: string
+  email: string,
+  contrasena?: string
   creado?: Date,
   logInWith: number,
   modificado?: Date
@@ -723,4 +725,11 @@ export interface VentajasCategorias {
   ventaja: number
   creado?: Date
   modificado?: Date
+}
+
+export interface ProcedureCreateEmailAndUser {
+  email: string
+  contrasena: string
+  timestamp: Date
+  social: number
 }

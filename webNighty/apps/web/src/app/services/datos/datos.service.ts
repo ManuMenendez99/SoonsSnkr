@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, UsuariosRegistrandose, Ventajas, VentajasCategorias, MotivosInhabilitacion } from "@nighty/models";
-
+interface ValorDefecto {
+  valor: number,
+  defecto: number
+}
 @Injectable({
   providedIn: 'root'
 })
@@ -175,6 +178,92 @@ export class DatosService {
   reiniciarUsuariosRegistrandose = false
   reiniciarVentajas = false
   reiniciarVentajasCategorias = false
+
+  AmigosValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosCategoriaValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosEmpresaValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosEstablecimientoValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosEventoValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosMarcaValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosProductoValores: ValorDefecto = {valor: 0,defecto: 1}
+  ArchivosPromocionValores: ValorDefecto = {valor: 0,defecto: 1}
+  CaracteristicasValores: ValorDefecto = {valor: 0,defecto: 1}
+  CaracteristicasDeProductosValores: ValorDefecto = {valor: 0,defecto: 1}
+  CaracteristicasEventoValores: ValorDefecto = {valor: 0,defecto: 1}
+  CaracteristicasProductoValores: ValorDefecto = {valor: 0,defecto: 1}
+  CategoriasValores: ValorDefecto = {valor: 0,defecto: 1}
+  DescripcionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  DescripcionesEventoValores: ValorDefecto = {valor: 0,defecto: 1}
+  DiasMesValores: ValorDefecto = {valor: 0,defecto: 1}
+  DiasSemanaValores: ValorDefecto = {valor: 0,defecto: 1}
+  DireccionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  DireccionesPersonaValores: ValorDefecto = {valor: 0,defecto: 1}
+  EmailsValores: ValorDefecto = {valor: 0,defecto: 1}
+  EmailsPersonaValores: ValorDefecto = {valor: 0,defecto: 1}
+  EmpresasValores: ValorDefecto = {valor: 0,defecto: 1}
+  EstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  EventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  EventosEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  FaxsPersonaValores: ValorDefecto = {valor: 0,defecto: 1}
+  FechasValores: ValorDefecto = {valor: 0,defecto: 1}
+  GruposValores: ValorDefecto = {valor: 0,defecto: 1}
+  GruposConsumicionValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasMesEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasMesEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasMesPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasSemanaEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasSemanaEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioDiasSemanaPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioFechasEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioFechasEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioFechasPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioHorasEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioHorasEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioHorasPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioMesesEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioMesesEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorarioMesesPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  HorasValores: ValorDefecto = {valor: 0,defecto: 1}
+  InvitadosValores: ValorDefecto = {valor: 0,defecto: 1}
+  LineasTicketValores: ValorDefecto = {valor: 0,defecto: 1}
+  MarcasValores: ValorDefecto = {valor: 0,defecto: 1}
+  MesasEstablecimientoValores: ValorDefecto = {valor: 0,defecto: 1}
+  MesesValores: ValorDefecto = {valor: 0,defecto: 1}
+  MiembrosGruposValores: ValorDefecto = {valor: 0,defecto: 1}
+  MiembrosGruposConsumicionValores: ValorDefecto = {valor: 0,defecto: 1}
+  MotivosInhabilitacionValores: ValorDefecto = {valor: 0,defecto: 1}
+  PaisesValores: ValorDefecto = {valor: 0,defecto: 1}
+  PersonasValores: ValorDefecto = {valor: 0,defecto: 1}
+  PersonasContactoEmpresaValores: ValorDefecto = {valor: 0,defecto: 1}
+  PersonasContactoEstablecimientoValores: ValorDefecto = {valor: 0,defecto: 1}
+  PersonasContactoMarcasValores: ValorDefecto = {valor: 0,defecto: 1}
+  PersonasEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  ProductosValores: ValorDefecto = {valor: 0,defecto: 1}
+  PromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  PromocionesProductosValores: ValorDefecto = {valor: 0,defecto: 1}
+  PublicidadEmpresaValores: ValorDefecto = {valor: 0,defecto: 1}
+  PublicidadEstablecimientoValores: ValorDefecto = {valor: 0,defecto: 1}
+  PublicidadEventoValores: ValorDefecto = {valor: 0,defecto: 1}
+  PublicidadProductoValores: ValorDefecto = {valor: 0,defecto: 1}
+  PublicidadPromocionValores: ValorDefecto = {valor: 0,defecto: 1}
+  PuestosValores: ValorDefecto = {valor: 0,defecto: 1}
+  RequisitosValores: ValorDefecto = {valor: 0,defecto: 1}
+  RequisitosEventoValores: ValorDefecto = {valor: 0,defecto: 1}
+  TelefonosValores: ValorDefecto = {valor: 0,defecto: 1}
+  TelefonosPersonaValores: ValorDefecto = {valor: 0,defecto: 1}
+  TicketsValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposCategoriasValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposEstablecimientosValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposEventosValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposMesasValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposProductosValores: ValorDefecto = {valor: 0,defecto: 1}
+  TiposPromocionesValores: ValorDefecto = {valor: 0,defecto: 1}
+  UsuariosValores: ValorDefecto = {valor: 0,defecto: 0}
+  UsuariosRegistrandoseValores: ValorDefecto = {valor: 0,defecto: 1}
+  VentajasValores: ValorDefecto = {valor: 0,defecto: 1}
+  VentajasCategoriasValores: ValorDefecto = {valor: 0,defecto: 1}
+
 
   constructor() { }
 }

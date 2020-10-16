@@ -81,29 +81,14 @@ create table Promociones (
     modificado text not null,
 CONSTRAINT pkPromociones PRIMARY KEY (id));
 
-create table Archivos(
-	id int auto_increment not null,
-    codigo text not null,
-    nombre text not null,
-    mime varchar(10) not null,
-    extension varchar(10) not null,
-    size int not null,
-    usuario int not null,
-    creado text not null,
-    modificado text not null,
-CONSTRAINT pkArchivos PRIMARY KEY (id));
-
 create table Personas (
 	id int not null auto_increment,
-    dap varchar(15) not null,
     nombre varchar(20) not null,
     apellidos varchar(40) not null,
     fechaNacimiento text not null,
-    archivoFoto int default 0,
     creado text not null,
     modificado text not null,
-CONSTRAINT pkPersonas PRIMARY KEY (id),
-CONSTRAINT fkPersonasArchivoFoto FOREIGN KEY (archivoFoto) REFERENCES archivos (id));
+CONSTRAINT pkPersonas PRIMARY KEY (id));
 
 create table Paises (
 	id int auto_increment not null,
@@ -448,6 +433,7 @@ INDEX (texto));
 create table Usuarios (
 	id int auto_increment not null,
     persona int not null,
+    dap varchar(15) not null,
     categoria int not null,
     uid text not null,
     estado varchar(60),
@@ -459,6 +445,21 @@ CONSTRAINT pkUsuarios PRIMARY KEY (id),
 CONSTRAINT fkUsuariosPersona FOREIGN KEY (persona) REFERENCES personas (id) on update cascade on delete restrict,
 CONSTRAINT fkUsuariosCategoria FOREIGN KEY (categoria) REFERENCES categorias (id) on update cascade on delete restrict,
 CONSTRAINT fkUsuariosMotivosInhabilitacion FOREIGN KEY (motivoInhabilitacion) REFERENCES motivosInhabilitacion (id) on update cascade on delete restrict);
+
+create table Archivos(
+	id int auto_increment not null,
+    codigo text default null,
+    nombre text default null,
+    mime varchar(25) default null,
+    extension varchar(10) default null,
+    size int default null,
+    usuario int not null,
+    direccionOnline text default null,
+    creado text not null,
+    modificado text not null,
+    archivoFoto boolean default false,
+CONSTRAINT pkArchivos PRIMARY KEY (id),
+CONSTRAINT fkArchivosUsuario FOREIGN KEY (usuario) REFERENCES usuarios (ID) on update cascade on delete restrict); 	 	
 
 create table PersonasContactoEmpresa (
 	id int auto_increment not null,
@@ -836,9 +837,11 @@ CONSTRAINT fkPublicidadPromocion FOREIGN KEY (promocion) REFERENCES promociones 
 
 create table UsuariosRegistrandose(
 	id int auto_increment not null,
-    email varchar(256) not null,
+    email int not null,
+    contrasena text default null,
     logInWith int not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkUsuariosRegistrandose PRIMARY KEY (id),
+CONSTRAINT fkUsuariosRegistrandoseEmail FOREIGN KEY (email) REFERENCES emails (ID) on delete restrict on update cascade,
 INDEX (email));

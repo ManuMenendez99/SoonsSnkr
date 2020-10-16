@@ -21,3 +21,8 @@ export interface SqlDelete {
   tabla: string
   where?: Array<SqlWhere>
 }
+
+export interface SqlProcedure {
+  nombre: string
+  valores: Array<any>
+}

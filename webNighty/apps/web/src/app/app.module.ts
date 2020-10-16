@@ -44,13 +44,17 @@ import { PostRegistroComponent } from './components/dialogs/usuario/sesion/post-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormGroupsModule } from '@nighty/form-group';
 import { InfiniteLoaderComponent } from './components/layers/infinite-loader/infinite-loader.component';
+import { LGPDComponent } from './components/bottoms/lgpd/lgpd.component';
+import { DragDropDirective } from './directives/drag-drop.directive';
+import { PopupMessageComponent } from './components/bottoms/popup-message/popup-message.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent],
+  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent],
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,

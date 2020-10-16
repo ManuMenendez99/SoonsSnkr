@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConcatSqlService } from './sqlConcat';
 import { MulterModule } from '@nestjs/platform-express';
+import { EncriptacionService } from './encriptacion/encriptacion.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { MulterModule } from '@nestjs/platform-express';
     })
   ],
   controllers: [AppController],
-  providers: [AppService, ConcatSqlService],
+  providers: [AppService, ConcatSqlService, EncriptacionService],
 })
 export class AppModule { }

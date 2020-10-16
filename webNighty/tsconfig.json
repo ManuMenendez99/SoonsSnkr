@@ -17,9 +17,9 @@
     "baseUrl": ".",
     "paths": {
       "@nighty/interfaces-sql": ["libs/interfaces-sql/src/index.ts"],
-      "@nighty/encriptado": ["libs/encriptado/src/index.ts"],
       "@nighty/models": ["libs/models/src/index.ts"],
-      "@nighty/form-group": ["libs/form-group/src/index.ts"]
+      "@nighty/form-group": ["libs/form-group/src/index.ts"],
+      "@nighty/encriptacion": ["libs/encriptacion/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

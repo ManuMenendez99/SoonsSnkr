@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
 
   tryRegister() {
     this.dialog.close({ changeDialogAtSignIn: false, usuario: { correo: this.correoValue, password: this.passwordValue } })
+    // this.dialog.close({ changeDialogAtSignIn: false, usuario: { correo: "manolo.meniba@gmail.com", password: "@Magacela199_9_12!" } })
   }
 
   changeRegisterToLogin() {

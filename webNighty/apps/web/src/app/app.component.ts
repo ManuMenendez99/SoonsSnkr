@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
     public router: Router,
     public loginService: LoginService
   ) {
-    translate.setDefaultLang('es');
+    translate.setDefaultLang("es");
     translate.use('es');
   }
 

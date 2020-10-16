@@ -1,4 +1,4 @@
-<div *ngIf="isLoggedViaSocial">
+<div *ngIf="!isLoggedViaSocial">
     <!-- cargando el email -->
     <nighty-infinite-loader class="d-flex justify-content-center"
         *ngIf="_isEmailVerified === null || _isEmailVerified === undefined"></nighty-infinite-loader>
@@ -31,7 +31,91 @@
     </div>
 </div>
 
-<h1 class="display-h4">Rellenar datos de usuario</h1>
 <mat-card>
-    
+    <h1 class="display-h4 container">Rellenar datos de usuario</h1>
+    <form [formGroup]="this.postRegistroFormulario" class="w-100 container row">
+
+        <!-- dni -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>DNI/NIE</mat-label>
+            <input matInput type="text" formControlName="dap" placeholder="Introduce tu documento nacional"
+                matTooltip="En caso de NIE incluir dígito de clave al principio" [matTooltipShowDelay]="1000"
+                [matTooltipHideDelay]="2000">
+            <mat-hint>Números y letra</mat-hint>
+            <mat-error *ngIf="dap.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+            <mat-error *ngIf="dap.errors?.maxLength && !dap.errors?.required">Este campo <strong>no</strong> tiene el <strong>tamaño requerido</strong></mat-error>
+            <mat-error *ngIf="dap.errors?.isValidDap && !dap.errors?.required && !dap.errors?.maxLength">Este documento <strong>no</strong> tiene un formato <strong>válido</strong></mat-error>
+        </mat-form-field>
+
+        <!-- nombre -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" placeholder="Introduce tu nombre">
+            <mat-error *ngIf="nombre.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        <!-- apellidos -->
+        <mat-form-field appearance="outline" class="col-md-12">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="apellidos" placeholder="Introduce tus apellidos">
+            <mat-error *ngIf="apellidos.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+            <mat-error *ngIf="apellidos.errors?.isDoubleSurname">Debe de incluir <strong>ambos</strong> apellidos</mat-error>
+        </mat-form-field>
+
+        <!-- fechaNacimiento -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [max]="diaHoy" formControlName="fechaNacimiento" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+            <mat-error *ngIf="fechaNacimiento.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        <!-- categoria -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Categoría</mat-label>
+            <mat-select formControlName="categoria" matTooltip="Por ahora este es tu rango, llega a niveles superiores con el uso" [matTooltipShowDelay]="1000"
+            [matTooltipHideDelay]="2000">
+                <mat-option [value]="1">Pacifier</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- estado -->
+        <mat-form-field appearance="outline" class="col-md-12">
+            <mat-label>Estado</mat-label>
+            <input matInput formControlName="estado" placeholder="Introduce un estado">
+            <mat-error *ngIf="estado.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        <!-- archivoFoto -->
+        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+            <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+            <h3 class="display-h5 azulElectrico">Subir Fotografía
+                {{ isLoggedViaSocial === true ? " y reemplazar foto de la red Social" : ""}}</h3>
+        </div>
+        <div class="files-list" *ngFor="let file of files;let i= index">
+            <p class="align-middle m-auto"> {{ file.name + " " + file.type }} </p>
+            <button class="delete-file" (click)="deleteAttachment(i)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <br>
+        <div class="row col-md-12">
+            <div class="col-md-6">
+                <mat-checkbox formControlName="LGPD" >He leido y acepto el tratamiento de datos.<button mat-button color="primary"
+                        (click)="this.usuarioService.abrirLgpd()">Leer tratamiento de datos</button> </mat-checkbox>
+                        <mat-error *ngIf="LGPD.errors?.requiredTrue"></mat-error>
+            <br>
+                <mat-checkbox formControlName="keepSesion" > Recordar datos de sesión </mat-checkbox>
+                        
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <div class="row w-100 h-50">
+                    <button mat-button color="warn" class="col-md-6" (click)="cancelarFormularioRegistro()">Cancelar</button>
+                    <button mat-raised-button color="primary" class="col-md-6" (click)="enviarFormulario()" [disabled]="validarForm()" >Crear usuario</button>
+                </div>
+            </div>
+        </div>
+    </form>
 </mat-card>

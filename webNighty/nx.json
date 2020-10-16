@@ -50,6 +50,9 @@
     },
     "form-group": {
       "tags": []
+    },
+    "encriptacion": {
+      "tags": []
     }
   }
 }

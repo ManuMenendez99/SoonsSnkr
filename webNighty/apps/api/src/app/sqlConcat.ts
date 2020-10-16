@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SqlWhere, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete } from '@nighty/interfaces-sql';
+import { SqlWhere, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete, SqlProcedure } from '@nighty/interfaces-sql';
 
 @Injectable({
     providedIn: 'root'
@@ -30,6 +30,12 @@ export class ConcatSqlService {
         const where = JsonDelete.where.length !== 0 ? this.formarWhere(JsonDelete.where) : null
 
         return borrar + where
+    }
+
+    hacerProcedure(SQLProcedure: SqlProcedure) {
+        const nombre = SQLProcedure.nombre
+        const valores = SQLProcedure.valores.map(x => typeof(x) !== "number" && typeof(x) !== "boolean" ? "'" + x + "'" : x).join()
+        return "call " + nombre + " (" + valores + " )" 
     }
 
 

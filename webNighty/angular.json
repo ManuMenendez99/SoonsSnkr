@@ -48,8 +48,8 @@
               "apps/web/src/styles.scss"
             ],
             "scripts": [
-              "node_modules/chart.js/dist/Chart.js",
-              "node_modules/hammerjs/hammer.min.js"
+              "node_modules/hammerjs/hammer.min.js",
+              "node_modules/chart.js/dist/Chart.js"
             ]
           },
           "configurations": {
@@ -87,7 +87,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "browserTarget": "web:build",
-            "proxyConfig": "apps/web/proxy.conf.json"
+            "proxyConfig": "apps/web/proxy.conf.json",
+            "ssl": true,
+            "sslKey": "./ssl/server.key",
+            "sslCert": "./ssl/server.crt"
           },
           "configurations": {
             "production": {
@@ -513,6 +516,32 @@
           "options": {
             "jestConfig": "libs/form-group/jest.config.js",
             "tsConfig": "libs/form-group/tsconfig.spec.json",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "encriptacion": {
+      "root": "libs/encriptacion",
+      "sourceRoot": "libs/encriptacion/src",
+      "projectType": "library",
+      "schematics": {},
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/encriptacion/tsconfig.lib.json",
+              "libs/encriptacion/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/encriptacion/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/encriptacion/jest.config.js",
+            "tsConfig": "libs/encriptacion/tsconfig.spec.json",
             "passWithNoTests": true
           }
         }
