@@ -1,0 +1,21 @@
+<div class="main">
+    <div class="contacts-title">Chats</div>
+    <ul>
+        <li *ngFor="let chat of chatService.chats" (click)="onUserSelected(contact)"
+            [ngClass]="chat.id === chatService.chatActual.id ? 'active' : ''">
+            <div class="image-container">
+                <!-- <img [src]="contact.avatar" width="36px" height="37px" /> -->
+                <!-- <span class="circle" [ngClass]="contact.status === 'online' ? 'on' : 'off'"></span> -->
+            </div>
+            <div class="contacts-info">
+                <span class="status-title">{{ chat.nombreChat }}</span>
+            </div>
+        </li>
+        <li *ngIf="chatService.chats.length === 0">
+            <span>Añade tus amigos y grupos</span>
+        </li>
+        <li>
+            <span>Crear grupo</span>
+        </li>
+    </ul>
+</div>

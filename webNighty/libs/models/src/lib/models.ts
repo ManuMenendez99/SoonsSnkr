@@ -132,6 +132,17 @@ export interface Categorias {
   modificado?: Date
 }
 
+export interface Chats {
+  id?: number
+  enviadoPor?: number
+  receptor?: number
+  grupo?: number
+  nombreChat: string
+  tipoChat: boolean
+  creado?: Date
+  modificado?: Date
+}
+
 export interface Descripciones {
   id?: number
   texto: string
@@ -421,6 +432,14 @@ export interface Marcas {
   nombre: string
   descripcion: string
   imagen: number
+  creado?: Date
+  modificado?: Date
+}
+
+export interface Mensajes {
+  id?: number
+  chat: number
+  mensajeHtml: string
   creado?: Date
   modificado?: Date
 }

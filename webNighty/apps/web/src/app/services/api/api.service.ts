@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion, SqlDelete, SqlProcedure } from "@nighty/interfaces-sql";
+import { SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion, SqlDelete, SqlProcedure, ChatObtencion } from "@nighty/interfaces-sql";
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +45,10 @@ export class APIService {
 
   doProcedure(procedure: SqlProcedure) {
     return this.http.post(`${this.API_URI}procedure`, procedure)
+  }
+
+  chat(chatObtencion: ChatObtencion) {
+    return this.http.get(`${this.API_URI}chat/${JSON.stringify(chatObtencion)}`)
   }
 
 }

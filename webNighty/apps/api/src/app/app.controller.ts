@@ -88,10 +88,9 @@ export class AppController {
     return this.appService.procedure(procedure)
   }
 
-  @Post('pusher/auth')
-  pusherAuth(@Req() req, @Res() res) {
-    const resAuthenticate = this.appService.pusherAuthenticate(req)
-    res.send(resAuthenticate)
+  @Get('chat/:jsonId')
+  chat(@Param() params) {
+    return this.appService.chat(JSON.parse(params.jsonId));
   }
 }
 

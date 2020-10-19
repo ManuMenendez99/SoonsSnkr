@@ -82,3 +82,5 @@ ANALYZE TABLE publicidadEvento;
 ANALYZE TABLE publicidadPromocion;
 ANALYZE TABLE usuariosRegistrandose;
 ANALYZE TABLE motivosInhabilitacion; 
+ANALYZE TABLE chats;
+ANALYZE TABLE mensajes;

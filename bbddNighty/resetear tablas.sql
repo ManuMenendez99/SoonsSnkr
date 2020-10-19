@@ -84,6 +84,8 @@ DELETE FROM publicidadPromocion;
 DELETE FROM motivosInhabilitacion;
 DELETE FROM categorias;
 DELETE FROM tiposCategorias;
+DELETE FROM chats;
+DELETE FROM mensajes;
 
 ALTER TABLE tiposProductos AUTO_INCREMENT = 1;
 ALTER TABLE productos AUTO_INCREMENT = 1;
@@ -170,3 +172,5 @@ ALTER TABLE publicidadPromocion AUTO_INCREMENT = 1;
 ALTER TABLE publicidadPromocion AUTO_INCREMENT = 1;
 ALTER TABLE motivosInhabilitacion AUTO_INCREMENT = 1;
 ALTER TABLE usuariosRegistrandose AUTO_INCREMENT = 1;
+ALTER TABLE chats AUTO_INCREMENT = 1;
+ALTER TABLE mensajes AUTO_INCREMENT = 1;

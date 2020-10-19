@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, UsuariosRegistrandose, Ventajas, VentajasCategorias, MotivosInhabilitacion } from "@nighty/models";
+import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, UsuariosRegistrandose, Ventajas, VentajasCategorias, MotivosInhabilitacion, Chats, Mensajes } from "@nighty/models";
 interface ValorDefecto {
   valor: number,
   defecto: number
@@ -23,6 +23,7 @@ export class DatosService {
   CaracteristicasEvento = new Array<CaracteristicasEvento>()
   CaracteristicasProducto = new Array<CaracteristicasProducto>()
   Categorias = new Array<Categorias>()
+  Chats = new Array<Chats>()
   Descripciones = new Array<Descripciones>()
   DescripcionesEvento = new Array<DescripcionesEvento>()
   DiasMes = new Array<DiasMes>()
@@ -58,6 +59,7 @@ export class DatosService {
   Invitados = new Array<Invitados>()
   LineasTicket = new Array<LineasTicket>()
   Marcas = new Array<Marcas>()
+  Mensajes = new Array<Mensajes>()
   MesasEstablecimiento = new Array<MesasEstablecimiento>()
   Meses = new Array<Meses>()
   MiembrosGrupos = new Array<MiembrosGrupos>()
@@ -108,6 +110,7 @@ export class DatosService {
   reiniciarCaracteristicasEvento = false
   reiniciarCaracteristicasProducto = false
   reiniciarCategorias = false
+  reiniciarChats = false
   reiniciarDescripciones = false
   reiniciarDescripcionesEvento = false
   reiniciarDiasMes = false
@@ -143,6 +146,7 @@ export class DatosService {
   reiniciarInvitados = false
   reiniciarLineasTicket = false
   reiniciarMarcas = false
+  reiniciarMensajes = false
   reiniciarMesasEstablecimiento = false
   reiniciarMeses = false
   reiniciarMiembrosGrupos = false
@@ -193,6 +197,7 @@ export class DatosService {
   CaracteristicasEventoValores: ValorDefecto = {valor: 0,defecto: 1}
   CaracteristicasProductoValores: ValorDefecto = {valor: 0,defecto: 1}
   CategoriasValores: ValorDefecto = {valor: 0,defecto: 1}
+  ChatsValores: ValorDefecto = {valor: 0,defecto: 1}
   DescripcionesValores: ValorDefecto = {valor: 0,defecto: 1}
   DescripcionesEventoValores: ValorDefecto = {valor: 0,defecto: 1}
   DiasMesValores: ValorDefecto = {valor: 0,defecto: 1}
@@ -228,6 +233,7 @@ export class DatosService {
   InvitadosValores: ValorDefecto = {valor: 0,defecto: 1}
   LineasTicketValores: ValorDefecto = {valor: 0,defecto: 1}
   MarcasValores: ValorDefecto = {valor: 0,defecto: 1}
+  MensajesValores: ValorDefecto = {valor: 0,defecto: 0}
   MesasEstablecimientoValores: ValorDefecto = {valor: 0,defecto: 1}
   MesesValores: ValorDefecto = {valor: 0,defecto: 1}
   MiembrosGruposValores: ValorDefecto = {valor: 0,defecto: 1}

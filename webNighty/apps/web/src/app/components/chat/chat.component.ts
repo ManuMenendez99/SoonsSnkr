@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {  } from "../../../";
 @Component({
   selector: 'nighty-chat',
   templateUrl: './chat.component.html',

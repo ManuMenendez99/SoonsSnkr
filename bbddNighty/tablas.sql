@@ -845,3 +845,27 @@ create table UsuariosRegistrandose(
 CONSTRAINT pkUsuariosRegistrandose PRIMARY KEY (id),
 CONSTRAINT fkUsuariosRegistrandoseEmail FOREIGN KEY (email) REFERENCES emails (ID) on delete restrict on update cascade,
 INDEX (email));
+
+create table chats (
+	id int auto_increment not null,
+    enviadoPor int default null,
+    receptor int default null,
+    grupo int default null,
+    nombreChat text not null comment "JSON con id y nombre",
+    tipoChat boolean not null comment "0 - Persona , 1 - Grupo",
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkChats PRIMARY KEY (id),
+CONSTRAINT fkChatsEnviadoPor FOREIGN KEY (enviadoPor) REFERENCES usuarios (ID) on delete cascade on update cascade,
+CONSTRAINT fkChatsReceptor FOREIGN KEY (enviadoPor) REFERENCES usuarios (ID) on delete set null on update cascade,
+CONSTRAINT fkChatsGrupo FOREIGN KEY (grupo) REFERENCES grupos (ID) on delete cascade on update cascade);
+
+create table mensajes (
+	id int not null auto_increment,
+	chat int not null,
+    mensajeHtml text not null,
+    orden int not null comment "timestamp creado",
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkMensajes PRIMARY KEY (id),
+CONSTRAINT fkMensajesChat FOREIGN KEY (chat) REFERENCES chats (id) on delete cascade on update cascade)

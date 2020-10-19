@@ -10,3 +10,9 @@ export interface GoogleUser {
     email: string,
     uid: string
 }
+
+export interface ChatObtencion {
+    idSala: number,
+    // el rango es desde el timestamp
+    timestamp?: Date
+}

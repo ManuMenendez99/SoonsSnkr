@@ -1,0 +1,3 @@
+drop view if exists gruposMiembrosGrupos;
+create view gruposMiembrosGrupos as 
+select g.id as g_id, g.nombre as g_nombre, g.descripcion as g_descripcion, g.creado as g_creado, g.modificado as g_modificado,  mg.id as mg_id, mg.grupo as mg_grupo, mg.usuario as mg_usuario, mg.silenciado as mg_silenciado, mg.prioritario as mg_prioritario, mg.creado as mg_creado, mg.modificado as mg_modificado from grupos G inner join miembrosGrupos Mg on g.id = mg.grupo

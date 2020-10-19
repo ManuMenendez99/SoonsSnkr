@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatosService } from '../datos/datos.service';
 import { Observable, of } from 'rxjs';
-import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion } from '@nighty/models';
+import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion, Chats, Mensajes } from '@nighty/models';
 import { APIService } from '../api/api.service';
 import { HttpClient } from '@angular/common/http';
 import { SqlInsert, SqlUpdate, SqlDelete, SqlProcedure } from '@nighty/interfaces-sql';
@@ -838,6 +838,64 @@ export class GetterSetterService {
       () => {
         const i = this.datos.Categorias.indexOf(categorias)
         this.datos.Categorias.splice(i, 1)
+      }
+    )
+  }
+
+  public get Chats(): Observable<Chats[]> {
+    if (this.datos.Chats.length !== 0 && !this.datos.reiniciarChats && this.datos.ChatsValores.valor !== 0) {
+      this.datos.ChatsValores.valor = this.datos.ChatsValores.valor - 1
+      return of(this.datos.Chats)
+    } else {
+      if (this.datos.reiniciarChats === true) {
+        this.datos.reiniciarChats = false
+      }
+      const peticion = this.http.get<Chats[]>(`${this.API_URI}all/Chats`)
+      peticion.subscribe(
+        res => {
+          this.datos.Chats = new Array<Chats>()
+          this.datos.Chats = res as Chats[]
+        },
+        err => {
+          this.toastr.error("Error")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setChats(chats: Chats): void {
+    this.realizarOperacion("Chats", chats).subscribe(
+      () => {
+        if (chats.id != null) {
+          const i = this.datos.Chats.indexOf(chats)
+          this.datos.Chats[i] = chats
+        } else {
+          this.http.get<Chats[]>(`${this.API_URI}all/Chats`).subscribe(
+            res => {
+              this.datos.Chats = new Array<Chats>()
+              this.datos.Chats = res as Chats[]
+            },
+            err => {
+              this.toastr.error("Error")
+              console.log(err)
+            }
+          )
+        }
+      },
+      err => {
+        this.toastr.error("Error")
+        console.log(err)
+      }
+    )
+  }
+
+  public deleteChats(chats: Chats) {
+    this.realizarOperacion("Chats", chats, true).subscribe(
+      () => {
+        const i = this.datos.Chats.indexOf(chats)
+        this.datos.Chats.splice(i, 1)
       }
     )
   }
@@ -2897,6 +2955,64 @@ export class GetterSetterService {
       () => {
         const i = this.datos.Marcas.indexOf(marcas)
         this.datos.Marcas.splice(i, 1)
+      }
+    )
+  }
+
+  public get Mensajes(): Observable<Mensajes[]> {
+    if (this.datos.Mensajes.length !== 0 && !this.datos.reiniciarMensajes && this.datos.MensajesValores.valor !== 0) {
+      this.datos.MensajesValores.valor = this.datos.MensajesValores.valor - 1
+      return of(this.datos.Mensajes)
+    } else {
+      if (this.datos.reiniciarMensajes === true) {
+        this.datos.reiniciarMensajes = false
+      }
+      const peticion = this.http.get<Mensajes[]>(`${this.API_URI}all/Mensajes`)
+      peticion.subscribe(
+        res => {
+          this.datos.Mensajes = new Array<Mensajes>()
+          this.datos.Mensajes = res as Mensajes[]
+        },
+        err => {
+          this.toastr.error("Error")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setMensajes(mensajes: Mensajes): void {
+    this.realizarOperacion("Mensajes", mensajes).subscribe(
+      () => {
+        if (mensajes.id != null) {
+          const i = this.datos.Mensajes.indexOf(mensajes)
+          this.datos.Mensajes[i] = mensajes
+        } else {
+          this.http.get<Mensajes[]>(`${this.API_URI}all/Mensajes`).subscribe(
+            res => {
+              this.datos.Mensajes = new Array<Mensajes>()
+              this.datos.Mensajes = res as Mensajes[]
+            },
+            err => {
+              this.toastr.error("Error")
+              console.log(err)
+            }
+          )
+        }
+      },
+      err => {
+        this.toastr.error("Error")
+        console.log(err)
+      }
+    )
+  }
+
+  public deleteMensajes(mensajes: Mensajes) {
+    this.realizarOperacion("Mensajes", mensajes, true).subscribe(
+      () => {
+        const i = this.datos.Mensajes.indexOf(mensajes)
+        this.datos.Mensajes.splice(i, 1)
       }
     )
   }

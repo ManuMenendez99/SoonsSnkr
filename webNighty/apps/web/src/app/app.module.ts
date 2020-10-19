@@ -48,13 +48,15 @@ import { LGPDComponent } from './components/bottoms/lgpd/lgpd.component';
 import { DragDropDirective } from './directives/drag-drop.directive';
 import { PopupMessageComponent } from './components/bottoms/popup-message/popup-message.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { UsuariosComponent } from './components/chat/usuarios/usuarios.component';
+import { MensajesComponent } from './components/chat/mensajes/mensajes.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent],
+  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent, UsuariosComponent, MensajesComponent],
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,

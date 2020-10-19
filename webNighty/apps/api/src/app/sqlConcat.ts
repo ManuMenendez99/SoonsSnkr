@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SqlWhere, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete, SqlProcedure } from '@nighty/interfaces-sql';
+import { SqlWhere, SqlFrom, SqlInsert, SqlInsertSelect, SqlUpdate, SqlDelete, SqlProcedure, ChatObtencion } from '@nighty/interfaces-sql';
 
 @Injectable({
     providedIn: 'root'
@@ -14,14 +14,14 @@ export class ConcatSqlService {
 
     hacerInsertConSelect(JsonInsert: SqlInsertSelect) {
         const insert = "Insert into " + JsonInsert.tabla + " " + JsonInsert.select
-    
+
         return insert
     }
 
     hacerUpdate(JsonUpdate: SqlUpdate) {
-        const update = "Update " + JsonUpdate.tabla + " set " + JsonUpdate.valores.map(x => x.campo + "=" + x.valor ).join(",")
+        const update = "Update " + JsonUpdate.tabla + " set " + JsonUpdate.valores.map(x => x.campo + "=" + x.valor).join(",")
         const where = JsonUpdate.where.length !== 0 ? this.formarWhere(JsonUpdate.where) : null
-    
+
         return update + where
     }
 
@@ -34,8 +34,14 @@ export class ConcatSqlService {
 
     hacerProcedure(SQLProcedure: SqlProcedure) {
         const nombre = SQLProcedure.nombre
-        const valores = SQLProcedure.valores.map(x => typeof(x) !== "number" && typeof(x) !== "boolean" ? "'" + x + "'" : x).join()
-        return "call " + nombre + " (" + valores + " )" 
+        const valores = SQLProcedure.valores.map(x => typeof (x) !== "number" && typeof (x) !== "boolean" ? "'" + x + "'" : x).join()
+        return "call " + nombre + " (" + valores + " )"
+    }
+
+    hacerChat(chat: ChatObtencion) {
+        const idSala = chat.idSala
+        const timestamp = chat.timestamp
+        return "SELECT * from mensajes WHERE chat = " + idSala + (timestamp !== null && timestamp !== undefined ? " and < " + timestamp + " limit 30 " : "")
     }
 
 
