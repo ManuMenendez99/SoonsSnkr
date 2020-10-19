@@ -1,23 +1,23 @@
 <ng-template #noMessages>
     <div class="no-messages">
         <img src="../../../../assets/components/chat/no-messages-illustration.svg" />
-        <span class="title">No new message?</span>
-        <span class="info">Send your first message below.</span>
+        <span class="title">{{!tieneChat() ? 'Selecciona una conversación para mostrar' : 'No tiene mensajes' }}</span>
+        <span class="info">{{!tieneChat() ? 'Selecciona tu primera conversacion.' : 'Envía tu primer mensaje.' }}</span>
     </div>
 </ng-template>
 
 <div class="main">
-    <div class="user-info">{{ nombre() }}</div>
-    <div *ngIf="messages && messages[0]; else noMessages" class="messages-container" #scrollMe>
-        <ul>
-            <li *ngFor="let message of messages">
-                <span [ngClass]="mensajeMio(message) ? 'speech-bubble-own': 'speech-bubble' ">{{ message.text }}</span>
+    <div class="user-info" *ngIf="tieneChat()">{{ nombre() }}</div>
+    <div *ngIf="tieneMensajes(); else noMessages" class="messages-container" id="scrollMe">
+        <ul id="contenidoscrollable">
+            <li *ngFor="let mensaje of mensajesChat" [ngClass]="mensajeMio(mensaje) ? 'd-flex justify-content-end': 'd-flex justify-content-start' ">
+                <span [ngClass]="mensajeMio(mensaje) ? 'speech-bubble-own': 'speech-bubble' " [innerHTML]="mensaje.mensajeHtml"></span>
             </li>
         </ul>
     </div>
-    <div class="input-container">
-        <input placeholder="Type something" #messageInput (keydown.enter)="
-          onSendMessage(messageInput.value); messageInput.value = ''
-        " />
+    <div class="input-container" *ngIf="tieneChat()">
+        <input placeholder="Type something" #messageInput (keydown.enter)="enviarMensaje()
+            " />
     </div>
 </div>
+<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages()">Scroll abajo rapido</div>

@@ -9,6 +9,9 @@ export class DeteccionErrorService {
 
   detectarError(error: string) {
     switch (error) {
+      case "auth/wrong-password":
+        return "Contraseña incorrecta"
+        break;
       case "auth/claims-too-large":
         return "La carga útil de la reclamación que se entregó a setCustomUserClaims() supera el tamaño máximo de 1,000 bytes."
         break;

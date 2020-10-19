@@ -100,11 +100,11 @@ CONSTRAINT pkPaises PRIMARY KEY (id));
 create table Direcciones (
 	id int auto_increment not null,
     direccion text not null,
-    piso int(3),
+    piso int,
     puerta varchar(2),
     escalera varchar(15),
 	localidad int not null,
-    codigoPostal int(5) not null,
+    codigoPostal int not null,
     pais int not null,
     creado text not null,
     modificado text not null,
@@ -142,8 +142,8 @@ CONSTRAINT fkEmailsPersonaPersona FOREIGN KEY (persona) REFERENCES personas (id)
 
 create table Telefonos (
 	id int auto_increment not null,
-    telefono int(15) not null,
-    prefijo int(5) not null,
+    telefono int not null,
+    prefijo int not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkTelefonos PRIMARY KEY (id));
@@ -172,8 +172,8 @@ CONSTRAINT fkFaxsPersonaPersona FOREIGN KEY (persona) REFERENCES personas (id) o
 
 create table Horas (
 	id int not null auto_increment,
-    horaInicio int(2) default 0,
-    horaFin int(2) default 24,
+    horaInicio int default 0,
+    horaFin int default 24,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkHoras PRIMARY KEY (id),
@@ -182,8 +182,8 @@ CHECK (horaFin between 0 and 24));
 
 create table DiasSemana (
 	id int not null auto_increment,
-    diaInicio int(1) default 1,
-    diaFin int(1) default 7,
+    diaInicio int default 1,
+    diaFin int default 7,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkDiasSemana PRIMARY KEY (id),
@@ -192,8 +192,8 @@ CHECK (diaFin between 1 and 7));
 
 create table DiasMes (
 	id int not null auto_increment,
-    diaMesInicio int(2) not null,
-    diaMesFin int(2) not null,
+    diaMesInicio int not null,
+    diaMesFin int not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkDiasMes PRIMARY KEY (id),
@@ -202,8 +202,8 @@ CHECK (diaMesFin between 1 and 31));
 
 create table Meses (
 	id int not null auto_increment,
-    mesInicio int(2) not null,
-    mesFin int(2) not null,
+    mesInicio int not null,
+    mesFin int not null,
 	creado text not null,
     modificado text not null,
 CONSTRAINT pkMeses PRIMARY KEY (id),
@@ -438,7 +438,7 @@ create table Usuarios (
     uid text not null,
     estado varchar(60),
     motivoInhabilitacion int default null,
-    logInWith int(3) not null comment '1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter',
+    logInWith int not null comment '1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter',
     creado text not null,
     modificado text not null,
 CONSTRAINT pkUsuarios PRIMARY KEY (id),
@@ -761,7 +761,7 @@ create table MesasEstablecimiento (
     codigo text not null,
     tipoMesa int not null,
     sillas int not null,
-    numero int(3) not null,
+    numero int not null,
     creado text not null,
     modificado text not null,
 CONSTRAINT pkMesasEstablecimiento PRIMARY KEY (id),
@@ -848,7 +848,7 @@ INDEX (email));
 
 create table chats (
 	id int auto_increment not null,
-    enviadoPor int default null,
+    emisor int default null,
     receptor int default null,
     grupo int default null,
     nombreChat text not null comment "JSON con id y nombre",
@@ -856,15 +856,16 @@ create table chats (
     creado text not null,
     modificado text not null,
 CONSTRAINT pkChats PRIMARY KEY (id),
-CONSTRAINT fkChatsEnviadoPor FOREIGN KEY (enviadoPor) REFERENCES usuarios (ID) on delete cascade on update cascade,
-CONSTRAINT fkChatsReceptor FOREIGN KEY (enviadoPor) REFERENCES usuarios (ID) on delete set null on update cascade,
+CONSTRAINT fkChatsEmisor FOREIGN KEY (Emisor) REFERENCES usuarios (ID) on delete cascade on update cascade,
+CONSTRAINT fkChatsReceptor FOREIGN KEY (Receptor) REFERENCES usuarios (ID) on delete set null on update cascade,
 CONSTRAINT fkChatsGrupo FOREIGN KEY (grupo) REFERENCES grupos (ID) on delete cascade on update cascade);
 
 create table mensajes (
 	id int not null auto_increment,
 	chat int not null,
     mensajeHtml text not null,
-    orden int not null comment "timestamp creado",
+    orden bigint comment "creado a gettime no borrar no se puede ordenar",
+    emisor text comment "json id usuario y nombre",
     creado text not null,
     modificado text not null,
 CONSTRAINT pkMensajes PRIMARY KEY (id),

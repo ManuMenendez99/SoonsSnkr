@@ -39,9 +39,9 @@ export class ConcatSqlService {
     }
 
     hacerChat(chat: ChatObtencion) {
-        const idSala = chat.idSala
+        const idChat = chat.idChat
         const timestamp = chat.timestamp
-        return "SELECT * from mensajes WHERE chat = " + idSala + (timestamp !== null && timestamp !== undefined ? " and < " + timestamp + " limit 30 " : "")
+        return "SELECT * from mensajes WHERE chat = " + idChat + (timestamp !== null && timestamp !== undefined ? " and orden < " + new Date(timestamp).getTime() : "") + " limit 30"
     }
 
 

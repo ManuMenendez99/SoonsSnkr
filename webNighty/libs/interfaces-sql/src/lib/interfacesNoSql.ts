@@ -12,7 +12,7 @@ export interface GoogleUser {
 }
 
 export interface ChatObtencion {
-    idSala: number,
+    idChat: number,
     // el rango es desde el timestamp
     timestamp?: Date
 }

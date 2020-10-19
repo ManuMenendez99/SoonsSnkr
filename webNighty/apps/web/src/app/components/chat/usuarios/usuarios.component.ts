@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Chats } from '@nighty/models';
 import { ChatService } from '../../../services/chat/chat.service';
 
 @Component({
@@ -13,4 +14,14 @@ export class UsuariosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  nombre(nombreChat: {id: number, nombre: string}[]) {
+    const usuario = this.chatService.usuarioInLog
+    return nombreChat.find((x: any) => x.id !== usuario.id).nombre
+  }
+
+  seleccionChat(chat: Chats) {
+    console.log(chat)
+    this.chatService.chatActual = chat
+    this.chatService.getMensajes(chat)
+  }
 }

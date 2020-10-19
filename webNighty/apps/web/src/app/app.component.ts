@@ -57,7 +57,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     AOS.init();
-    // this.loginService.login()
   }
 
   

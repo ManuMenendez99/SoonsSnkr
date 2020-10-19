@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {  } from "../../../";
+import { ChatService } from '../../services/chat/chat.service';
+
 @Component({
   selector: 'nighty-chat',
   templateUrl: './chat.component.html',
@@ -7,9 +8,11 @@ import {  } from "../../../";
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+    this.chatService.getGrupos()
+    this.chatService.getAmigos()
   }
 
 }

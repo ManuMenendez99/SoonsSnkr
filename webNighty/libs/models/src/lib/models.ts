@@ -134,10 +134,10 @@ export interface Categorias {
 
 export interface Chats {
   id?: number
-  enviadoPor?: number
+  emisor?: number
   receptor?: number
   grupo?: number
-  nombreChat: string
+  nombreChat: [{id: number, nombre: string}]
   tipoChat: boolean
   creado?: Date
   modificado?: Date
@@ -440,6 +440,8 @@ export interface Mensajes {
   id?: number
   chat: number
   mensajeHtml: string
+  orden: number
+  emisor: {id: number, nombre: string}
   creado?: Date
   modificado?: Date
 }

@@ -50,6 +50,7 @@ import { PopupMessageComponent } from './components/bottoms/popup-message/popup-
 import { ChatComponent } from './components/chat/chat.component';
 import { UsuariosComponent } from './components/chat/usuarios/usuarios.component';
 import { MensajesComponent } from './components/chat/mensajes/mensajes.component';
+import { CommonModule } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -62,6 +63,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AngularFireAuthModule,
     BrowserModule,
     BrowserAnimationsModule,
+    CommonModule,
     FormsModule,
     HttpClientModule,
     MaterialModule,

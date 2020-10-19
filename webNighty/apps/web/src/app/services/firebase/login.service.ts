@@ -21,6 +21,7 @@ import { DatosService } from '../datos/datos.service';
 export class LoginService {
 
   firebaseUser: firebase.User
+  private usuarioLogged: Usuarios
 
   constructor(
     private api: APIService,
@@ -59,7 +60,7 @@ export class LoginService {
                           if (res[0]["u_logInWith"] === 1) {
                             // Se loggea mediante correo y contraseña
                             // vamos a ver si la contraseña la acepta o no mediante firebase
-                            this.hacerLogin(result, res, res[0]["u_id"])
+                            this.hacerLogin(result, res)
                           } else {
                             // Se loggea mediante social
                             cambiarASocial(res[0]["u_logInWith"], result.usuario.keepSesion)
@@ -107,7 +108,7 @@ export class LoginService {
                   this.loginViaSocial(social, keepSesion)
                 }
 
-                
+
 
                 function usuarioNoExiste() {
                   this.toastr.warning("Trata de registrarte con nosotros", "USUARIO NO EXISTENTE")
@@ -135,23 +136,24 @@ export class LoginService {
     )
   }
 
-  hacerLogin(result: any, res:any, idUsuario: number) {
+  hacerLogin(result: any, res: any) {
     this.keepSesion(result.usuario.keepSesion)
     firebase.auth().signInWithEmailAndPassword(result.usuario.correo, this.encriptacion.Encriptacion(result.usuario.password)).then(
       RESGoogle => {
         this.firebaseUser = RESGoogle.user
         if (this.verifyEmail()) {
-          if (result.usuario.keepSesion) {
-            this.getterSetter.Usuarios.subscribe(
-              RESUsuarios => {
-                const usuarioEncontrado = RESUsuarios.find(x => x.id === res[idUsuario])
+          this.getterSetter.Usuarios.subscribe(
+            RESUsuarios => {
+              const usuarioEncontrado = RESUsuarios.find(x => x.id === res[0]["u_id"])
+              if (result.usuario.keepSesion) {
                 localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
-              },
-              err => {
-                this.errorEnGetterAndSetter(err, "usuarios")
               }
-            )
-          }
+              this.usuarioLogged = usuarioEncontrado
+            },
+            err => {
+              this.errorEnGetterAndSetter(err, "usuarios")
+            }
+          )
           this.toastr.success("Has iniciado sesión", "Contraseña correcta")
         } else {
           this.toastr.warning("El usuario no ha verificado todavía su email")
@@ -218,10 +220,17 @@ export class LoginService {
                       RESUsuarios => {
                         const usuariosPulido = RESUsuarios.find(x => emailsPersonasFiltrados.map(y => y.persona).includes(x.persona))
                         if (this.validarDatos(usuariosPulido)) {
-                          if (keepSesion) {
-                            localStorage.setItem("usuario", JSON.stringify(usuariosPulido))
+                          if (social === usuariosPulido.logInWith) {
+                            if (keepSesion) {
+                              localStorage.setItem("usuario", JSON.stringify(usuariosPulido))
+                            }
+                            this.usuarioLogged = usuariosPulido
+                            this.toastr.success("Has iniciado sesión", "Contraseña correcta")
+                          } else {
+                            this.logout(false)
+                            this.toastr.warning("Este correo esta asociado al inicio de sesión mediante " + (usuariosPulido.logInWith === 2 ? 'Google' : usuariosPulido.logInWith === 3 ? 'Facebook' : usuariosPulido.logInWith === 4 ? 'Twitter' : usuariosPulido.logInWith === 1 ? "correo y contraseña" : 'ERROR'))
+
                           }
-                          this.toastr.success("Has iniciado sesión", "Contraseña correcta")
                         } else {
                           this.hacerRegisterSocial(this.firebaseUser.email, social, keepSesion, null)
                         }
@@ -375,14 +384,17 @@ export class LoginService {
     );
   }
 
-  logout() {
+  logout(popUp: boolean = true) {
     firebase.auth().signOut().then(() => {
-      this.toastr.success("Ha salido de su cuenta ", "Log Out")
+      if (popUp) {
+        this.toastr.success("Ha salido de su cuenta ", "Log Out")
+      }
     }).catch(function (error) {
       this.toastr.error("No ha salido de su cuenta ", "Log Out")
       console.log(error)
     });;
     localStorage.removeItem('usuario');
+    this.usuarioLogged = null
   }
 
   verifyEmail() {
@@ -424,9 +436,10 @@ export class LoginService {
   }
 
   keepSesion(keepSesion: boolean) {
-    firebase.auth().setPersistence(keepSesion === true ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.SESSION).catch(function(error) {
-    this.toastr.error("No permanecera la sesión cuando se cierre la pestaña")
-  });
+    firebase.auth().setPersistence(keepSesion === true ? firebase.auth.Auth.Persistence.LOCAL : firebase.auth.Auth.Persistence.NONE).catch(function (error) {
+      this.toastr.error("No permanecera la sesión cuando se cierre la pestaña")
+      console.log(error)
+    });
   }
 
   private loginAtemporal(usuario: Usuarios, persona: Personas, social: number, keepSesion: boolean, file: File, credentials?: { email: string, contrasena: string }) {
@@ -458,6 +471,7 @@ export class LoginService {
     const procedure: SqlProcedure = { nombre: "crearUsuario", valores: [firebaseUser.email, persona.nombre, persona.apellidos, persona.fechaNacimiento, usuario.dap, usuario.categoria, firebaseUser.uid, usuario.estado, social, fecha] }
     this.api.doProcedure(procedure).subscribe(
       () => {
+        this.toastr.success("Ha entado en su cuenta","Usuario creado")
         this.datos.reiniciarUsuariosRegistrandose = true
         this.datos.reiniciarPersonas = true
         this.datos.reiniciarEmailsPersona = true
@@ -476,6 +490,7 @@ export class LoginService {
             if (keepSesion) {
               localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
             }
+            this.usuarioLogged = usuarioEncontrado
             if (file !== null && file !== undefined) {
               this.usuario.cambiarFotoUsuario(file, usuarioEncontrado.id)
             } else {
@@ -504,6 +519,18 @@ export class LoginService {
 
   isLogged(): boolean {
     return firebase.auth().currentUser ? true : false
+  }
+
+  get UsuarioConectado() {
+    if (this.isLogged()) {
+      const usuario = JSON.parse(localStorage.getItem("usuario"))
+      if (usuario !== null) {
+        this.usuarioLogged = usuario
+      } else {
+        localStorage.removeItem("usuario")
+      }
+      return this.usuarioLogged
+    }
   }
 
   private errorEnGetterAndSetter(err: string, tabla: string) {
