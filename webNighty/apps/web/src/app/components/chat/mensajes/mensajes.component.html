@@ -20,4 +20,4 @@
             " />
     </div>
 </div>
-<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages()">Scroll abajo rapido</div>
+<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages(); this.botonabajo = false">Scroll abajo rapido</div>
