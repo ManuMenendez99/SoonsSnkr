@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
-import { Mensajes } from '@nighty/models';
+import { FormGroupsModule } from '@nighty/form-group';
+import { Mensajes, MensajesEnviar } from '@nighty/models';
 import { ChatService } from '../../../services/chat/chat.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class MensajesComponent implements OnInit {
   laPrimeraVezAbajo = true
   botonabajo = false
 
-  constructor(public chatService: ChatService) { }
+  constructor(public chatService: ChatService, public formGroups: FormGroupsModule) { }
 
   ngOnInit(): void {
 
@@ -44,7 +45,16 @@ export class MensajesComponent implements OnInit {
   }
 
   enviarMensaje() {
-
+    const usuarioInlog = this.chatService.usuarioInLog
+    const personaInLog = this.chatService.personaInLog
+    const chat = this.chatService.chatActual
+    const mensaje: MensajesEnviar = {
+      chat: chat.id,
+      emisor: JSON.stringify({ id: usuarioInlog.id, nombre: personaInLog.nombre + " " + personaInLog.apellidos }),
+      mensajeHtml: this.textoValue,
+      orden: new Date().getTime()
+    }
+    this.chatService.enviarChat(mensaje)
   }
 
 
@@ -81,6 +91,13 @@ export class MensajesComponent implements OnInit {
       }, 30)
     }
   }
+
+
+  get texto() { return this.formularioChat.get('texto') }
+
+  get textoValue() { return this.formularioChat.value.texto }
+
+  get formularioChat() { return this.formGroups.chatFormulario }
 
   get mensajesChat() { this.bajarPrimeraVez(); return this.chatService.mensajes.filter(x => x.chat === this.chatService.chatActual.id).sort((a, b) => new Date(a.creado).getTime() - new Date(b.creado).getTime()) }
 }

@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundError404Component } from '../../../components/page-not-found-error404/page-not-found-error404.component';
 import { WelcomeComponent } from '../../../components/welcome/welcome.component';
 import { ChatComponent } from '../../../components/chat/chat.component';
+import { AuthGuardService as AuthGuard } from '../../../services/authGuard/auth-guard.service';
 
 const appRoutes: Routes = [
   {
@@ -14,7 +15,8 @@ const appRoutes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
-    data: { title: 'Chat' },
+    data: { title: 'Chat', categoriasEsperadas: [null] },
+    canActivate: [AuthGuard],
   },
   {
     path: '',

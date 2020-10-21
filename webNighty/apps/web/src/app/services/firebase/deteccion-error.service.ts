@@ -173,7 +173,7 @@ export class DeteccionErrorService {
 
       default:
         console.log(error)
-        return "Error no controlado"
+        return ""
         break;
     }
   }

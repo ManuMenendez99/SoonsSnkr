@@ -446,6 +446,16 @@ export interface Mensajes {
   modificado?: Date
 }
 
+export interface MensajesEnviar {
+  id?: number
+  chat: number
+  mensajeHtml: string
+  orden: number
+  emisor: string
+  creado?: Date
+  modificado?: Date
+}
+
 export interface MesasEstablecimiento {
   id?: number
   codigo: string

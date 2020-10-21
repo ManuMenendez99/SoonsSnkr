@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Amigos, gruposMiembrosExtendido, Usuarios, Chats, usuarioPersona, Mensajes } from '@nighty/models';
+import { Amigos, gruposMiembrosExtendido, Usuarios, Chats, usuarioPersona, Mensajes, Personas, MensajesEnviar } from '@nighty/models';
 import { APIService } from '../api/api.service';
 import { LoginService } from '../firebase/login.service';
+import { GetterSetterService } from '../getterSetter/getter-setter.service';
 interface Estado {
   cargado: boolean
   fallo: boolean
@@ -26,7 +27,7 @@ export class ChatService {
 
   chatActual: Chats
 
-  constructor(private api: APIService, private firebase: LoginService, private route: Router) { }
+  constructor(private api: APIService, private firebase: LoginService, private route: Router, private getterSetter: GetterSetterService) { }
 
   getGrupos() {
     const intervalGetGrupos = setInterval(() => {
@@ -222,5 +223,13 @@ export class ChatService {
     }, 100)
   }
 
+  enviarChat(mensaje: MensajesEnviar) {
+    console.log("rrorr")
+    mensaje.creado = new Date()
+    mensaje.modificado = new Date()
+    this.getterSetter.setMensajes(mensaje)
+  }
+
   get usuarioInLog(): Usuarios { return this.firebase.UsuarioConectado }
+  get personaInLog(): Personas { return this.firebase.PersonaConectado }
 }

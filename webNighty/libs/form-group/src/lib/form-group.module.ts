@@ -38,5 +38,9 @@ export class FormGroupsModule {
     LGPD: new FormControl(false, [Validators.requiredTrue]),
     keepSesion: new FormControl(true)
   })
+
+  chatFormulario = new FormGroup({
+    texto: new FormControl('', Validators.required)
+  })
 }
 

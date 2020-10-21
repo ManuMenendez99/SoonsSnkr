@@ -22,6 +22,7 @@ export class LoginService {
 
   firebaseUser: firebase.User
   private usuarioLogged: Usuarios
+  private personaLogged: Personas
 
   constructor(
     private api: APIService,
@@ -145,10 +146,20 @@ export class LoginService {
           this.getterSetter.Usuarios.subscribe(
             RESUsuarios => {
               const usuarioEncontrado = RESUsuarios.find(x => x.id === res[0]["u_id"])
-              if (result.usuario.keepSesion) {
-                localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
-              }
-              this.usuarioLogged = usuarioEncontrado
+              this.getterSetter.Personas.subscribe(
+                RESPersonas => {
+                  const personaEncontrada = RESPersonas.find(x => x.id === usuarioEncontrado.persona)
+                  if (result.usuario.keepSesion) {
+                    localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
+                    localStorage.setItem("persona", JSON.stringify(personaEncontrada))
+                  }
+                  this.usuarioLogged = usuarioEncontrado
+                  this.personaLogged = personaEncontrada
+                },
+                err => {
+                  this.errorEnGetterAndSetter(err, "personas")
+                }
+              )
             },
             err => {
               this.errorEnGetterAndSetter(err, "usuarios")
@@ -161,10 +172,12 @@ export class LoginService {
       }
     ).catch(
       err => {
-        const error = this.error.detectarError(err.code)
-        this.toastr.error(error, "Error en el inicio de sesion")
-        console.log("Error en el inicio de sesion de firebase")
-        console.log(error)
+        if (err.code !== "auth/popup-closed-by-user") {
+          const error = this.error.detectarError(err.code)
+          this.toastr.error(error, "Error en el inicio de sesion")
+          console.log("Error en el inicio de sesion de firebase")
+          console.log(error)
+        }
       }
     )
   }
@@ -221,11 +234,21 @@ export class LoginService {
                         const usuariosPulido = RESUsuarios.find(x => emailsPersonasFiltrados.map(y => y.persona).includes(x.persona))
                         if (this.validarDatos(usuariosPulido)) {
                           if (social === usuariosPulido.logInWith) {
-                            if (keepSesion) {
-                              localStorage.setItem("usuario", JSON.stringify(usuariosPulido))
-                            }
-                            this.usuarioLogged = usuariosPulido
-                            this.toastr.success("Has iniciado sesión", "Contraseña correcta")
+                            this.getterSetter.Personas.subscribe(
+                              RESPersonas => {
+                                const personasPulido = RESPersonas.find(x => x.id === usuariosPulido.persona)
+                                if (keepSesion) {
+                                  localStorage.setItem("usuario", JSON.stringify(usuariosPulido))
+                                  localStorage.setItem("persona", JSON.stringify(personasPulido))
+                                }
+                                this.usuarioLogged = usuariosPulido
+                                this.personaLogged = personasPulido
+                                this.toastr.success("Has iniciado sesión", "Contraseña correcta")
+                              },
+                              err => {
+                                this.errorEnGetterAndSetter(err, "personas")
+                              }
+                            )
                           } else {
                             this.logout(false)
                             this.toastr.warning("Este correo esta asociado al inicio de sesión mediante " + (usuariosPulido.logInWith === 2 ? 'Google' : usuariosPulido.logInWith === 3 ? 'Facebook' : usuariosPulido.logInWith === 4 ? 'Twitter' : usuariosPulido.logInWith === 1 ? "correo y contraseña" : 'ERROR'))
@@ -285,7 +308,7 @@ export class LoginService {
       }
     ).catch(
       err => {
-        if (err !== "auth/popup-closed-by-user") {
+        if (err.code !== "auth/popup-closed-by-user") {
           const error = this.error.detectarError(err)
           this.toastr.error(error)
         }
@@ -347,8 +370,10 @@ export class LoginService {
       }
     ).catch(
       err => {
-        this.error.detectarError(err)
-        console.log(err)
+        if (err.code !== "auth/popup-closed-by-user") {
+          this.error.detectarError(err.code)
+          console.log(err)
+        }
       }
     )
   }
@@ -394,7 +419,9 @@ export class LoginService {
       console.log(error)
     });;
     localStorage.removeItem('usuario');
+    localStorage.removeItem('persona');
     this.usuarioLogged = null
+    this.personaLogged = null
   }
 
   verifyEmail() {
@@ -453,8 +480,8 @@ export class LoginService {
         }
       ).catch(
         err => {
-          if (err !== "auth/popup-closed-by-user") {
-            const error = this.error.detectarError(err)
+          if (err.code !== "auth/popup-closed-by-user") {
+            const error = this.error.detectarError(err.code)
             this.toastr.error(error)
           }
         }
@@ -471,48 +498,65 @@ export class LoginService {
     const procedure: SqlProcedure = { nombre: "crearUsuario", valores: [firebaseUser.email, persona.nombre, persona.apellidos, persona.fechaNacimiento, usuario.dap, usuario.categoria, firebaseUser.uid, usuario.estado, social, fecha] }
     this.api.doProcedure(procedure).subscribe(
       () => {
-        this.toastr.success("Ha entado en su cuenta","Usuario creado")
+        this.toastr.success("Ha entado en su cuenta", "Usuario creado")
         this.datos.reiniciarUsuariosRegistrandose = true
         this.datos.reiniciarPersonas = true
         this.datos.reiniciarEmailsPersona = true
         this.datos.reiniciarUsuarios = true
         // Usuarios registrandose
-        this.getterSetter.UsuariosRegistrandose.subscribe()
+        this.getterSetter.UsuariosRegistrandose.subscribe(() => { }, err => { this.errorEnGetterAndSetter(err, "usuariosRegistrandose") })
         // personas
-        this.getterSetter.Personas.subscribe()
         // emailsPersonas
-        this.getterSetter.EmailsPersona.subscribe()
+        this.getterSetter.EmailsPersona.subscribe(() => { }, err => { this.errorEnGetterAndSetter(err, "emailsPersona") })
         // usuarios
         this.getterSetter.Usuarios.subscribe(
           RESUsuario => {
-            const usuarioEncontrado = RESUsuario.find(x => x.uid === firebaseUser.uid)
-            console.log(RESUsuario, usuario, fecha)
-            if (keepSesion) {
-              localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
-            }
-            this.usuarioLogged = usuarioEncontrado
-            if (file !== null && file !== undefined) {
-              this.usuario.cambiarFotoUsuario(file, usuarioEncontrado.id)
-            } else {
-              const direccion = this.firebaseUser.photoURL
-              if (this.validarDatos(direccion)) {
-                const archivo: Archivos = {
-                  codigo: null,
-                  extension: null,
-                  mime: null,
-                  nombre: null,
-                  size: null,
-                  usuario: usuarioEncontrado.id,
-                  archivoFoto: true,
-                  direccionOnline: direccion
+            this.getterSetter.Personas.subscribe(
+              RESPersonas => {
+                const usuarioEncontrado = RESUsuario.find(x => x.uid === firebaseUser.uid)
+                const personaEncontrada = RESPersonas.find(x => x.id === usuarioEncontrado.persona)
+                console.log(RESUsuario, usuario, fecha)
+                if (keepSesion) {
+                  localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
+                  localStorage.setItem("persona", JSON.stringify(personaEncontrada))
                 }
-                this.getterSetter.setArchivos(archivo)
-                this.datos.reiniciarArchivos = true
-                this.getterSetter.Archivos.subscribe()
+                this.usuarioLogged = usuarioEncontrado
+                this.personaLogged = personaEncontrada
+                if (file !== null && file !== undefined) {
+                  this.usuario.cambiarFotoUsuario(file, usuarioEncontrado.id)
+                } else {
+                  const direccion = this.firebaseUser.photoURL
+                  if (this.validarDatos(direccion)) {
+                    const archivo: Archivos = {
+                      codigo: null,
+                      extension: null,
+                      mime: null,
+                      nombre: null,
+                      size: null,
+                      usuario: usuarioEncontrado.id,
+                      archivoFoto: true,
+                      direccionOnline: direccion
+                    }
+                    this.getterSetter.setArchivos(archivo)
+                    this.datos.reiniciarArchivos = true
+                    this.getterSetter.Archivos.subscribe()
+                  }
+                }
+              },
+              err => {
+                this.errorEnGetterAndSetter(err, "personas")
               }
-            }
+            )
+
+          }, err => {
+            this.errorEnGetterAndSetter(err, "usuarios")
           }
         )
+      }, err => {
+        const error = "Error en el procedimiento de creacion de usuario"
+        this.toastr.error(error)
+        console.log(error + " en BBDD")
+        console.log(err)
       }
     )
   }
@@ -530,6 +574,18 @@ export class LoginService {
         localStorage.removeItem("usuario")
       }
       return this.usuarioLogged
+    }
+  }
+
+  get PersonaConectado() {
+    if (this.isLogged()) {
+      const persona = JSON.parse(localStorage.getItem("persona"))
+      if (persona !== null) {
+        this.personaLogged = persona
+      } else {
+        localStorage.removeItem("persona")
+      }
+      return this.personaLogged
     }
   }
 

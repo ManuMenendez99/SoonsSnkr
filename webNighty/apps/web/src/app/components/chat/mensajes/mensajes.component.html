@@ -16,8 +16,7 @@
         </ul>
     </div>
     <div class="input-container" *ngIf="tieneChat()">
-        <input placeholder="Type something" #messageInput (keydown.enter)="enviarMensaje()
-            " />
+        <input placeholder="Type something" #messageInput (keydown.enter)="enviarMensaje()" />
     </div>
 </div>
 <div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages(); this.botonabajo = false">Scroll abajo rapido</div>

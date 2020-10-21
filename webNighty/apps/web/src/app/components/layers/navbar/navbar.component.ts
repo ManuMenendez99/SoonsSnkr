@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { DialogsService } from '../../../services/dialogs/dialogs.service';
 import { LoginService } from '../../../services/firebase/login.service';
+import { SecurityService } from '../../../services/security/security.service';
 
 @Component({
   selector: 'nighty-navbar',
@@ -10,9 +10,12 @@ import { LoginService } from '../../../services/firebase/login.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public translate: TranslateService, public firebase: LoginService) { }
+  constructor(public translate: TranslateService, public firebase: LoginService, private security: SecurityService) { }
 
   ngOnInit(): void {
   }
 
+  puedeVerlo() {
+    return this.security.takeSecurity()
+  }
 }

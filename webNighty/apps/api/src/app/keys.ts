@@ -1,7 +1,8 @@
 export default {
 
     database: {
-        host: '127.0.0.1',
+        host: '37.11.169.247',
+        // host: '192.168.1.2',
         user: 'dbamanuel',
         password: 'WhateverPass',
         database: 'nighty'

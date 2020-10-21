@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatosService } from '../datos/datos.service';
 import { Observable, of } from 'rxjs';
-import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion, Chats, Mensajes } from '@nighty/models';
+import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion, Chats, Mensajes, MensajesEnviar } from '@nighty/models';
 import { APIService } from '../api/api.service';
 import { HttpClient } from '@angular/common/http';
 import { SqlInsert, SqlUpdate, SqlDelete, SqlProcedure } from '@nighty/interfaces-sql';
@@ -2982,24 +2982,26 @@ export class GetterSetterService {
     }
   }
 
-  public setMensajes(mensajes: Mensajes): void {
+  public setMensajes(mensajes: MensajesEnviar): void {
     this.realizarOperacion("Mensajes", mensajes).subscribe(
       () => {
-        if (mensajes.id != null) {
-          const i = this.datos.Mensajes.indexOf(mensajes)
-          this.datos.Mensajes[i] = mensajes
-        } else {
-          this.http.get<Mensajes[]>(`${this.API_URI}all/Mensajes`).subscribe(
-            res => {
-              this.datos.Mensajes = new Array<Mensajes>()
-              this.datos.Mensajes = res as Mensajes[]
-            },
-            err => {
-              this.toastr.error("Error")
-              console.log(err)
-            }
-          )
-        }
+        // Esto tiene que estar comentado, si no puede crear una saturacion tremenda por tener todos los mensajes, es mejor que no lo haga. El chat obtiene el mensaje mediante una subscripcion constante en bucle
+        // if (mensajes.id != null) {
+        //   const i = this.datos.Mensajes.indexOf(mensajes)
+        //   this.datos.Mensajes[i] = mensajes
+        // }
+        //  else {
+        //   this.http.get<Mensajes[]>(`${this.API_URI}all/Mensajes`).subscribe(
+        //     res => {
+        //       this.datos.Mensajes = new Array<Mensajes>()
+        //       this.datos.Mensajes = res as Mensajes[]
+        //     },
+        //     err => {
+        //       this.toastr.error("Error")
+        //       console.log(err)
+        //     }
+        //   )
+        // }
       },
       err => {
         this.toastr.error("Error")

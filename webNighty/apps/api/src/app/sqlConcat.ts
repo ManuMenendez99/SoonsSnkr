@@ -109,7 +109,7 @@ export class ConcatSqlService {
 
     private formatoCampo(valor: any) {
         if (typeof valor !== "number" && typeof valor !== "boolean") {
-            valor = '"' + valor + '"'
+            valor = "'" + valor + "'"
         }
         return valor
     }
