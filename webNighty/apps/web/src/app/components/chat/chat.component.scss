@@ -35,8 +35,13 @@
   margin-right: 10px;
 }
 
+.container-fluid {
+  background-image: url("../../../assets/components/chat/chat-bk.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
 .chat-page {
-  @include full-bk('../../../assets/components/chat/chat-bk.svg');
   display: flex;
   justify-content: center;
   align-items: flex-start;
