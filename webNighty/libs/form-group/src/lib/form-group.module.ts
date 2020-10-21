@@ -40,7 +40,7 @@ export class FormGroupsModule {
   })
 
   chatFormulario = new FormGroup({
-    texto: new FormControl('', Validators.required)
+    texto: new FormControl('')
   })
 }
 

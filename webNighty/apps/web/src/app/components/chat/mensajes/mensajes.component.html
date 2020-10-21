@@ -10,13 +10,24 @@
     <div class="user-info" *ngIf="tieneChat()">{{ nombre() }}</div>
     <div *ngIf="tieneMensajes(); else noMessages" class="messages-container" id="scrollMe">
         <ul id="contenidoscrollable">
-            <li *ngFor="let mensaje of mensajesChat" [ngClass]="mensajeMio(mensaje) ? 'd-flex justify-content-end': 'd-flex justify-content-start' ">
-                <span [ngClass]="mensajeMio(mensaje) ? 'speech-bubble-own': 'speech-bubble' " [innerHTML]="mensaje.mensajeHtml"></span>
+            <li *ngFor="let mensaje of mensajesChat"
+                [ngClass]="mensajeMio(mensaje) ? 'd-flex justify-content-end': 'd-flex justify-content-start' ">
+                <span [ngClass]="mensajeMio(mensaje) ? 'speech-bubble-own': 'speech-bubble' "
+                    [innerHTML]="mensaje.mensajeHtml"></span>
             </li>
         </ul>
     </div>
-    <div class="input-container" *ngIf="tieneChat()">
-        <input placeholder="Type something" #messageInput (keydown.enter)="enviarMensaje()" />
+    <div *ngIf="tieneChat()">
+        <form [formGroup]="this.formularioChat">
+            <mat-form-field appearance="outline" class="m-0 w-100">
+                <input matInput (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder="{{myplaceHolder}}"
+                    formControlName="texto" (keydown.enter)="enviarMensaje()" autofocus/>
+                <button mat-icon-button matSuffix (click)="enviarMensaje()">
+                    <mat-icon>send</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
     </div>
 </div>
-<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages(); this.botonabajo = false">Scroll abajo rapido</div>
+<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages(); this.botonabajo = false">Scroll abajo rapido
+</div>

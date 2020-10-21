@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormGroupsModule } from '@nighty/form-group';
 import { Mensajes, MensajesEnviar } from '@nighty/models';
 import { ChatService } from '../../../services/chat/chat.service';
@@ -6,12 +6,15 @@ import { ChatService } from '../../../services/chat/chat.service';
 @Component({
   selector: 'nighty-mensajes',
   templateUrl: './mensajes.component.html',
-  styleUrls: ['./mensajes.component.scss']
+  styleUrls: ['./mensajes.component.scss'],
+  // encapsulation: ViewEncapsulation.None
 })
 export class MensajesComponent implements OnInit {
 
   laPrimeraVezAbajo = true
   botonabajo = false
+
+  myplaceHolder: string = 'Escribe algo...'
 
   constructor(public chatService: ChatService, public formGroups: FormGroupsModule) { }
 
@@ -47,14 +50,17 @@ export class MensajesComponent implements OnInit {
   enviarMensaje() {
     const usuarioInlog = this.chatService.usuarioInLog
     const personaInLog = this.chatService.personaInLog
-    const chat = this.chatService.chatActual
-    const mensaje: MensajesEnviar = {
-      chat: chat.id,
-      emisor: JSON.stringify({ id: usuarioInlog.id, nombre: personaInLog.nombre + " " + personaInLog.apellidos }),
-      mensajeHtml: this.textoValue,
-      orden: new Date().getTime()
-    }
-    this.chatService.enviarChat(mensaje)
+    if (this.textoValue !== undefined && this.textoValue !== null && this.textoValue !== "") {
+      const chat = this.chatService.chatActual
+      const mensaje: MensajesEnviar = {
+        chat: chat.id,
+        emisor: JSON.stringify({ id: usuarioInlog.id, nombre: personaInLog.nombre + " " + personaInLog.apellidos }),
+        mensajeHtml: this.textoValue,
+        orden: new Date().getTime()
+      }
+      this.formularioChat.reset()
+      this.chatService.enviarChat(mensaje)
+    } 
   }
 
 
@@ -75,7 +81,6 @@ export class MensajesComponent implements OnInit {
   }
 
   tieneChat() {
-
     if (this.chatService.chatActual !== null && this.chatService.chatActual !== undefined) {
       return true
     } else {
@@ -92,6 +97,15 @@ export class MensajesComponent implements OnInit {
     }
   }
 
+  checkPlaceHolder() {
+    if (this.myplaceHolder) {
+      this.myplaceHolder = null
+      return;
+    } else {
+      this.myplaceHolder = 'Escribe algo...'
+      return
+    }
+  }
 
   get texto() { return this.formularioChat.get('texto') }
 
