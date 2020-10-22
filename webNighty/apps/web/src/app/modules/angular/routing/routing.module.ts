@@ -5,6 +5,7 @@ import { PageNotFoundError404Component } from '../../../components/page-not-foun
 import { WelcomeComponent } from '../../../components/welcome/welcome.component';
 import { ChatComponent } from '../../../components/chat/chat.component';
 import { AuthGuardService as AuthGuard } from '../../../services/authGuard/auth-guard.service';
+import { UserInfoComponent } from '../../../components/dialogs/usuario/user-info/user-info.component';
 
 const appRoutes: Routes = [
   {
@@ -17,6 +18,11 @@ const appRoutes: Routes = [
     component: ChatComponent,
     data: { title: 'Chat', categoriasEsperadas: [null] },
     canActivate: [AuthGuard],
+  },
+  {
+    path: 'userInfo',
+    component: UserInfoComponent,
+    data: { title: 'User Info', categoriasEsperadas: [null] }
   },
   {
     path: '',

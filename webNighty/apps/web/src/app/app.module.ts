@@ -51,13 +51,15 @@ import { ChatComponent } from './components/chat/chat.component';
 import { UsuariosComponent } from './components/chat/usuarios/usuarios.component';
 import { MensajesComponent } from './components/chat/mensajes/mensajes.component';
 import { CommonModule } from '@angular/common';
+import { CambiarAEmpresaComponent } from './components/dialogs/usuario/cambiar-aempresa/cambiar-aempresa.component';
+import { UserInfoComponent } from './components/dialogs/usuario/user-info/user-info.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent, UsuariosComponent, MensajesComponent],
+  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent, UsuariosComponent, MensajesComponent, CambiarAEmpresaComponent, UserInfoComponent],
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,

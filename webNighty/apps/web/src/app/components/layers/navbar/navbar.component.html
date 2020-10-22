@@ -10,8 +10,8 @@
 
 
 
-      <li class="nav-item">
-        <a class="nav-link waves-light" routerLink="welcome" mdbWavesEffect>{{ 'common-words.welcome' | translate | firstLetterCap }}</a>
+      <li class="nav-item active" routerLink="welcome">
+        <a class="nav-link waves-light"   mdbWavesEffect>{{ 'common-words.welcome' | translate | firstLetterCap }}</a>
       </li>
       <li class="nav-item">
         <a class="nav-link waves-light" mdbWavesEffect>{{ 'moments.events' | translate | firstLetterCap }}</a>
@@ -20,8 +20,8 @@
         <a class="nav-link waves-light" mdbWavesEffect>{{ 'moments.promotions' | translate | firstLetterCap }}</a>
       </li>
 
-      <li class="nav-item">
-        <a class="nav-link waves-light" routerLink="chat" *ngIf="puedeVerlo()" mdbWavesEffect>{{ 'common-words.chat' | translate | firstLetterCap }}</a>
+      <li class="nav-item" routerLink="chat" *ngIf="puedeVerlo()" >
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.chat' | translate | firstLetterCap }}</a>
       </li>
 
       <li class="nav-item dropdown" dropdown>
@@ -76,19 +76,18 @@
         </a>
       </li>
       <li class="nav-item">
-        <button mat-button color="primary" *ngIf="this.firebase.isLogged()" (click)="firebase.logout()">Logout</button>
         <button mat-button color="primary" *ngIf="!this.firebase.isLogged()" (click)="firebase.login()">Login</button>
         <button mat-button color="accent" *ngIf="!this.firebase.isLogged()" (click)="firebase.register()">Register</button>
       </li>
-      <li class="nav-item dropdown" dropdown>
+      <li class="nav-item dropdown" *ngIf="this.firebase.isLogged()" dropdown>
         <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
           <i class="fas fa-user"></i><span class="caret"></span></a>
         <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
-          <a class="dropdown-item waves-light" mdbWavesEffect>Action</a>
+          <a class="dropdown-item waves-light" routerLink="userInfo" mdbWavesEffect>Datos</a>
           <a class="dropdown-item waves-light" mdbWavesEffect>Another action</a>
           <a class="dropdown-item waves-light" mdbWavesEffect>Something else here</a>
           <div class="divider dropdown-divider"></div>
-          <a class="dropdown-item waves-light" mdbWavesEffect>Separated link</a>
+          <a class="dropdown-item waves-light" *ngIf="this.firebase.isLogged()" (click)="firebase.logout()" mdbWavesEffect>Desconectarse</a>
         </div>
       </li>
     </ul>
