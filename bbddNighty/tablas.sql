@@ -1,4 +1,4 @@
-drop schema nighty;
+drop schema if exists nighty;
 create schema nighty;
 use nighty;
 
