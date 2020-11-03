@@ -869,4 +869,155 @@ create table mensajes (
     creado text not null,
     modificado text not null,
 CONSTRAINT pkMensajes PRIMARY KEY (id),
-CONSTRAINT fkMensajesChat FOREIGN KEY (chat) REFERENCES chats (id) on delete cascade on update cascade)
+CONSTRAINT fkMensajesChat FOREIGN KEY (chat) REFERENCES chats (id) on delete cascade on update cascade);
+
+create table payersPaypal (
+	id int auto_increment not null,
+    idPaypal text not null,
+    emailAddress varchar(200) not null,
+    addressCountryCode varchar(5) not null,
+    nameGivenName varchar(50) not null,
+    nameSurname varchar(100) not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkPayersPaypal PRIMARY KEY (id));
+
+create table comprasOrderPaypal (
+	id int auto_increment not null,
+    AmountCurrencyCode varchar(5) not null,
+    AmountValue decimal(10,2) not null,
+    AmountBreakdownItemTotalCurrencyCode varchar(5) not null,
+    AmountBreakdownItemTotalValue decimal(10,2) not null,
+    orderID int not null,
+    referenceID varchar(100) not null,
+    payeeEmailAddress text not null,
+    payeeMerchantId text not null,
+	address_line_1 text not null,
+    admin_area_1 varchar(10) not null,
+    admin_area_2 text not null,
+    country_code varchar(10) not null,
+    postal_code varchar(10) not null,
+    nombre varchar(150) not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkComprasOrderPaypal PRIMARY KEY (id));
+
+create table itemsComprasOrderPaypal (
+	id int auto_increment not null,
+    idCompra int not null,
+    category text default null,
+    nombre text not null,
+    quantity int not null,
+    unitAmountCurrencyCode varchar(5) not null,
+    unitAmountValue decimal(10,2) not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkItemsComprasOrderPaypal PRIMARY KEY (id),
+CONSTRAINT fkItemsComprasOrderPaypalIDCompra FOREIGN KEY (idCompra) REFERENCES comprasOrderPaypal (id) on update cascade on delete cascade);
+
+create table ordersPaypal (
+	id int auto_increment not null,
+    idPaypal varchar(200) not null,
+    intent varchar(200) not null,
+    estado varchar(45) not null,
+    createTimePaypal text not null,
+    payerId int not null,
+    updateTimePaypal text default null, 
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkOrdersPaypal PRIMARY KEY (id),
+CONSTRAINT fkOrdersPaypalPayer FOREIGN KEY (payerID) REFERENCES payersPaypal (id) on update cascade on delete cascade);
+
+create table linksOrdersPaypal (
+	id int auto_increment not null,
+	href text not null,
+    rel varchar(10) not null,
+    method varchar(10) not null,
+    title varchar(10) not null,
+    orderId int not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkLinksOrdersPaypal PRIMARY KEY (id),
+CONSTRAINT fkLinksOrdersPaypalOrderId FOREIGN KEY (OrderId) REFERENCES ordersPaypal (id) on update cascade on delete cascade);
+
+create table pagosPaypal (
+	id int auto_increment not null,
+    billingToken varchar(200) default null,	
+    facilitatorAccessToken varchar(200) default null,
+    paymentId int default null,
+    orderId int not null,
+    payerId int not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkPagosPaypal PRIMARY KEY (id),
+CONSTRAINT fkPagosPaypalOrder FOREIGN KEY (orderId) REFERENCES ordersPaypal (id) on update cascade on delete cascade,
+CONSTRAINT fkPagosPaypalPayer FOREIGN KEY (payerId) REFERENCES payersPaypal (id) on update cascade on delete restrict);
+
+create table purchaseUnits (
+	id int auto_increment not null,
+    breakdownHandlingValue int not null,
+	breakdownHandlingCurrencyCode text not null,
+	breakdownInsuranceValue int not null,
+	breakdownInsuranceCurrencyCode text not null,
+	breakdownitemTotalValue int not null,
+	breakdownitemTotalCurrencyCode text not null,
+	breakdownShippingValue int not null,
+	breakdownShippingCurrencyCode text not null,
+	breakdownShippingDiscountValue int not null,
+	breakdownShippingDiscountCurrencyCode text not null,
+	breakdownCurrencyCode text not null,
+	breakDownValue int not null,
+	descripcion text not null,
+    idOrder int not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkPurchaseUnits PRIMARY KEY (id),
+CONSTRAINT fkPurchaseUnitsIdOrder FOREIGN KEY (idOrder) references comprasOrderPaypal(id) on update cascade on delete cascade);
+
+create table paymentsPurchaseUnits (
+	id int auto_increment not null,
+    amountValue int not null,
+	amountCurrencyCode text not null,
+	createTime text not null,
+	finalCapture boolean not null,
+	idPaypal text not null,
+	idPurchase int not null,
+	estado text not null,
+    updateTime text not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkPaymentsPurchaseUnits PRIMARY KEY (id),
+CONSTRAINT fkPaymentsPurchaseUnits FOREIGN KEY (idPurchase) REFERENCES purchaseUnits (id) on update cascade on delete cascade);
+
+create table linksPurchaseUnits (
+	id int auto_increment not null,
+    href text not null,
+	method text not null,
+	rel text not null,
+	title text not null,
+	idPaymentsPurchaseUnits int not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pklinksPurchaseUnits PRIMARY KEY (id),
+CONSTRAINT fkLinksPurchaseUnits FOREIGN KEY (idPaymentsPurchaseUnits) REFERENCES paymentsPurchaseUnits (id) on update cascade on delete cascade);
+
+create table sellerProtectionDisputeCategoriesPurchaseUnits (
+	id int auto_increment not null,
+    contenido text not null,
+    idPaymentsPurchaseUnits int not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkSellerProtectionDisputeCategoriesPurchaseUnits PRIMARY KEY (id),
+CONSTRAINT fkSellerProtectionDisputeCategoriesPurchaseUntisIdPayments FOREIGN KEY (idPaymentsPurchaseUnits) REFERENCES paymentsPurchaseUnits (id) on update cascade on delete cascade);
+
+create table itemsPurchaseUnits(
+	id int auto_increment not null,
+    nombre text not null,
+    quantity int not null,
+    taxValue int not null,
+    taxCurrencyCode varchar(5) not null,
+    unitAmountValue int not null,
+    unitAmountCurrencyCode varchar(5) not null,
+    creado text not null,
+    modificado text not null,
+CONSTRAINT pkItemsPurchaseUnits PRIMARY KEY (id));

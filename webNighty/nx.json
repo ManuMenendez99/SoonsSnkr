@@ -53,6 +53,9 @@
     },
     "encriptacion": {
       "tags": []
+    },
+    "paypal": {
+      "tags": []
     }
   }
 }

@@ -92,5 +92,6 @@ export class AppController {
   chat(@Param() params) {
     return this.appService.chat(JSON.parse(params.jsonId));
   }
+
 }
 

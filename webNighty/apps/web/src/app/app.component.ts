@@ -4,6 +4,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
 import * as AOS from 'aos';
 import { LoginService } from './services/firebase/login.service';
+import { PaypalService } from './services/Paypal/paypal.service';
 @Component({
   selector: 'nighty-root',
   templateUrl: './app.component.html',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
   constructor(
     public translate: TranslateService,
     public router: Router,
-    public loginService: LoginService
+    public loginService: LoginService,
+    public paypalService: PaypalService
   ) {
     translate.setDefaultLang("es");
     translate.use('es');

@@ -53,7 +53,7 @@ import { MensajesComponent } from './components/chat/mensajes/mensajes.component
 import { CommonModule } from '@angular/common';
 import { CambiarAEmpresaComponent } from './components/dialogs/usuario/cambiar-aempresa/cambiar-aempresa.component';
 import { UserInfoComponent } from './components/dialogs/usuario/user-info/user-info.component';
-
+import { NgxPayPalModule } from "ngx-paypal";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -70,6 +70,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HttpClientModule,
     MaterialModule,
     MDBBootstrapModule.forRoot(),
+    NgxPayPalModule,
     ReactiveFormsModule,
     RoutingModule,
     ToastrModule.forRoot(),

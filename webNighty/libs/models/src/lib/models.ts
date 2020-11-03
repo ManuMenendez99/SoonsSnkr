@@ -1,16 +1,18 @@
-export interface Amigos {
+interface IdCreadoModificado {
   id?: number
+  creado?: Date
+  modificado?: Date
+}
+
+export interface Amigos extends IdCreadoModificado {
   usuario: number
   amigo: number
   silenciado: Date
   bloqueado: boolean
   prioritario: boolean
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Archivos {
-  id?: number
+export interface Archivos extends IdCreadoModificado {
   codigo: string
   nombre: string
   mime: string
@@ -18,165 +20,128 @@ export interface Archivos {
   size: number
   usuario: number
   direccionOnline?: string
-  creado?: Date
-  modificado?: Date
   archivoFoto?: boolean
 }
 
-export interface ArchivosCategoria {
-  id?: number
+export interface ArchivosCategoria extends IdCreadoModificado {
   archivo: number
   categoria: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosEmpresa {
-  id?: number
+export interface ArchivosEmpresa extends IdCreadoModificado {
   archivo: number
   empresa: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosEstablecimiento {
-  id?: number
+export interface ArchivosEstablecimiento extends IdCreadoModificado {
   archivo: number
   establecimiento: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosEvento {
-  id?: number
+export interface ArchivosEvento extends IdCreadoModificado {
   archivo: number
   evento: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosMarca {
-  id?: number
+export interface ArchivosMarca extends IdCreadoModificado {
   archivo: number
   marca: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosProducto {
-  id?: number
+export interface ArchivosProducto extends IdCreadoModificado {
   archivo: number
   producto: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ArchivosPromocion {
-  id?: number
+export interface ArchivosPromocion extends IdCreadoModificado {
   archivo: number
   promocion: number
   cabecera?: boolean
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Caracteristicas {
-  id?: number
+export interface Caracteristicas extends IdCreadoModificado {
   texto: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface CaracteristicasDeProductos {
-  id?: number
+export interface CaracteristicasDeProductos extends IdCreadoModificado {
   caracteristica: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface CaracteristicasEvento {
-  id?: number
+export interface CaracteristicasEvento extends IdCreadoModificado {
   caracteristica?: number
   evento?: number
   orden?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface CaracteristicasProducto {
-  id?: number
+export interface CaracteristicasProducto extends IdCreadoModificado {
   caracteristica: number
   producto: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Categorias {
-  id?: number
+export interface Categorias extends IdCreadoModificado {
   nombre: string
   tipoCategoria: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Chats {
-  id?: number
+export interface Chats extends IdCreadoModificado {
   emisor?: number
   receptor?: number
   grupo?: number
-  nombreChat: [{id: number, nombre: string}]
+  nombreChat: [{ id: number, nombre: string }]
   tipoChat: boolean
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Descripciones {
-  id?: number
+export interface ComprasOrderPaypal extends IdCreadoModificado {
+  AmountCurrencyCode: string
+  AmountValue: number
+  AmountBreakdownItemTotalCurrencyCode: string
+  AmountBreakdownItemTotalValue: number
+  orderId: number
+  referenceID: string,
+  payeeMerchantId: string,
+  payeeEmailAddress: string,
+  address_line_1: string
+  admin_area_1: string
+  admin_area_2: string
+  country_code: string
+  postal_code: string
+  nombre: string
+}
+
+export interface Descripciones extends IdCreadoModificado {
   texto: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface DescripcionesEvento {
-  id?: number
+export interface DescripcionesEvento extends IdCreadoModificado {
   descripcion?: number
   evento?: number
   orden?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface DiasMes {
-  id?: number
+export interface DiasMes extends IdCreadoModificado {
   diaMesInicio: number
   diaMesFin: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface DiasSemana {
-  id?: number
+export interface DiasSemana extends IdCreadoModificado {
   diaInicio?: number
   diaFin?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Direcciones {
-  id?: number
+export interface Direcciones extends IdCreadoModificado {
   direccion: string
   piso?: number
   puerta?: string
@@ -184,543 +149,445 @@ export interface Direcciones {
   localidad: number
   codigoPostal: number
   pais: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface DireccionesPersona {
-  id?: number
+export interface DireccionesPersona extends IdCreadoModificado {
   direccion: number
   persona: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Emails {
-  id?: number
+export interface Emails extends IdCreadoModificado {
   email: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface EmailsPersona {
-  id?: number
+export interface EmailsPersona extends IdCreadoModificado {
   email: number
   persona: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Empresas {
-  id?: number
+export interface Empresas extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Establecimientos {
-  id?: number
+export interface Establecimientos extends IdCreadoModificado {
   nombre: string
   empresa: number
   tipoEstablecimiento: number
   codigo: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Eventos {
-  id?: number
+export interface Eventos extends IdCreadoModificado {
   nombre: string
   precioEntrada: number
   tipoEventos: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface EventosEstablecimientos {
-  id?: number
+export interface EventosEstablecimientos extends IdCreadoModificado {
   evento: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface FaxsPersona {
-  id?: number
+export interface FaxsPersona extends IdCreadoModificado {
   fax: number
   persona: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Fechas {
-  id?: number
+export interface Fechas extends IdCreadoModificado {
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Grupos {
-  id?: number
+export interface Grupos extends IdCreadoModificado {
   nombre: string
   descripcion: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface GruposConsumicion {
-  id?: number
+export interface GruposConsumicion extends IdCreadoModificado {
   codigo: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasMesEstablecimientos {
-  id?: number
+export interface HorarioDiasMesEstablecimientos extends IdCreadoModificado {
   fecha: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasMesEventos {
-  id?: number
+export interface HorarioDiasMesEventos extends IdCreadoModificado {
   fecha: number
   evento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasMesPromociones {
-  id?: number
+export interface HorarioDiasMesPromociones extends IdCreadoModificado {
   fecha: number
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasSemanaEstablecimientos {
-  id?: number
+export interface HorarioDiasSemanaEstablecimientos extends IdCreadoModificado {
   fecha: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasSemanaEventos {
-  id?: number
+export interface HorarioDiasSemanaEventos extends IdCreadoModificado {
   fecha: number
   evento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioDiasSemanaPromociones {
-  id?: number
+export interface HorarioDiasSemanaPromociones extends IdCreadoModificado {
   fecha: number
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioFechasEstablecimientos {
-  id?: number
+export interface HorarioFechasEstablecimientos extends IdCreadoModificado {
   fecha: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioFechasEventos {
-  id?: number
+export interface HorarioFechasEventos extends IdCreadoModificado {
   fecha: number
   evento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioFechasPromociones {
-  id?: number
+export interface HorarioFechasPromociones extends IdCreadoModificado {
   fecha: number
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioHorasEstablecimientos {
-  id?: number
+export interface HorarioHorasEstablecimientos extends IdCreadoModificado {
   fecha: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioHorasEventos {
-  id?: number
+export interface HorarioHorasEventos extends IdCreadoModificado {
   fecha: number
   evento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioHorasPromociones {
-  id?: number
+export interface HorarioHorasPromociones extends IdCreadoModificado {
   fecha: number
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioMesesEstablecimientos {
-  id?: number
+export interface HorarioMesesEstablecimientos extends IdCreadoModificado {
   fecha: number
   establecimiento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioMesesEventos {
-  id?: number
+export interface HorarioMesesEventos extends IdCreadoModificado {
   fecha: number
   evento: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface HorarioMesesPromociones {
-  id?: number
+export interface HorarioMesesPromociones extends IdCreadoModificado {
   fecha: number
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Horas {
-  id?: number
+export interface Horas extends IdCreadoModificado {
   horaInicio?: number
   horaFin?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Invitados {
-  id?: number
+export interface Invitados extends IdCreadoModificado {
   usuario: number
   email: string
   usuarioGanado?: boolean
   codigo: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface LineasTicket {
-  id?: number
+export interface ItemsComprasOrderPaypal extends IdCreadoModificado {
+  idCompra: number
+  category: string
+  nombre: string
+  quantity: number
+  unitAmountCurrencyCode: string
+  unitAmountValue: number
+}
+
+export interface LineasTicket extends IdCreadoModificado {
   ticket: number
   producto: number
   usuario: number
   cantidad: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Marcas {
-  id?: number
+export interface LinksOrdersPaypal extends IdCreadoModificado {
+  href: string
+  rel: string
+  method: string
+  title: string
+  orderId: number
+}
+
+export interface Marcas extends IdCreadoModificado {
   nombre: string
   descripcion: string
   imagen: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Mensajes {
-  id?: number
+export interface Mensajes extends IdCreadoModificado {
   chat: number
   mensajeHtml: string
   orden: number
-  emisor: {id: number, nombre: string}
-  creado?: Date
-  modificado?: Date
+  emisor: { id: number, nombre: string }
 }
 
-export interface MensajesEnviar {
-  id?: number
+export interface MensajesEnviar extends IdCreadoModificado {
   chat: number
   mensajeHtml: string
   orden: number
   emisor: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface MesasEstablecimiento {
-  id?: number
+export interface MesasEstablecimiento extends IdCreadoModificado {
   codigo: string
   tipoMesa: number
   sillas: number
   numero: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Meses {
-  id?: number
+export interface Meses extends IdCreadoModificado {
   mesInicio: number
   mesFin: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface MiembrosGrupos {
-  id?: number
+export interface MiembrosGrupos extends IdCreadoModificado {
   grupo: number
   usuario: number
   silenciado?: Date
   prioritario?: boolean
-  creado?: Date
-  modificado?: Date
 }
 
-export interface MiembrosGruposConsumicion {
-  id?: number
+export interface MiembrosGruposConsumicion extends IdCreadoModificado {
   grupo: number
   usuario: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface MotivosInhabilitacion {
-  id?: number
+export interface MotivosInhabilitacion extends IdCreadoModificado {
   texto: string
   creado?: Date,
   modificado?: Date
 }
 
-export interface Paises {
-  id?: number
-  nombre: string
-  creado?: Date
-  modificado?: Date
+export interface OrdersPaypal extends IdCreadoModificado {
+  idPaypal: string
+  intent: string
+  estado: string
+  createTimePaypal: string
+  payerId: number
+  updateTimePaypal?: string
 }
 
-export interface Personas {
-  id?: number
+export interface PagosPaypal extends IdCreadoModificado {
+  billingToken: string
+  facilitatorAccessToken?: string
+  orderId: number
+  payerId: number
+  paymentID: string
+}
+
+export interface Paises extends IdCreadoModificado {
+  nombre: string
+}
+
+export interface PayersPaypal extends IdCreadoModificado {
+  idPaypal: string
+  emailAddress: string
+  addressCountryCode: string
+  nameGivenName: string
+  nameSurname: string
+}
+
+export interface Personas extends IdCreadoModificado {
   nombre: string
   apellidos: string
   fechaNacimiento: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PersonasContactoEmpresa {
-  id?: number
+export interface PersonasContactoEmpresa extends IdCreadoModificado {
   personaEmpresa: number
   empresa: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PersonasContactoEstablecimiento {
-  id?: number
+export interface PersonasContactoEstablecimiento extends IdCreadoModificado {
   personaEstablecimiento: number
   establecimiento: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PersonasContactoMarcas {
-  id?: number
+export interface PersonasContactoMarcas extends IdCreadoModificado {
   personaMarca: number
   marca: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PersonasEstablecimientos {
-  id?: number
+export interface PersonasEstablecimientos extends IdCreadoModificado {
   establecimiento: number
   persona: number
   puesto: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Productos {
-  id?: number
+export interface Productos extends IdCreadoModificado {
   nombre: string
   descripcion: string
   tipoProducto: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Promociones {
-  id?: number
+export interface Promociones extends IdCreadoModificado {
   nombre: string
   descripcion: string
   titulo: string
   tipoPromocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PromocionesProductos {
-  id?: number
+export interface PromocionesProductos extends IdCreadoModificado {
   promocion: number
   producto: number
   precio: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PublicidadEmpresa {
-  id?: number
+export interface PublicidadEmpresa extends IdCreadoModificado {
   empresa: number
   precio: number
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PublicidadEstablecimiento {
-  id?: number
+export interface PublicidadEstablecimiento extends IdCreadoModificado {
   establecimiento: number
   precio: number
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PublicidadEvento {
-  id?: number
+export interface PublicidadEvento extends IdCreadoModificado {
   evento: number
   precio: number
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PublicidadProducto {
-  id?: number
+export interface PublicidadProducto extends IdCreadoModificado {
   producto: number
   precio: number
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface PublicidadPromocion {
-  id?: number
+export interface PublicidadPromocion extends IdCreadoModificado {
   promocion: number
   precio: number
   fechaInicio: Date
   fechaFin: Date
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Puestos {
-  id?: number
+export interface Puestos extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Requisitos {
-  id?: number
+export interface PurchaseUnits extends IdCreadoModificado {
+  breakdownHandlingValue: number
+  breakdownHandlingCurrencyCode: string
+  breakdownInsuranceValue: number
+  breakdownInsuranceCurrencyCode: string
+  breakdownitemTotalValue: number
+  breakdownitemTotalCurrencyCode: string
+  breakdownShippingValue: number
+  breakdownShippingCurrencyCode: string
+  breakdownShippingDiscountValue: number
+  breakdownShippingDiscountCurrencyCode: string
+  breakdownCurrencyCode: string
+  breakDownValue: number
+  descripcion: string
+  idOrder: number
+}
+
+export interface LinksPurchaseUnits extends IdCreadoModificado {
+  href: string
+  method: string
+  rel: string
+  title: string
+  idPaymentsPurchaseUnits: number
+}
+
+export interface PaymentsPurchaseUnits extends IdCreadoModificado {
+  amountValue: number
+  amountCurrencyCode: string
+  createTime: Date
+  finalCapture: boolean
+  idPaypal: string
+  idPurchase: number
+  estado: string
+  updateTime: Date
+}
+
+export interface SellerProtectionDisputeCategoriesPurchaseUnits extends IdCreadoModificado {
+  contenido: string
+  idPaymentsPurchaseUnits: number
+}
+
+export interface ItemsPurchaseUnits extends IdCreadoModificado {
+  nombre: string
+  quantity: number
+  taxValue: number
+  taxCurrencyCode: string
+  unitAmountValue: number
+  unitAmountCurrencyCode: string
+}
+
+export interface Requisitos extends IdCreadoModificado {
   texto: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface RequisitosEvento {
-  id?: number
+export interface RequisitosEvento extends IdCreadoModificado {
   requisito?: number
   evento?: number
   orden?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Telefonos {
-  id?: number
+export interface Telefonos extends IdCreadoModificado {
   telefono: number
   prefijo: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TelefonosPersona {
-  id?: number
+export interface TelefonosPersona extends IdCreadoModificado {
   telefono: number
   persona: number
   orden: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Tickets {
-  id?: number
+export interface Tickets extends IdCreadoModificado {
   mesa: number
   grupoConsumiciones: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposCategorias {
-  id?: number
+export interface TiposCategorias extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposEstablecimientos {
-  id?: number
+export interface TiposEstablecimientos extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposEventos {
-  id?: number
+export interface TiposEventos extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposMesas {
-  id?: number
+export interface TiposMesas extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposProductos {
-  id?: number
+export interface TiposProductos extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface TiposPromociones {
-  id?: number
+export interface TiposPromociones extends IdCreadoModificado {
   nombre: string
-  creado?: Date
-  modificado?: Date
 }
 
-export interface Usuarios {
-  id?: number
+export interface Usuarios extends IdCreadoModificado {
   persona: number
   categoria: number
   uid: string
@@ -729,12 +596,9 @@ export interface Usuarios {
   // 1 - Email, 2 - Google, 3 - Facebook, 4 - Twitter
   logInWith: number
   motivoInhabilitacion?: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface UsuariosRegistrandose {
-  id?: number
+export interface UsuariosRegistrandose extends IdCreadoModificado {
   email: string,
   contrasena?: string
   creado?: Date,
@@ -742,24 +606,17 @@ export interface UsuariosRegistrandose {
   modificado?: Date
 }
 
-export interface Ventajas {
-  id?: number
+export interface Ventajas extends IdCreadoModificado {
   nombre: string
   promocion: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface VentajasCategorias {
-  id?: number
+export interface VentajasCategorias extends IdCreadoModificado {
   categoria: number
   ventaja: number
-  creado?: Date
-  modificado?: Date
 }
 
-export interface ProcedureCreateEmailAndUser {
-  email: string
+export interface ProcedureCreateEmailAndUser extends IdCreadoModificado {
   contrasena: string
   timestamp: Date
   social: number

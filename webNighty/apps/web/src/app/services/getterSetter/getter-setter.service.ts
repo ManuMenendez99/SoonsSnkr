@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatosService } from '../datos/datos.service';
 import { Observable, of } from 'rxjs';
-import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion, Chats, Mensajes, MensajesEnviar } from '@nighty/models';
+import { Amigos, Archivos, ArchivosCategoria, ArchivosEmpresa, ArchivosEstablecimiento, ArchivosEvento, ArchivosMarca, ArchivosProducto, ArchivosPromocion, Caracteristicas, CaracteristicasDeProductos, CaracteristicasEvento, CaracteristicasProducto, Categorias, Descripciones, DescripcionesEvento, DiasMes, DiasSemana, Direcciones, DireccionesPersona, Emails, EmailsPersona, Empresas, Establecimientos, Eventos, EventosEstablecimientos, FaxsPersona, Fechas, Grupos, GruposConsumicion, HorarioDiasMesEstablecimientos, HorarioDiasMesEventos, HorarioDiasMesPromociones, HorarioDiasSemanaEstablecimientos, HorarioDiasSemanaEventos, HorarioDiasSemanaPromociones, HorarioFechasEstablecimientos, HorarioFechasEventos, HorarioFechasPromociones, HorarioHorasEstablecimientos, HorarioHorasEventos, HorarioHorasPromociones, HorarioMesesEstablecimientos, HorarioMesesEventos, HorarioMesesPromociones, Horas, Invitados, LineasTicket, Marcas, MesasEstablecimiento, Meses, MiembrosGrupos, MiembrosGruposConsumicion, Paises, Personas, PersonasContactoEmpresa, PersonasContactoEstablecimiento, PersonasContactoMarcas, PersonasEstablecimientos, Productos, Promociones, PromocionesProductos, PublicidadEmpresa, PublicidadEstablecimiento, PublicidadEvento, PublicidadProducto, PublicidadPromocion, Puestos, Requisitos, RequisitosEvento, Telefonos, TelefonosPersona, Tickets, TiposCategorias, TiposEstablecimientos, TiposEventos, TiposMesas, TiposProductos, TiposPromociones, Usuarios, Ventajas, VentajasCategorias, UsuariosRegistrandose, MotivosInhabilitacion, Chats, Mensajes, MensajesEnviar, PurchaseUnits, PaymentsPurchaseUnits, LinksPurchaseUnits, SellerProtectionDisputeCategoriesPurchaseUnits, ItemsPurchaseUnits, PagosPaypal, LinksOrdersPaypal, OrdersPaypal, ItemsComprasOrderPaypal, ComprasOrderPaypal, PayersPaypal } from '@nighty/models';
 import { APIService } from '../api/api.service';
 import { HttpClient } from '@angular/common/http';
 import { SqlInsert, SqlUpdate, SqlDelete, SqlProcedure } from '@nighty/interfaces-sql';
@@ -5082,6 +5082,601 @@ export class GetterSetterService {
       }
     )
   }
+
+  public get PayersPaypal(): Observable<PayersPaypal[]> {
+    if (this.datos.PayersPaypal.length !== 0 && !this.datos.reiniciarPayersPaypal && this.datos.PayersPaypalValores.valor !== 0) {
+      this.datos.PayersPaypalValores.valor = this.datos.PayersPaypalValores.valor - 1
+      return of(this.datos.PayersPaypal)
+    } else {
+      if (this.datos.reiniciarPayersPaypal === true) {
+        this.datos.reiniciarPayersPaypal = false
+      }
+      const peticion = this.http.get<PayersPaypal[]>(`$(this.API_URI)all/PayersPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.PayersPaypal = new Array<PayersPaypal>()
+          this.datos.PayersPaypal = res as PayersPaypal[]
+        },
+        err => {
+          this.toastr.error("Error PayersPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setPayersPaypal(payersPaypal: PayersPaypal): void {
+    this.realizarOperacion("PayersPaypal", payersPaypal).subscribe(
+      () => {
+        if (payersPaypal.id != null) {
+          const i = this.datos.PayersPaypal.indexOf(payersPaypal)
+          this.datos.PayersPaypal[i] = payersPaypal
+        } else {
+          this.http.get<PayersPaypal[]>(`$(this.API_URI)all/PayersPaypal`).subscribe(
+            res => {
+              this.datos.PayersPaypal = new Array<PayersPaypal>()
+              this.datos.PayersPaypal = res as PayersPaypal[]
+            },
+            err => {
+              this.toastr.error("Error PayersPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deletePayersPaypal(payersPaypal: PayersPaypal) {
+    this.realizarOperacion("PayersPaypal", payersPaypal, true).subscribe(
+      () => {
+        const i = this.datos.PayersPaypal.indexOf(payersPaypal)
+        this.datos.PayersPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get ComprasOrderPaypal(): Observable<ComprasOrderPaypal[]> {
+    if (this.datos.ComprasOrderPaypal.length !== 0 && !this.datos.reiniciarComprasOrderPaypal && this.datos.ComprasOrderPaypalValores.valor !== 0) {
+      this.datos.ComprasOrderPaypalValores.valor = this.datos.ComprasOrderPaypalValores.valor - 1
+      return of(this.datos.ComprasOrderPaypal)
+    } else {
+      if (this.datos.reiniciarComprasOrderPaypal === true) {
+        this.datos.reiniciarComprasOrderPaypal = false
+      }
+      const peticion = this.http.get<ComprasOrderPaypal[]>(`$(this.API_URI)all/ComprasOrderPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.ComprasOrderPaypal = new Array<ComprasOrderPaypal>()
+          this.datos.ComprasOrderPaypal = res as ComprasOrderPaypal[]
+        },
+        err => {
+          this.toastr.error("Error ComprasOrderPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setComprasOrderPaypal(comprasOrderPaypal: ComprasOrderPaypal): void {
+    this.realizarOperacion("ComprasOrderPaypal", comprasOrderPaypal).subscribe(
+      () => {
+        if (comprasOrderPaypal.id != null) {
+          const i = this.datos.ComprasOrderPaypal.indexOf(comprasOrderPaypal)
+          this.datos.ComprasOrderPaypal[i] = comprasOrderPaypal
+        } else {
+          this.http.get<ComprasOrderPaypal[]>(`$(this.API_URI)all/ComprasOrderPaypal`).subscribe(
+            res => {
+              this.datos.ComprasOrderPaypal = new Array<ComprasOrderPaypal>()
+              this.datos.ComprasOrderPaypal = res as ComprasOrderPaypal[]
+            },
+            err => {
+              this.toastr.error("Error ComprasOrderPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteComprasOrderPaypal(comprasOrderPaypal: ComprasOrderPaypal) {
+    this.realizarOperacion("ComprasOrderPaypal", comprasOrderPaypal, true).subscribe(
+      () => {
+        const i = this.datos.ComprasOrderPaypal.indexOf(comprasOrderPaypal)
+        this.datos.ComprasOrderPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get ItemsComprasOrderPaypal(): Observable<ItemsComprasOrderPaypal[]> {
+    if (this.datos.ItemsComprasOrderPaypal.length !== 0 && !this.datos.reiniciarItemsComprasOrderPaypal && this.datos.ItemsComprasOrderPaypalValores.valor !== 0) {
+      this.datos.ItemsComprasOrderPaypalValores.valor = this.datos.ItemsComprasOrderPaypalValores.valor - 1
+      return of(this.datos.ItemsComprasOrderPaypal)
+    } else {
+      if (this.datos.reiniciarItemsComprasOrderPaypal === true) {
+        this.datos.reiniciarItemsComprasOrderPaypal = false
+      }
+      const peticion = this.http.get<ItemsComprasOrderPaypal[]>(`$(this.API_URI)all/ItemsComprasOrderPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.ItemsComprasOrderPaypal = new Array<ItemsComprasOrderPaypal>()
+          this.datos.ItemsComprasOrderPaypal = res as ItemsComprasOrderPaypal[]
+        },
+        err => {
+          this.toastr.error("Error ItemsComprasOrderPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setItemsComprasOrderPaypal(itemsComprasOrderPaypal: ItemsComprasOrderPaypal): void {
+    this.realizarOperacion("ItemsComprasOrderPaypal", itemsComprasOrderPaypal).subscribe(
+      () => {
+        if (itemsComprasOrderPaypal.id != null) {
+          const i = this.datos.ItemsComprasOrderPaypal.indexOf(itemsComprasOrderPaypal)
+          this.datos.ItemsComprasOrderPaypal[i] = itemsComprasOrderPaypal
+        } else {
+          this.http.get<ItemsComprasOrderPaypal[]>(`$(this.API_URI)all/ItemsComprasOrderPaypal`).subscribe(
+            res => {
+              this.datos.ItemsComprasOrderPaypal = new Array<ItemsComprasOrderPaypal>()
+              this.datos.ItemsComprasOrderPaypal = res as ItemsComprasOrderPaypal[]
+            },
+            err => {
+              this.toastr.error("Error ItemsComprasOrderPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteItemsComprasOrderPaypal(itemsComprasOrderPaypal: ItemsComprasOrderPaypal) {
+    this.realizarOperacion("ItemsComprasOrderPaypal", itemsComprasOrderPaypal, true).subscribe(
+      () => {
+        const i = this.datos.ItemsComprasOrderPaypal.indexOf(itemsComprasOrderPaypal)
+        this.datos.ItemsComprasOrderPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get OrdersPaypal(): Observable<OrdersPaypal[]> {
+    if (this.datos.OrdersPaypal.length !== 0 && !this.datos.reiniciarOrdersPaypal && this.datos.OrdersPaypalValores.valor !== 0) {
+      this.datos.OrdersPaypalValores.valor = this.datos.OrdersPaypalValores.valor - 1
+      return of(this.datos.OrdersPaypal)
+    } else {
+      if (this.datos.reiniciarOrdersPaypal === true) {
+        this.datos.reiniciarOrdersPaypal = false
+      }
+      const peticion = this.http.get<OrdersPaypal[]>(`$(this.API_URI)all/OrdersPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.OrdersPaypal = new Array<OrdersPaypal>()
+          this.datos.OrdersPaypal = res as OrdersPaypal[]
+        },
+        err => {
+          this.toastr.error("Error OrdersPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setOrdersPaypal(ordersPaypal: OrdersPaypal): void {
+    this.realizarOperacion("OrdersPaypal", ordersPaypal).subscribe(
+      () => {
+        if (ordersPaypal.id != null) {
+          const i = this.datos.OrdersPaypal.indexOf(ordersPaypal)
+          this.datos.OrdersPaypal[i] = ordersPaypal
+        } else {
+          this.http.get<OrdersPaypal[]>(`$(this.API_URI)all/OrdersPaypal`).subscribe(
+            res => {
+              this.datos.OrdersPaypal = new Array<OrdersPaypal>()
+              this.datos.OrdersPaypal = res as OrdersPaypal[]
+            },
+            err => {
+              this.toastr.error("Error OrdersPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteOrdersPaypal(ordersPaypal: OrdersPaypal) {
+    this.realizarOperacion("OrdersPaypal", ordersPaypal, true).subscribe(
+      () => {
+        const i = this.datos.OrdersPaypal.indexOf(ordersPaypal)
+        this.datos.OrdersPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get LinksOrdersPaypal(): Observable<LinksOrdersPaypal[]> {
+    if (this.datos.LinksOrdersPaypal.length !== 0 && !this.datos.reiniciarLinksOrdersPaypal && this.datos.LinksOrdersPaypalValores.valor !== 0) {
+      this.datos.LinksOrdersPaypalValores.valor = this.datos.LinksOrdersPaypalValores.valor - 1
+      return of(this.datos.LinksOrdersPaypal)
+    } else {
+      if (this.datos.reiniciarLinksOrdersPaypal === true) {
+        this.datos.reiniciarLinksOrdersPaypal = false
+      }
+      const peticion = this.http.get<LinksOrdersPaypal[]>(`$(this.API_URI)all/LinksOrdersPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.LinksOrdersPaypal = new Array<LinksOrdersPaypal>()
+          this.datos.LinksOrdersPaypal = res as LinksOrdersPaypal[]
+        },
+        err => {
+          this.toastr.error("Error LinksOrdersPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setLinksOrdersPaypal(linksOrdersPaypal: LinksOrdersPaypal): void {
+    this.realizarOperacion("LinksOrdersPaypal", linksOrdersPaypal).subscribe(
+      () => {
+        if (linksOrdersPaypal.id != null) {
+          const i = this.datos.LinksOrdersPaypal.indexOf(linksOrdersPaypal)
+          this.datos.LinksOrdersPaypal[i] = linksOrdersPaypal
+        } else {
+          this.http.get<LinksOrdersPaypal[]>(`$(this.API_URI)all/LinksOrdersPaypal`).subscribe(
+            res => {
+              this.datos.LinksOrdersPaypal = new Array<LinksOrdersPaypal>()
+              this.datos.LinksOrdersPaypal = res as LinksOrdersPaypal[]
+            },
+            err => {
+              this.toastr.error("Error LinksOrdersPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteLinksOrdersPaypal(linksOrdersPaypal: LinksOrdersPaypal) {
+    this.realizarOperacion("LinksOrdersPaypal", linksOrdersPaypal, true).subscribe(
+      () => {
+        const i = this.datos.LinksOrdersPaypal.indexOf(linksOrdersPaypal)
+        this.datos.LinksOrdersPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get PagosPaypal(): Observable<PagosPaypal[]> {
+    if (this.datos.PagosPaypal.length !== 0 && !this.datos.reiniciarPagosPaypal && this.datos.PagosPaypalValores.valor !== 0) {
+      this.datos.PagosPaypalValores.valor = this.datos.PagosPaypalValores.valor - 1
+      return of(this.datos.PagosPaypal)
+    } else {
+      if (this.datos.reiniciarPagosPaypal === true) {
+        this.datos.reiniciarPagosPaypal = false
+      }
+      const peticion = this.http.get<PagosPaypal[]>(`$(this.API_URI)all/PagosPaypal`)
+      peticion.subscribe(
+        res => {
+          this.datos.PagosPaypal = new Array<PagosPaypal>()
+          this.datos.PagosPaypal = res as PagosPaypal[]
+        },
+        err => {
+          this.toastr.error("Error PagosPaypal")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setPagosPaypal(pagosPaypal: PagosPaypal): void {
+    this.realizarOperacion("PagosPaypal", pagosPaypal).subscribe(
+      () => {
+        if (pagosPaypal.id != null) {
+          const i = this.datos.PagosPaypal.indexOf(pagosPaypal)
+          this.datos.PagosPaypal[i] = pagosPaypal
+        } else {
+          this.http.get<PagosPaypal[]>(`$(this.API_URI)all/PagosPaypal`).subscribe(
+            res => {
+              this.datos.PagosPaypal = new Array<PagosPaypal>()
+              this.datos.PagosPaypal = res as PagosPaypal[]
+            },
+            err => {
+              this.toastr.error("Error PagosPaypal")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deletePagosPaypal(pagosPaypal: PagosPaypal) {
+    this.realizarOperacion("PagosPaypal", pagosPaypal, true).subscribe(
+      () => {
+        const i = this.datos.PagosPaypal.indexOf(pagosPaypal)
+        this.datos.PagosPaypal.splice(i, 1)
+      }
+    )
+  }
+
+  public get ItemsPurchaseUnits(): Observable<ItemsPurchaseUnits[]> {
+    if (this.datos.ItemsPurchaseUnits.length !== 0 && !this.datos.reiniciarItemsPurchaseUnits && this.datos.ItemsPurchaseUnitsValores.valor !== 0) {
+      this.datos.ItemsPurchaseUnitsValores.valor = this.datos.ItemsPurchaseUnitsValores.valor - 1
+      return of(this.datos.ItemsPurchaseUnits)
+    } else {
+      if (this.datos.reiniciarItemsPurchaseUnits === true) {
+        this.datos.reiniciarItemsPurchaseUnits = false
+      }
+      const peticion = this.http.get<ItemsPurchaseUnits[]>(`$(this.API_URI)all/ItemsPurchaseUnits`)
+      peticion.subscribe(
+        res => {
+          this.datos.ItemsPurchaseUnits = new Array<ItemsPurchaseUnits>()
+          this.datos.ItemsPurchaseUnits = res as ItemsPurchaseUnits[]
+        },
+        err => {
+          this.toastr.error("Error ItemsPurchaseUnits")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setItemsPurchaseUnits(itemsPurchaseUnits: ItemsPurchaseUnits): void {
+    this.realizarOperacion("ItemsPurchaseUnits", itemsPurchaseUnits).subscribe(
+      () => {
+        if (itemsPurchaseUnits.id != null) {
+          const i = this.datos.ItemsPurchaseUnits.indexOf(itemsPurchaseUnits)
+          this.datos.ItemsPurchaseUnits[i] = itemsPurchaseUnits
+        } else {
+          this.http.get<ItemsPurchaseUnits[]>(`$(this.API_URI)all/ItemsPurchaseUnits`).subscribe(
+            res => {
+              this.datos.ItemsPurchaseUnits = new Array<ItemsPurchaseUnits>()
+              this.datos.ItemsPurchaseUnits = res as ItemsPurchaseUnits[]
+            },
+            err => {
+              this.toastr.error("Error ItemsPurchaseUnits")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteItemsPurchaseUnits(itemsPurchaseUnits: ItemsPurchaseUnits) {
+    this.realizarOperacion("ItemsPurchaseUnits", itemsPurchaseUnits, true).subscribe(
+      () => {
+        const i = this.datos.ItemsPurchaseUnits.indexOf(itemsPurchaseUnits)
+        this.datos.ItemsPurchaseUnits.splice(i, 1)
+      }
+    )
+  }
+
+  public get SellerProtectionDisputeCategoriesPurchaseUnits(): Observable<SellerProtectionDisputeCategoriesPurchaseUnits[]> {
+    if (this.datos.SellerProtectionDisputeCategoriesPurchaseUnits.length !== 0 && !this.datos.reiniciarSellerProtectionDisputeCategoriesPurchaseUnits && this.datos.SellerProtectionDisputeCategoriesPurchaseUnitsValores.valor !== 0) {
+      this.datos.SellerProtectionDisputeCategoriesPurchaseUnitsValores.valor = this.datos.SellerProtectionDisputeCategoriesPurchaseUnitsValores.valor - 1
+      return of(this.datos.SellerProtectionDisputeCategoriesPurchaseUnits)
+    } else {
+      if (this.datos.reiniciarSellerProtectionDisputeCategoriesPurchaseUnits === true) {
+        this.datos.reiniciarSellerProtectionDisputeCategoriesPurchaseUnits = false
+      }
+      const peticion = this.http.get<SellerProtectionDisputeCategoriesPurchaseUnits[]>(`$(this.API_URI)all/SellerProtectionDisputeCategoriesPurchaseUnits`)
+      peticion.subscribe(
+        res => {
+          this.datos.SellerProtectionDisputeCategoriesPurchaseUnits = new Array<SellerProtectionDisputeCategoriesPurchaseUnits>()
+          this.datos.SellerProtectionDisputeCategoriesPurchaseUnits = res as SellerProtectionDisputeCategoriesPurchaseUnits[]
+        },
+        err => {
+          this.toastr.error("Error SellerProtectionDisputeCategoriesPurchaseUnits")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setSellerProtectionDisputeCategoriesPurchaseUnits(sellerProtectionDisputeCategoriesPurchaseUnits: SellerProtectionDisputeCategoriesPurchaseUnits): void {
+    this.realizarOperacion("SellerProtectionDisputeCategoriesPurchaseUnits", sellerProtectionDisputeCategoriesPurchaseUnits).subscribe(
+      () => {
+        if (sellerProtectionDisputeCategoriesPurchaseUnits.id != null) {
+          const i = this.datos.SellerProtectionDisputeCategoriesPurchaseUnits.indexOf(sellerProtectionDisputeCategoriesPurchaseUnits)
+          this.datos.SellerProtectionDisputeCategoriesPurchaseUnits[i] = sellerProtectionDisputeCategoriesPurchaseUnits
+        } else {
+          this.http.get<SellerProtectionDisputeCategoriesPurchaseUnits[]>(`$(this.API_URI)all/SellerProtectionDisputeCategoriesPurchaseUnits`).subscribe(
+            res => {
+              this.datos.SellerProtectionDisputeCategoriesPurchaseUnits = new Array<SellerProtectionDisputeCategoriesPurchaseUnits>()
+              this.datos.SellerProtectionDisputeCategoriesPurchaseUnits = res as SellerProtectionDisputeCategoriesPurchaseUnits[]
+            },
+            err => {
+              this.toastr.error("Error SellerProtectionDisputeCategoriesPurchaseUnits")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteSellerProtectionDisputeCategoriesPurchaseUnits(sellerProtectionDisputeCategoriesPurchaseUnits: SellerProtectionDisputeCategoriesPurchaseUnits) {
+    this.realizarOperacion("SellerProtectionDisputeCategoriesPurchaseUnits", sellerProtectionDisputeCategoriesPurchaseUnits, true).subscribe(
+      () => {
+        const i = this.datos.SellerProtectionDisputeCategoriesPurchaseUnits.indexOf(sellerProtectionDisputeCategoriesPurchaseUnits)
+        this.datos.SellerProtectionDisputeCategoriesPurchaseUnits.splice(i, 1)
+      }
+    )
+  }
+
+  public get LinksPurchaseUnits(): Observable<LinksPurchaseUnits[]> {
+    if (this.datos.LinksPurchaseUnits.length !== 0 && !this.datos.reiniciarLinksPurchaseUnits && this.datos.LinksPurchaseUnitsValores.valor !== 0) {
+      this.datos.LinksPurchaseUnitsValores.valor = this.datos.LinksPurchaseUnitsValores.valor - 1
+      return of(this.datos.LinksPurchaseUnits)
+    } else {
+      if (this.datos.reiniciarLinksPurchaseUnits === true) {
+        this.datos.reiniciarLinksPurchaseUnits = false
+      }
+      const peticion = this.http.get<LinksPurchaseUnits[]>(`$(this.API_URI)all/LinksPurchaseUnits`)
+      peticion.subscribe(
+        res => {
+          this.datos.LinksPurchaseUnits = new Array<LinksPurchaseUnits>()
+          this.datos.LinksPurchaseUnits = res as LinksPurchaseUnits[]
+        },
+        err => {
+          this.toastr.error("Error LinksPurchaseUnits")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setLinksPurchaseUnits(linksPurchaseUnits: LinksPurchaseUnits): void {
+    this.realizarOperacion("LinksPurchaseUnits", linksPurchaseUnits).subscribe(
+      () => {
+        if (linksPurchaseUnits.id != null) {
+          const i = this.datos.LinksPurchaseUnits.indexOf(linksPurchaseUnits)
+          this.datos.LinksPurchaseUnits[i] = linksPurchaseUnits
+        } else {
+          this.http.get<LinksPurchaseUnits[]>(`$(this.API_URI)all/LinksPurchaseUnits`).subscribe(
+            res => {
+              this.datos.LinksPurchaseUnits = new Array<LinksPurchaseUnits>()
+              this.datos.LinksPurchaseUnits = res as LinksPurchaseUnits[]
+            },
+            err => {
+              this.toastr.error("Error LinksPurchaseUnits")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deleteLinksPurchaseUnits(linksPurchaseUnits: LinksPurchaseUnits) {
+    this.realizarOperacion("LinksPurchaseUnits", linksPurchaseUnits, true).subscribe(
+      () => {
+        const i = this.datos.LinksPurchaseUnits.indexOf(linksPurchaseUnits)
+        this.datos.LinksPurchaseUnits.splice(i, 1)
+      }
+    )
+  }
+
+  public get PaymentsPurchaseUnits(): Observable<PaymentsPurchaseUnits[]> {
+    if (this.datos.PaymentsPurchaseUnits.length !== 0 && !this.datos.reiniciarPaymentsPurchaseUnits && this.datos.PaymentsPurchaseUnitsValores.valor !== 0) {
+      this.datos.PaymentsPurchaseUnitsValores.valor = this.datos.PaymentsPurchaseUnitsValores.valor - 1
+      return of(this.datos.PaymentsPurchaseUnits)
+    } else {
+      if (this.datos.reiniciarPaymentsPurchaseUnits === true) {
+        this.datos.reiniciarPaymentsPurchaseUnits = false
+      }
+      const peticion = this.http.get<PaymentsPurchaseUnits[]>(`$(this.API_URI)all/PaymentsPurchaseUnits`)
+      peticion.subscribe(
+        res => {
+          this.datos.PaymentsPurchaseUnits = new Array<PaymentsPurchaseUnits>()
+          this.datos.PaymentsPurchaseUnits = res as PaymentsPurchaseUnits[]
+        },
+        err => {
+          this.toastr.error("Error PaymentsPurchaseUnits")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setPaymentsPurchaseUnits(paymentsPurchaseUnits: PaymentsPurchaseUnits): void {
+    this.realizarOperacion("PaymentsPurchaseUnits", paymentsPurchaseUnits).subscribe(
+      () => {
+        if (paymentsPurchaseUnits.id != null) {
+          const i = this.datos.PaymentsPurchaseUnits.indexOf(paymentsPurchaseUnits)
+          this.datos.PaymentsPurchaseUnits[i] = paymentsPurchaseUnits
+        } else {
+          this.http.get<PaymentsPurchaseUnits[]>(`$(this.API_URI)all/PaymentsPurchaseUnits`).subscribe(
+            res => {
+              this.datos.PaymentsPurchaseUnits = new Array<PaymentsPurchaseUnits>()
+              this.datos.PaymentsPurchaseUnits = res as PaymentsPurchaseUnits[]
+            },
+            err => {
+              this.toastr.error("Error PaymentsPurchaseUnits")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deletePaymentsPurchaseUnits(paymentsPurchaseUnits: PaymentsPurchaseUnits) {
+    this.realizarOperacion("PaymentsPurchaseUnits", paymentsPurchaseUnits, true).subscribe(
+      () => {
+        const i = this.datos.PaymentsPurchaseUnits.indexOf(paymentsPurchaseUnits)
+        this.datos.PaymentsPurchaseUnits.splice(i, 1)
+      }
+    )
+  }
+
+  public get PurchaseUnits(): Observable<PurchaseUnits[]> {
+    if (this.datos.PurchaseUnits.length !== 0 && !this.datos.reiniciarPurchaseUnits && this.datos.PurchaseUnitsValores.valor !== 0) {
+      this.datos.PurchaseUnitsValores.valor = this.datos.PurchaseUnitsValores.valor - 1
+      return of(this.datos.PurchaseUnits)
+    } else {
+      if (this.datos.reiniciarPurchaseUnits === true) {
+        this.datos.reiniciarPurchaseUnits = false
+      }
+      const peticion = this.http.get<PurchaseUnits[]>(`$(this.API_URI)all/PurchaseUnits`)
+      peticion.subscribe(
+        res => {
+          this.datos.PurchaseUnits = new Array<PurchaseUnits>()
+          this.datos.PurchaseUnits = res as PurchaseUnits[]
+        },
+        err => {
+          this.toastr.error("Error PurchaseUnits")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setPurchaseUnits(purchaseUnits: PurchaseUnits): void {
+    this.realizarOperacion("PurchaseUnits", purchaseUnits).subscribe(
+      () => {
+        if (purchaseUnits.id != null) {
+          const i = this.datos.PurchaseUnits.indexOf(purchaseUnits)
+          this.datos.PurchaseUnits[i] = purchaseUnits
+        } else {
+          this.http.get<PurchaseUnits[]>(`$(this.API_URI)all/PurchaseUnits`).subscribe(
+            res => {
+              this.datos.PurchaseUnits = new Array<PurchaseUnits>()
+              this.datos.PurchaseUnits = res as PurchaseUnits[]
+            },
+            err => {
+              this.toastr.error("Error PurchaseUnits")
+              console.log(err)
+            }
+          )
+        }
+      }
+    )
+  }
+
+  public deletePurchaseUnits(purchaseUnits: PurchaseUnits) {
+    this.realizarOperacion("PurchaseUnits", purchaseUnits, true).subscribe(
+      () => {
+        const i = this.datos.PurchaseUnits.indexOf(purchaseUnits)
+        this.datos.PurchaseUnits.splice(i, 1)
+      }
+    )
+  }
+
 
   public procedureCreateUserAndEmail(email: string, contrasena: string, social: number) {
     const sqlProcedure: SqlProcedure = { nombre: "createEmailAndUser", valores: [email, contrasena, social, new Date()] }
