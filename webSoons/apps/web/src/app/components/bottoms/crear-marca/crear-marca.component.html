@@ -1,0 +1,25 @@
+<form [formGroup]="this.crearMarcaForm">
+    
+    <mat-form-field appearance="outline" class="col-md-6">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" formControlName="nombre" placeholder="Introduce tu nombre">
+        <mat-error *ngIf="nombre.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="col-md-6">
+        <mat-label>Descripción</mat-label>
+        <input matInput type="text" formControlName="descripcion" placeholder="Introduce la descripción">
+        <mat-error *ngIf="descripcion.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+    </mat-form-field>
+    
+    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+            <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+        </div>
+        <div class="files-list" *ngFor="let file of files;let i= index">
+            <p class="align-middle m-auto"> {{ file.name + " " + file.type }} </p>
+            <button class="delete-file" (click)="deleteAttachment(i)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </div>
+    <button mat-stroked-button color="primary" (click)="this.crearMarca()">Crear marca</button>
+</form>

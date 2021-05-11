@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@Soons/interfaces-sql": ["libs/interfaces-sql/src/index.ts"],
+      "@Soons/models": ["libs/models/src/index.ts"],
+      "@Soons/form-group": ["libs/form-group/src/index.ts"],
+      "@Soons/encriptacion": ["libs/encriptacion/src/index.ts"],
+      "@Soons/paypal": ["libs/paypal/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

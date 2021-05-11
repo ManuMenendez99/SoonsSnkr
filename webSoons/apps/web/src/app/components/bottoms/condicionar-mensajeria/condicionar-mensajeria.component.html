@@ -1,0 +1,29 @@
+<form [formGroup]="this.condicionesMensajeForm">
+    <mat-nav-list>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="publicidad">Acepto la mensajeria con publicidad</mat-checkbox>
+        </div>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="venta">Acepto la mensajeria con los productos en venta que tengo
+            </mat-checkbox>
+        </div>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="compra">Acepto la mensajeria con las compras que realizo
+            </mat-checkbox>
+        </div>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="administrador">Acepto la mensajeria con los mensajes del
+                administrador</mat-checkbox>
+        </div>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="descuento">Acepto la mensajeria con descuentos ocasionales
+            </mat-checkbox>
+        </div>
+        <div mat-list-item>
+            <mat-checkbox mat-line formControlName="stock">Acepto la mensajeria con stock de un producto en espera
+            </mat-checkbox>
+        </div>
+    </mat-nav-list>
+
+    <button mat-stroked-button color="primary" (click)="guardarCambios()">Guardar cambios</button>
+</form>

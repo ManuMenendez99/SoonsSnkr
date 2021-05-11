@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "@Soons/interfaces-sql": [
+        "libs/interfaces-sql/src/index.ts"
+      ],
+      "@Soons/models": [
+        "libs/models/src/index.ts"
+      ],
+      "@Soons/form-group": [
+        "libs/form-group/src/index.ts"
+      ],
+      "@Soons/encriptacion": [
+        "libs/encriptacion/src/index.ts"
+      ],
+      "@Soons/paypal": [
+        "libs/paypal/src/index.ts"
+      ]
+    }
+  },
+  "extends": "..\\..\\..\\apps\\api\\tsconfig.app.json"
+}

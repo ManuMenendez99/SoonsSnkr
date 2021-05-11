@@ -1,0 +1,7 @@
+{
+  "name": "Soons",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

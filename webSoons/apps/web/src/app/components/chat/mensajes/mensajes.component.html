@@ -1,0 +1,41 @@
+<!-- <ng-template #noMessages>
+    <div class="no-messages w-100 h-100">
+            <img src="../../../../assets/components/chat/no-messages-illustration.svg"/>
+        <span class="title">{{!tieneChat() ? 'Selecciona una conversación para mostrar' : 'No tiene mensajes'
+            }}</span>
+        <span class="info">{{!tieneChat() ? 'Selecciona tu primera conversacion.' : 'Envía tu primer mensaje.'
+            }}</span>
+    </div>
+</ng-template> 
+
+<div class="main">
+    <div class="user-info" *ngIf="tieneChat()">{{ nombre() }}</div>
+    <div *ngIf="tieneMensajes(); else noMessages" class="messages-container" id="scrollMe">
+        <ul id="contenidoscrollable" *ngFor="let mensaje of mensajesChat">
+            <li *ngIf="sacarMensajeNoLeidos(mensaje.id)">
+                <div class="w-100" id="contenidoNuevo">
+                    <hr data-content="Mensajes no leidos" class="hr-text">
+                </div>
+            </li>
+            <li [ngClass]="mensajeMio(mensaje) ? 'd-flex justify-content-end': 'd-flex justify-content-start' ">
+                <span [ngClass]="mensajeMio(mensaje) ? 'speech-bubble-own': 'speech-bubble' "
+                    [innerHTML]="conHora(mensaje)"> 
+                </span>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="tieneChat()">
+        <form [formGroup]="this.formularioChat">
+            <mat-form-field appearance="outline" class="m-0 w-100">
+                <input matInput (focus)="checkPlaceHolder()" (blur)="checkPlaceHolder()" placeholder="{{myplaceHolder}}"
+                    formControlName="texto" (keydown.enter)="enviarMensaje()" autofocus />
+                <button mat-mini-fab color="primary" class="medioTexto" matSuffix (click)="enviarMensaje()">
+                    <mat-icon color="white">send</mat-icon>
+                </button>
+            </mat-form-field>
+        </form>
+    </div>
+</div>
+<div *ngIf="botonabajo" (click)="this.chatService.scrollBottomMessages(); this.botonabajo = false">Scroll abajo
+    rapido
+</div> -->

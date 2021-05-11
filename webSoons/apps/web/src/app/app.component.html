@@ -1,0 +1,24 @@
+
+<Soons-navbar></Soons-navbar>
+
+<div class="wrapper min-vh-100" (click)="quitarTight()" id="tighting">
+    <div class="wrap">
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
+<Soons-footer (mouseenter)="_insideFooter = true"  (mouseleave)="_insideFooter = false" *ngIf="mostrarBarra()"></Soons-footer>
+<!-- 
+<ngx-paypal [config]="paypalService.paypalConfiguracion"></ngx-paypal> -->
+    <!-- archivoFoto -->
+        <!-- <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile($event)">
+            <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+            <h3 class="display-h5 azulElectrico">Subir Fotografía
+                {{ isLoggedViaSocial === true ? " y reemplazar foto de la red Social" : ""}}</h3>
+        </div>
+        <div class="files-list" *ngFor="let file of files;let i= index">
+            <p class="align-middle m-auto"> {{ file.name + " " + file.type }} </p>
+            <button class="delete-file" (click)="deleteAttachment(i)">
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+        </div> -->

@@ -1,0 +1,91 @@
+<!-- <form [formGroup]="this.crearGrupoFormulario">
+    <mat-horizontal-stepper #stepper>
+        <mat-step errorMessage="El nombre del grupo es obligatorio.">
+            <ng-template matStepLabel>Nombre del grupo</ng-template>
+            <mat-form-field class="col-md-12 my-3" appearance="outline">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Pon un nombre a tu grupo, no se valorará la originalidad"
+                    formControlName="nombre" required>
+            </mat-form-field>
+            <div align="right">
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Participantes</ng-template>
+            <mat-form-field appearance="outline" class="col-md-12 my-3">
+                <mat-label>Usuarios</mat-label>
+                <mat-select formControlName="secondCtrl" multiple formControlName="participantes">
+                    <div class="d-flex justify-content-center">
+                        <mat-form-field class="col-md-12 my-3" appearance="outline">
+                            <input matInput placeholder="Filtra entre tus amistades"
+                                (keyup)="onKey($event.target.value)">
+                        </mat-form-field>
+                    </div>
+                    <mat-option *ngFor="let persona of this.personas" [value]="persona.id"
+                        [disabled]="amigoBloqueado(persona.id)">{{persona.nombre + " " + persona.apellidos}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div align="right">
+                <button mat-button matStepperPrevious>Anterior</button>
+                <button mat-button matStepperNext>Siguiente</button>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Resumen</ng-template>
+            <strong>Nombre del grupo:</strong> &nbsp; {{this.nombreValue}}
+            <table class="col-md-12 table-striped table my-3 table-hover">
+                <tbody>
+                    <tr>
+                        <td colspan="2" class="text-danger">{{this.data.Administrador.nombre + " " +
+                            this.data.Administrador.apellidos}} (Creador)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table class="col-md-12 table-striped table my-3 table-hover">
+                <tbody>
+                    <tr *ngFor="let persona of personasEnGrupo()">
+                        <td colspan="2">
+                            <div class="d-flex justify-content-between align-text-bottom">
+                                <div
+                                    [ngClass]="esAdministrador(persona.id) ? 'col-md-10 align-text-bottom text-danger' : 'col-md-10 align-text-bottom '">
+                                    {{persona.nombre + " " + persona.apellidos}} <span
+                                        *ngIf="esAdministrador(persona.id)"> - Administrador</span>
+                                </div>
+                                <div class="col-md-2">
+                                    <button mat-icon-button [matMenuTriggerFor]="menu"
+                                        aria-label="Example icon-button with a menu">
+                                        <mat-icon>more_vert</mat-icon>
+                                    </button>
+                                    <mat-menu #menu="matMenu" xPosition="before">
+                                        <button mat-menu-item (click)="this.eliminarDelGrupo(persona.id)">
+                                            <mat-icon>delete_outline</mat-icon>
+                                            <span>Quitar miembro</span>
+                                        </button>
+                                        <mat-divider></mat-divider>
+                                        <button mat-menu-item *ngIf="!esAdministrador(persona.id)"
+                                            (click)="this.convertirEnAdministrador(persona.id)">
+                                            <mat-icon>supervised_user_circle</mat-icon>
+                                            <span>Convertir en administrador</span>
+                                        </button>
+                                        <button mat-menu-item *ngIf="esAdministrador(persona.id)"
+                                            (click)="this.quitarDeAdministrador(persona.id)">
+                                            <mat-icon>supervised_user_circle</mat-icon>
+                                            <span>Convertir en usuario</span>
+                                        </button>
+                                    </mat-menu>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div align="right">
+                <button mat-button matStepperPrevious>Anterior</button>
+                <button mat-button (click)="stepper.reset()">Volver a empezar</button>
+                <button mat-button (click)="crearGrupo()">Crear grupo</button>
+            </div>
+        </mat-step>
+    </mat-horizontal-stepper>
+</form> -->

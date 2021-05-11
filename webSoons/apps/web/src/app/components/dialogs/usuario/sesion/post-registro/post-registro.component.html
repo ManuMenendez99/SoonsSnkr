@@ -1,0 +1,113 @@
+<div *ngIf="!isLoggedViaSocial">
+    <!-- cargando el email -->
+    <Soons-infinite-loader class="d-flex justify-content-center"
+        *ngIf="_isEmailVerified === null || _isEmailVerified === undefined"></Soons-infinite-loader>
+    <!-- comprobación del email si ha sido verificado -->
+    <div class="row">
+        <div [ngClass]="_isEmailVerified || _isEmailVerified == false ? 'col-md-6' : 'col-md-12'">
+            <div class="swal2-icon swal2-success swal2-animate-success-icon" style="display: flex;"
+                *ngIf="_isEmailVerified">
+                <div class="swal2-success-circular-line-left" style="background-color: rgb(255, 255, 255);"></div>
+                <span class="swal2-success-line-tip"></span>
+                <span class="swal2-success-line-long"></span>
+                <div class="swal2-success-ring"></div>
+                <div class="swal2-success-fix" style="background-color: rgb(255, 255, 255);"></div>
+                <div class="swal2-success-circular-line-right" style="background-color: rgb(255, 255, 255);"></div>
+            </div>
+            <!-- comprobacion de que el email no ha sido verificado -->
+            <div class="swal2-icon swal2-error swal2-animate-error-icon" style="display: flex;"
+                *ngIf="_isEmailVerified == false">
+                <span class="swal2-x-mark">
+                    <span class="swal2-x-mark-line-left"></span>
+                    <span class="swal2-x-mark-line-right"></span>
+                </span>
+            </div>
+        </div>
+        <div class="col-md-6 align-self-center" *ngIf="_isEmailVerified || _isEmailVerified == false">
+            <span class="align-text-middle">
+                {{ _isEmailVerified ? "El usuario ha verificado el email correctamente" : "El usuario todavía no ha verificado el email"  }}
+            </span>
+        </div>
+    </div>
+</div>
+
+<mat-card>
+    <h1 class="display-h4 container">Rellenar datos de usuario</h1>
+    <form [formGroup]="this.postRegistroForm" class="w-100 container row">
+
+        <!-- nombre -->
+        <mat-form-field appearance="outline" class="col-md-4">
+            <mat-label>Nombre</mat-label>
+            <input matInput type="text" formControlName="nombre" placeholder="Introduce tu nombre">
+            <mat-error *ngIf="nombre.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        <!-- apellidos -->
+        <mat-form-field appearance="outline" class="col-md-8">
+            <mat-label>Apellidos</mat-label>
+            <input matInput formControlName="apellidos" placeholder="Introduce tus apellidos">
+            <mat-error *ngIf="apellidos.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+            <mat-error *ngIf="apellidos.errors?.isDoubleSurname">Debe de incluir <strong>ambos</strong> apellidos</mat-error>
+        </mat-form-field>
+
+        <!-- fechaNacimiento -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Fecha de nacimiento</mat-label>
+            <input matInput [max]="diaHoy" formControlName="fechaNacimiento" [matDatepicker]="picker">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker startView="multi-year"></mat-datepicker>
+            <mat-error *ngIf="fechaNacimiento.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        <!-- rol -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Rol</mat-label>
+            <mat-select formControlName="role" matTooltip="Por ahora este es tu rol, habla con el administrador para poder modificar este rol" [matTooltipShowDelay]="1000"
+            [matTooltipHideDelay]="2000">
+                <mat-option [value]="1">Usuario</mat-option>
+                <mat-option [value]="2">Administrador</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- estado -->
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Teléfono</mat-label>
+            <input matInput formControlName="telefono" placeholder="Introduce tu telefono" type="number">
+            <mat-error *ngIf="telefono.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+            <mat-error *ngIf="telefono.errors?.isPhone">Este campo no tiene un formato de <strong>teléfono</strong></mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="col-md-6">
+            <mat-label>Preferencias</mat-label>
+            <mat-select formControlName="preferencias" matTooltip="Se aplicarán filtros correspondientes a tus preferencias en las busquedas" [matTooltipShowDelay]="1000"
+            [matTooltipHideDelay]="2000">
+                <mat-option [value]="1">Hombre</mat-option>
+                <mat-option [value]="2">Mujer</mat-option>
+            </mat-select>
+            <mat-error *ngIf="preferencias.errors?.required">Este campo es <strong>obligatorio</strong></mat-error>
+        </mat-form-field>
+
+        
+        <div class="row col-md-12 mt-3">
+            <div class="col-md-6">
+                <mat-checkbox formControlName="LGPD" >He leido y acepto el tratamiento de datos.<button mat-button color="primary"
+                        (click)="this.usuarioService.abrirLgpd()">Leer tratamiento de datos</button> </mat-checkbox>
+                        <mat-error *ngIf="LGPD.errors?.requiredTrue"></mat-error>
+                <br>
+                <mat-checkbox formControlName="keepSesion" > Recordar datos de sesión </mat-checkbox>
+                <br>
+                <mat-checkbox formControlName="mensajeria" [indeterminate]="this.indeterminadoMensajeria()" (click)="moverEstadoIndeterminados()">
+                    Condiciones de la mensajeria 
+                </mat-checkbox>        
+                <button mat-button color="primary"
+                (click)="this.condicionarMensajeria()">Condicionar mensajeria</button>
+            </div>
+            <div class="col-md-6 d-flex justify-content-end">
+                <div class="row w-100 h-50">
+                    <button mat-button color="warn" class="col-md-6" (click)="cancelarFormularioRegistro()">Cancelar</button>
+                    <button mat-raised-button color="primary" class="col-md-6" (click)="enviarFormulario()" [disabled]="validarForm()" >Crear usuario</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-card>

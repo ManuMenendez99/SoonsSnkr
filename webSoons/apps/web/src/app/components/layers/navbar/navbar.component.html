@@ -1,0 +1,70 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-light blue-grey lighten-5 navbar navbar-expand-lg" [containerInside]="false">
+  <!-- Navbar brand -->
+  <mdb-navbar-brand><span class="navbar-brand">Soons Snkr</span></mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+    <!-- Links -->
+    <ul class="navbar-nav mr-auto">
+
+
+
+      <li class="nav-item active" routerLink="welcome">
+        <a class="nav-link waves-light"   mdbWavesEffect>{{ 'common-words.welcome' | translate | firstLetterCap }}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.products' | translate | firstLetterCap }}</a>
+      </li>
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          {{ 'common-words.brands' | translate | firstLetterCap }}<span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" *ngFor="let marca of marcas"
+            mdbWavesEffect>{{ marca.nombre | firstLetterCap }}</a>
+          <div class="divider dropdown-divider" *ngIf="this.firebase.isAdmin()"></div>
+          <a class="dropdown-item waves-light"
+            mdbWavesEffect routerLink="configuracionMarcas" *ngIf="this.firebase.isAdmin()">{{ 'common-words.configuration' | translate | firstLetterCap }}</a>
+        </div>
+      </li>
+
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect>{{ 'common-words.contact-us' | translate | firstLetterCap }}</a>
+      </li>
+      <!-- Dropdown -->
+
+    </ul>
+    <!-- Links -->
+
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link">
+          <mdb-icon fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <button mat-button color="primary" *ngIf="!this.firebase.isLogged()" (click)="firebase.login()">Login</button>
+        <button mat-button color="accent" *ngIf="!this.firebase.isLogged()" (click)="firebase.register()">Register</button>
+      </li>
+      <li class="nav-item dropdown" *ngIf="this.firebase.isLogged()" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <i class="fas fa-user"></i><span class="caret"></span></a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" routerLink="userInfo" mdbWavesEffect>Datos</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>Another action</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect>Something else here</a>
+          <div class="divider dropdown-divider"></div>
+          <a class="dropdown-item waves-light" *ngIf="this.firebase.isLogged()" (click)="firebase.logout()" mdbWavesEffect>Desconectarse</a>
+        </div>
+      </li>
+    </ul>
+  </links>
+  <!-- Collapsible content -->
+</mdb-navbar>
+<!--/.Navbar-->

@@ -1,0 +1,61 @@
+{
+  "npmScope": "Soons",
+  "implicitDependencies": {
+    "angular.json": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "tsconfig.json": "*",
+    "tslint.json": "*",
+    "nx.json": "*"
+  },
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "web": {
+      "tags": []
+    },
+    "web-e2e": {
+      "tags": [],
+      "implicitDependencies": ["web"]
+    },
+    "api": {
+      "tags": []
+    },
+    "api-interfaces": {
+      "tags": []
+    },
+    "android": {
+      "tags": []
+    },
+    "android-e2e": {
+      "tags": [],
+      "implicitDependencies": ["android"]
+    },
+    "interfaces-sql": {
+      "tags": []
+    },
+    "encriptado": {
+      "tags": []
+    },
+    "models": {
+      "tags": []
+    },
+    "form-group": {
+      "tags": []
+    },
+    "encriptacion": {
+      "tags": []
+    },
+    "paypal": {
+      "tags": []
+    }
+  }
+}

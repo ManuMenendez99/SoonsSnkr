@@ -1,0 +1,17 @@
+<!-- <div class="main">
+    <div class="contacts-title">Conversaciones</div>
+    <ul *ngIf="chatService.chatsEstado.cargado === true">
+        <li *ngFor="let chat of chatService.chats"
+            [ngClass]="chat.id === (chatService.chatActual ? chatService.chatActual.id : 0) ? 'active' : ''" (click)="seleccionChat(chat)">
+            <div class="contacts-info">
+                <span class="status-title"> {{ nombre(chat.nombreChat) }}</span>
+            </div>
+        </li>
+        <li *ngIf="chatService.chats.length === 0">
+            <span>Añade tus amigos y grupos</span>
+        </li>
+        <li (click)="crearGrupo()">
+            <span>Crear grupo</span>
+        </li>
+    </ul>
+</div> -->

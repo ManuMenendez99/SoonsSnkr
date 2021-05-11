@@ -1,0 +1,140 @@
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.fab-container {
+  position: relative;
+  z-index: 100;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+
+  > div {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    margin-right: 5px;
+
+    button {
+      margin-right: 17px;
+    }
+  }
+}
+
+.fab-toggler {
+  float: right;
+  z-index: 100;
+}
+
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.example-element-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.example-element-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.example-element-description {
+  padding: 16px;
+}
+
+.example-element-description-attribution {
+  opacity: 0.5;
+}
+
+.mat-expansion-panel {
+  background: transparent;
+}
+
+table {
+  border-collapse: separate !important;
+}
+
+.progressBar {
+  width: 0%;
+  transition: width 2s;
+}
+
+.extended-fab-button {
+  height: 60px;
+  width: unset;
+  padding: 0 26px;
+  border-radius: 29px;
+
+  .mat-icon {
+    margin-left: 10px;
+  }
+
+  .extended-fab-button__text {
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+}
+
+.greened{
+  color: #14be04
+}
+
+.z-indextop {
+    z-index: 1001;
+  }
+  .z-indextop-1 {
+    z-index: 1000;
+  }
+  .z-indextop-2 {
+    z-index: 999;
+  }
+
+  #right_bottom {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+  }
+  
+  #right_bottom_button {
+    width: 60px;
+    height: 60px;
+  }

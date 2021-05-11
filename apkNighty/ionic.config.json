@@ -1,7 +1,0 @@
-{
-  "name": "nighty",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}
