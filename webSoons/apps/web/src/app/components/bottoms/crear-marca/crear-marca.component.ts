@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { FormGroupsModule } from '@Soons/form-group';
 import { MarcasService } from '../../../services/marcas/marcas.service';
 
@@ -10,7 +11,7 @@ import { MarcasService } from '../../../services/marcas/marcas.service';
 export class CrearMarcaComponent implements OnInit {
 
   files = new Array<File>();
-  constructor(private formGroups: FormGroupsModule, private marcasService: MarcasService) { }
+  constructor(private formGroups: FormGroupsModule, private marcasService: MarcasService, private _bottomSheetRef: MatBottomSheetRef<CrearMarcaComponent>) { }
 
   ngOnInit(): void {
   }
@@ -20,7 +21,9 @@ export class CrearMarcaComponent implements OnInit {
     const nombre = this.nombre_value
     const descripcion = this.descripcion_value
 
-    this.marcasService.subirMarca(nombre,descripcion,file[0])
+    this.marcasService.subirMarca(nombre,descripcion,file)
+
+    this._bottomSheetRef.dismiss()
   }
 
   uploadFile(event) {

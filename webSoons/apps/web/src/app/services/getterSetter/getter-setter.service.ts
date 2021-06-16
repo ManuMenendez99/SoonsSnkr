@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DatosService } from '../datos/datos.service';
 import { Observable, of } from 'rxjs';
-import {Usuarios,UsuariosRegistrandose,Paises,Ciudades,Direcciones,DireccionesUsuario,Marcas,Categorias,MensajeriasAceptadas,Productos,Tags,TagsProducto,Imagenes,Stock,Descuentos, Archivos
+import {Usuarios,UsuariosRegistrandose,Paises,Ciudades,Direcciones,DireccionesUsuario,Marcas,Categorias,MensajeriasAceptadas,Productos,Tags,TagsProducto,ImagenesProductos,Stock,Descuentos, Archivos, ImagenesMarcas, ResetPassword
   //  PaymentsOrdersPaypal, SellerProtectionDisputeCategoriesOrdersPaypal, ItemsOrdersPaypal, PagosPaypal, LinksOrdersPaypal, OrdersPaypal, ItemsComprasOrderPaypal, ComprasOrderPaypal, PayersPaypal, UnidadesOrdersPaypal
 } from '@Soons/models';
 import { APIService } from '../api/api.service';
@@ -41,7 +41,7 @@ export class GetterSetterService {
       return peticion
     }
   }
-
+  
   public setUsuarios(usuarios: Usuarios): void {
     this.realizarOperacion("Usuarios", usuarios).subscribe(
       () => {
@@ -760,22 +760,22 @@ export class GetterSetterService {
     )
   }
 
-  public get Imagenes(): Observable<Imagenes[]> {
-    if (this.datos.Imagenes.length !== 0 && this.datos.reiniciarImagenes && this.datos.ImagenesValores.valor !== 0) {
-      this.datos.ImagenesValores.valor = this.datos.ImagenesValores.valor - 1
-      return of(this.datos.Imagenes)
+  public get ResetPassword(): Observable<ResetPassword[]> {
+    if (this.datos.ResetPassword.length !== 0 && this.datos.reiniciarResetPassword && this.datos.ResetPasswordValores.valor !== 0) {
+      this.datos.ResetPasswordValores.valor = this.datos.ResetPasswordValores.valor - 1
+      return of(this.datos.ResetPassword)
     } else {
-      if (this.datos.reiniciarImagenes === true) {
-        this.datos.reiniciarImagenes = false
+      if (this.datos.reiniciarResetPassword === true) {
+        this.datos.reiniciarResetPassword = false
       }
-      const peticion = this.http.get<Imagenes[]>(`${this.API_URI}all/Imagenes`)
+      const peticion = this.http.get<ResetPassword[]>(`${this.API_URI}all/ResetPassword`)
       peticion.subscribe(
         res => {
-          this.datos.Imagenes = new Array<Imagenes>()
-          this.datos.Imagenes = res as Imagenes[]
+          this.datos.ResetPassword = new Array<ResetPassword>()
+          this.datos.ResetPassword = res as ResetPassword[]
         },
         err => {
-          this.toastr.error("Error en peticion a base de datos en tabla Imagenes")
+          this.toastr.error("Error en peticion a base de datos en tabla ResetPassword")
           console.log(err)
         }
       )
@@ -783,36 +783,93 @@ export class GetterSetterService {
     }
   }
 
-  public setImagenes(imagenes: Imagenes): void {
-    this.realizarOperacion("Imagenes", imagenes).subscribe(
+  public setResetPassword(resetPassword: ResetPassword): void {
+    this.realizarOperacion("ResetPassword", resetPassword).subscribe(
       () => {
-        if (imagenes.id !== null) {
-          const i = this.datos.Imagenes.indexOf(imagenes)
-          this.datos.Imagenes[i] = imagenes
+        if (resetPassword.id !== null) {
+          const i = this.datos.ResetPassword.indexOf(resetPassword)
+          this.datos.ResetPassword[i] = resetPassword
         } else {
-          this.http.get<Imagenes[]>(`${this.API_URI}all/Imagenes`).subscribe(
+          this.http.get<ResetPassword[]>(`${this.API_URI}all/ResetPassword`).subscribe(
             res => {
-              this.datos.Imagenes = new Array<Imagenes>()
-              this.datos.Imagenes = res as Imagenes[]
+              this.datos.ResetPassword = new Array<ResetPassword>()
+              this.datos.ResetPassword = res as ResetPassword[]
             },
             err => {
-              this.toastr.error("Error en peticion a base de datos en tabla Imagenes")
+              this.toastr.error("Error en peticion a base de datos en tabla ResetPassword")
             }
           )
         }
       },
       err => {
-        this.toastr.error("Error en inserción de datos en tabla Imagenes")
+        this.toastr.error("Error en inserción de datos en tabla ResetPassword")
         console.log(err)
       }
     )
   }
 
-  public deleteImagenes(imagenes: Imagenes) {
-    this.realizarOperacion("Imagenes", imagenes, true).subscribe(
+  public deleteResetPassword(resetPassword: ResetPassword) {
+    this.realizarOperacion("ResetPassword", resetPassword, true).subscribe(
       () => {
-        const i = this.datos.Imagenes.indexOf(imagenes)
-        this.datos.Imagenes.splice(i, 1)
+        const i = this.datos.ResetPassword.indexOf(resetPassword)
+        this.datos.ResetPassword.splice(i, 1)
+      }
+    )
+  }
+
+  public get ImagenesProductos(): Observable<ImagenesProductos[]> {
+    if (this.datos.ImagenesProductos.length !== 0 && this.datos.reiniciarImagenesProductos && this.datos.ImagenesProductosValores.valor !== 0) {
+      this.datos.ImagenesProductosValores.valor = this.datos.ImagenesProductosValores.valor - 1
+      return of(this.datos.ImagenesProductos)
+    } else {
+      if (this.datos.reiniciarImagenesProductos === true) {
+        this.datos.reiniciarImagenesProductos = false
+      }
+      const peticion = this.http.get<ImagenesProductos[]>(`${this.API_URI}all/ImagenesProductos`)
+      peticion.subscribe(
+        res => {
+          this.datos.ImagenesProductos = new Array<ImagenesProductos>()
+          this.datos.ImagenesProductos = res as ImagenesProductos[]
+        },
+        err => {
+          this.toastr.error("Error en peticion a base de datos en tabla ImagenesProductos")
+          console.log(err)
+        }
+      )
+      return peticion
+    }
+  }
+
+  public setImagenesProductos(imagenes: ImagenesProductos): void {
+    this.realizarOperacion("ImagenesProductos", imagenes).subscribe(
+      () => {
+        if (imagenes.id !== null) {
+          const i = this.datos.ImagenesProductos.indexOf(imagenes)
+          this.datos.ImagenesProductos[i] = imagenes
+        } else {
+          this.http.get<ImagenesProductos[]>(`${this.API_URI}all/ImagenesProductos`).subscribe(
+            res => {
+              this.datos.ImagenesProductos = new Array<ImagenesProductos>()
+              this.datos.ImagenesProductos = res as ImagenesProductos[]
+            },
+            err => {
+              this.toastr.error("Error en peticion a base de datos en tabla ImagenesProductos")
+            }
+          )
+        }
+      },
+      err => {
+        this.toastr.error("Error en inserción de datos en tabla ImagenesProductos")
+        console.log(err)
+      }
+    )
+  }
+
+  public deleteImagenesProductos(imagenes: ImagenesProductos) {
+    this.realizarOperacion("ImagenesProductos", imagenes, true).subscribe(
+      () => {
+        const i = this.datos.ImagenesProductos.indexOf(imagenes)
+        this.datos.ImagenesProductos.splice(i, 1)
       }
     )
   }

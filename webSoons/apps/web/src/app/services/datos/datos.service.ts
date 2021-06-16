@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Usuarios, UsuariosRegistrandose, Paises, Ciudades, Direcciones, DireccionesUsuario, Marcas, Categorias, Productos, Tags, TagsProducto, Imagenes, Stock, Descuentos, MensajeriasAceptadas, Archivos } from "@Soons/models";
+import { ResetPassword, Usuarios, UsuariosRegistrandose, Paises, Ciudades, Direcciones, DireccionesUsuario, Marcas, Categorias, Productos, Tags, TagsProducto, ImagenesProductos, Stock, Descuentos, MensajeriasAceptadas, Archivos, ImagenesMarcas } from "@Soons/models";
 interface ValorDefecto {
   valor: number,
   defecto: number
@@ -61,9 +61,13 @@ export class DatosService {
   reiniciarTagsProducto = false
   TagsProductoValores: ValorDefecto = { valor: 0, defecto: 1 }
 
-  Imagenes = new Array<Imagenes>()
-  reiniciarImagenes = false
-  ImagenesValores: ValorDefecto = { valor: 0, defecto: 1 }
+  ImagenesProductos = new Array<ImagenesProductos>()
+  reiniciarImagenesProductos = false
+  ImagenesProductosValores: ValorDefecto = { valor: 0, defecto: 1 }
+
+  ResetPassword = new Array<ResetPassword>()
+  reiniciarResetPassword = false
+  ResetPasswordValores: ValorDefecto = { valor: 0, defecto: 1 }
 
   Stock = new Array<Stock>()
   reiniciarStock = false

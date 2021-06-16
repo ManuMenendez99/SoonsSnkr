@@ -32,7 +32,9 @@ export class APIService {
   }
 
   upload(usuario: number, file: File, fotoPerfil: boolean) {
-    return this.http.post(`${this.API_URI}upload/${usuario}/${fotoPerfil}`, file)
+    const formData = new FormData();
+    formData.append('file', file)
+    return this.http.post(`${this.API_URI}upload/${usuario}/${fotoPerfil}`, formData)
   }
 
   download(codigo: string) {

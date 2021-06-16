@@ -7,6 +7,7 @@ import { AppService } from './app.service';
 import { SqlInsert, SqlInsertSelect, SqlUpdate, Habilitacion, SqlProcedure } from '@Soons/interfaces-sql';
 import { EncriptacionService } from "./encriptacion/encriptacion.service";
 import pool from './database';
+import { timeStamp } from 'console';
 
 @Controller()
 export class AppController {
@@ -42,15 +43,17 @@ export class AppController {
     return this.appService.delete(params.json)
   }
 
-  @Post('upload/:usuario')
-  @UseInterceptors(FileInterceptor('files', {
+  @Post('upload/:usuario/:archivoFoto')
+  @UseInterceptors(FileInterceptor('file',{
     storage: diskStorage({
       destination: function (req, file, cb) {
-        cb(null, 'D:\\FTPSERVER\\ARCHIVOSSUBIDOS\\' + file.mimetype.substring(0, file.mimetype.indexOf("/")));
+        console.log(req, file, cb)
+        cb(null, 'D://Archivos//GIT//Trabajo//Soons//webSoons//apps//web//src//assets//FTP-SERVER//ARCHIVOSSUBIDOS//' + file.mimetype.substring(0, file.mimetype.indexOf("/")));
       },
       filename: (req, file, cb) => {
+        console.log(req, file, cb)
         pool.query('SELECT AUTO_INCREMENT as cantidad FROM information_schema.TABLES WHERE TABLE_SCHEMA = "Soons" AND TABLE_NAME = "archivos"', function (err, result) {
-          cb(null, result[0].cantidad + "~" + file.originalname)
+          cb(null, (result[0].cantidad) + "~" + file.originalname)
         });
       }
     })
@@ -60,11 +63,18 @@ export class AppController {
     const mime = file.mimetype.substr(0, file.mimetype.indexOf("/"))
     const extension = extname(file.filename)
     const size = file.size
-    const creado = new Date()
-    const modificado = new Date()
+    const creado = new Date().toISOString()
+    const modificado = new Date().toISOString()
     const codigo = this.encriptacion.Encriptacion(file.filename)
-    const query = `INSERT INTO archivos (nombre, mime, extension, size, creado, modificado, codigo, usuario, archivoFoto) VALUE ('${nombre}','${mime}','${extension}',${size},'${creado}','${modificado}','${codigo}',${params.usuario}, ${params.archivoFoto})`
-    pool.query(query)
+    const queryBusquedaArchivo = 'SELECT * from archivos where nombre = "' + file.filename + '" and usuario = ' + params.usuario + ' and size = ' + size;
+    console.log(queryBusquedaArchivo)
+    pool.query(queryBusquedaArchivo, function (err, result) {
+      console.log(result)
+      if (result.length === 0) {
+        const query = `INSERT INTO archivos (nombre, mime, extension, size, codigo, usuario, archivoFoto, creado, modificado) VALUE ('${nombre}','${mime}','${extension}',${size},'${codigo}',${params.usuario}, ${params.archivoFoto},'${creado}','${modificado}')`
+        pool.query(query)
+      }  
+    })
     return file
   }
 
@@ -73,7 +83,7 @@ export class AppController {
     pool.query("SELECT mime, nombre FROM archivos where codigo = " + codigo, function (err, result) {
       const nombre = result[0].nombre
       const mime = result[0].mime
-      const ruta = 'D:\\FTPSERVER\\ARCHIVOSSUBIDOS\\' + mime + "\\" + nombre
+      const ruta = 'D://Archivos//GIT//Trabajo//Soons//webSoons//apps//web//src//assets//FTP-SERVER//ARCHIVOSSUBIDOS//' + mime + "/" + nombre
       res.download(ruta, nombre.substr(nombre.indexOf("~") + 4));
     })
   }

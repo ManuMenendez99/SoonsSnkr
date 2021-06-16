@@ -6,10 +6,11 @@ import { ConcatSqlService } from './sqlConcat';
 import { MulterModule } from '@nestjs/platform-express';
 import { EncriptacionService } from './encriptacion/encriptacion.service';
 
+
 @Module({
   imports: [
     MulterModule.register({
-      dest: 'E:\\FTPSERVER\\ARCHIVOSSUBIDOS'
+      dest: 'D://Archivos//GIT//Trabajo//Soons//FTPSERVER//ARCHIVOSSUBIDOS'
     })
   ],
   controllers: [AppController],

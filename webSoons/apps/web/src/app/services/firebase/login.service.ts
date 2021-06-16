@@ -140,54 +140,89 @@ export class LoginService {
 
   hacerLogin(result: any, res: any) {
     this.keepSesion(result.usuario.keepSesion)
-    firebase.auth().signInWithEmailAndPassword(result.usuario.correo, this.encriptacion.Encriptacion(result.usuario.password)).then(
-      RESGoogle => {
-        this.firebaseUser = RESGoogle.user
-        if (this.verifyEmail()) {
-          this.getterSetter.Usuarios.subscribe(
-            RESUsuarios => {
-              const usuarioEncontrado = RESUsuarios.find(x => x.id === res[0]["u_id"])
-              if (result.usuario.keepSesion) {
-                localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
+    this.getterSetter.ResetPassword.subscribe(
+      resResetPassword => {
+        this.getterSetter.Usuarios.subscribe(
+          resUsuarios => {
+            const passwordOriginal = resResetPassword.find(y => y.usuarioId === resUsuarios.find(x => x.email === result.usuario.correo).id).contrasenaOriginal
+            firebase.auth().signInWithEmailAndPassword(result.usuario.correo, passwordOriginal).then(
+              RESGoogle => {
+                this.firebaseUser = RESGoogle.user
+                if (this.verifyEmail()) {
+                  this.getterSetter.Usuarios.subscribe(
+                    RESUsuarios => {
+                      const usuarioEncontrado = RESUsuarios.find(x => x.id === res[0]["u_id"])
+                      if (result.usuario.keepSesion) {
+                        localStorage.setItem("usuario", JSON.stringify(usuarioEncontrado))
+                      }
+                      this.usuarioLogged = usuarioEncontrado
+                    },
+                    err => {
+                      this.errorEnGetterAndSetter(err, "usuarios")
+                    }
+                  )
+                  this.toastr.success("Has iniciado sesión", "Contraseña correcta")
+                } else {
+                  this.toastr.warning("El usuario no ha verificado todavía su email")
+                }
               }
-              this.usuarioLogged = usuarioEncontrado
-            },
-            err => {
-              this.errorEnGetterAndSetter(err, "usuarios")
-            }
-          )
-          this.toastr.success("Has iniciado sesión", "Contraseña correcta")
-        } else {
-          this.toastr.warning("El usuario no ha verificado todavía su email")
-        }
-      }
-    ).catch(
+            ).catch(
+              err => {
+                if (err.code !== "auth/popup-closed-by-user") {
+                  const error = this.error.detectarError(err.code)
+                  this.toastr.error(error, "Error en el inicio de sesion")
+                  console.log("Error en el inicio de sesion de firebase")
+                  console.log(error)
+                }
+              }
+            )
+          },
+          err => {
+            this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+            console.log(err)
+          }
+        )
+      },
       err => {
-        if (err.code !== "auth/popup-closed-by-user") {
-          const error = this.error.detectarError(err.code)
-          this.toastr.error(error, "Error en el inicio de sesion")
-          console.log("Error en el inicio de sesion de firebase")
-          console.log(error)
-        }
+        this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+        console.log(err)
       }
     )
+
   }
 
   postRegistro(logInWith: number, keepSesion: boolean, credentials: { email: string, contrasena: string }) {
     this.toastr.success(logInWith === 1 ? "Verifica tu correo electrónico para continuar" : "Completa tus datos para continuar", "CUENTA CREADA")
     if (logInWith === 1) {
-      firebase.auth().signInWithEmailAndPassword(credentials.email,credentials.contrasena).then(
-        () => {
-          if (!firebase.auth().currentUser.emailVerified) {
-            firebase.auth().currentUser.sendEmailVerification()
-          }
-        }
-      ).catch(
+      this.getterSetter.ResetPassword.subscribe(
+        resResetPassword => {
+          this.getterSetter.Usuarios.subscribe(
+            resUsuarios => {
+              const passwordOriginal = resResetPassword.find(y => y.usuarioId === resUsuarios.find(x => x.email === credentials.email).id).contrasenaOriginal
+              firebase.auth().signInWithEmailAndPassword(credentials.email,passwordOriginal).then(
+                () => {
+                  if (!firebase.auth().currentUser.emailVerified) {
+                    firebase.auth().currentUser.sendEmailVerification()
+                  }
+                }
+              ).catch(
+                err => {
+                  if (err.code !== "auth/popup-closed-by-user") {
+                    const error = this.error.detectarError(err.code)
+                    this.toastr.error(error)
+                  }
+                }
+              )
+            },
+            err => {
+              this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+              console.log(err)
+            }
+          )
+        },
         err => {
-          if (err.code !== "auth/popup-closed-by-user") {
-            const error = this.error.detectarError(err.code)
-            this.toastr.error(error)
-          }
+          this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+          console.log(err)
         }
       )
     }
@@ -422,19 +457,36 @@ export class LoginService {
   private loginAtemporal(usuario: Usuarios, social: number, keepSesion: boolean, file: File, mensajeriasAceptadas: MensajeriasAceptadas, credentials?: { email: string, contrasena: string }) {
     if (social === 1) {
       this.keepSesion(keepSesion)
-      firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.contrasena).then(
-        RESFirebase => {
-          this.firebaseUser = RESFirebase.user
-          usuario.uid = RESFirebase.user.uid
-          usuario.contrasena = credentials.contrasena
-          this.procedimientoCreacionUsuario(this.firebaseUser, usuario, keepSesion, file, social, mensajeriasAceptadas)
-        }
-      ).catch(
+      this.getterSetter.ResetPassword.subscribe(
+        resResetPassword => {
+          this.getterSetter.Usuarios.subscribe(
+            resUsuarios => {
+              const passwordOriginal = resResetPassword.find(y => y.usuarioId === resUsuarios.find(x => x.email === credentials.email).id).contrasenaOriginal
+              firebase.auth().signInWithEmailAndPassword(credentials.email, passwordOriginal).then(
+                RESFirebase => {
+                  this.firebaseUser = RESFirebase.user
+                  usuario.uid = RESFirebase.user.uid
+                  usuario.contrasena = credentials.contrasena
+                  this.procedimientoCreacionUsuario(this.firebaseUser, usuario, keepSesion, file, social, mensajeriasAceptadas)
+                }
+              ).catch(
+                err => {
+                  if (err.code !== "auth/popup-closed-by-user") {
+                    const error = this.error.detectarError(err.code)
+                    this.toastr.error(error)
+                  }
+                }
+              )
+            },
+            err => {
+              this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+              console.log(err)
+            }
+          )
+        },
         err => {
-          if (err.code !== "auth/popup-closed-by-user") {
-            const error = this.error.detectarError(err.code)
-            this.toastr.error(error)
-          }
+          this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
+          console.log(err)
         }
       )
     } else {
@@ -482,7 +534,7 @@ export class LoginService {
   }
 
   isLogged(): boolean {
-    return localStorage.getItem("usuario") !== undefined ? true : false
+    return localStorage.getItem("usuario") !== undefined && localStorage.getItem("usuario") !== null ? true : false
   }
 
   isAdmin(): boolean {

@@ -81,7 +81,7 @@ export interface DireccionesUsuario {
 export interface Marcas {
   id?: number
   nombre: String
-  imagen: String
+  archivo: number
   descripcion: String
   creado?: Date
   modificado?: Date
@@ -117,10 +117,17 @@ export interface TagsProducto {
   creado?: Date
   modificado?: Date
 };
-export interface Imagenes {
+export interface ImagenesProductos {
   id?: number
   imagen: String
   productoId: number
+  creado?: Date
+  modificado?: Date
+};
+export interface ImagenesMarcas {
+  id?: number
+  imagen: String
+  marcaId: number
   creado?: Date
   modificado?: Date
 };
@@ -139,3 +146,11 @@ export interface Descuentos {
   creado?: Date
   modificado?: Date
 };
+
+export interface ResetPassword {
+  id?: number
+  usuarioId: number
+  contrasenaOriginal: string
+  creado?: Date
+  modificado?: Date
+}

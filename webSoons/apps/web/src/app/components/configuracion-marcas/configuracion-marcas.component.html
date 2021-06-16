@@ -14,8 +14,15 @@
                         <div class="example-element-detail"
                             [@detailExpandMarcas]="element == expandedElementMarcas ? 'expanded' : 'collapsed'">
                             <div class="col-12">
-                                <img [src]="element.imagen" class="rounded img-thumbnail" *ngIf="element.imagen !== null && element.imagen !== undefined">
-                                <strong>Descripción: </strong>{{element.descripcion}}
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <img [src]="'../../../assets/FTP-SERVER/ARCHIVOSSUBIDOS/image/' + nombreArchivo(element.archivo)" class="rounded img-fluid" *ngIf="element.archivo !== null && element.archivo !== undefined">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <strong>Descripción: </strong>{{element.descripcion}}
+                                    </div>
+
+                                </div>
                             </div>
                             <div class="col-12 d-flex justify-content-center">
                                 <button mat-button class="col-6 greened"
