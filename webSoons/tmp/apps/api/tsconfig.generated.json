@@ -11,10 +11,7 @@
         "libs/form-group/src/index.ts"
       ],
       "@Soons/encriptacion": [
-        "libs/encriptacion/src/index.ts"
-      ],
-      "@Soons/paypal": [
-        "libs/paypal/src/index.ts"
+        "libs/encriptacion/encriptacion.ts"
       ]
     }
   },

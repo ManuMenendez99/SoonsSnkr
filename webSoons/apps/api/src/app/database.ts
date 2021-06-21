@@ -1,5 +1,5 @@
 import * as mysql from 'promise-mysql';
-import keys from './keys'
+import keys from '../../../../libs/keys/keys'
 
 const pool = mysql.createPool(keys.database);
 

@@ -61,12 +61,18 @@ import { ConfiguracionMarcasComponent } from './components/configuracion-marcas/
 import { ContactaConNosotrosComponent } from './components/contacta-con-nosotros/contacta-con-nosotros.component';
 import { ForgotPasswordComponent } from './components/bottoms/forgot-password/forgot-password.component';
 import { CrearMarcaComponent } from './components/bottoms/crear-marca/crear-marca.component';
+import { ProductosClienteComponent } from './components/productos/productos-cliente/productos-cliente.component';
+import { ProductosAdministradorComponent } from './components/productos/productos-administrador/productos-administrador.component';
+import { SubirProductoComponent } from './components/dialogs/subir-producto/subir-producto.component';
+import { CrearProductoComponent } from './components/dialogs/crear-producto/crear-producto.component';
+import { CambiarStockComponent } from './components/bottoms/cambiar-stock/cambiar-stock.component';
+import { ComprarProductoComponent } from './components/dialogs/comprar-producto/comprar-producto.component';
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
 
 @NgModule({
-  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent, UsuariosComponent, MensajesComponent, CambiarAEmpresaComponent, UserInfoComponent, CrearGrupoComponent, CondicionarMensajeriaComponent, ProductosComponent, ConfiguracionMarcasComponent, ContactaConNosotrosComponent, ForgotPasswordComponent, CrearMarcaComponent],
+  declarations: [AppComponent, NavbarComponent, WelcomeComponent, PageNotFoundError404Component, FooterComponent, LgpdComponent, FirstLetterCapPipe, LoginComponent, RegisterComponent, LogoutComponent, PostRegistroComponent, InfiniteLoaderComponent, LGPDComponent, DragDropDirective, PopupMessageComponent, ChatComponent, UsuariosComponent, MensajesComponent, CambiarAEmpresaComponent, UserInfoComponent, CrearGrupoComponent, CondicionarMensajeriaComponent, ProductosComponent, ConfiguracionMarcasComponent, ContactaConNosotrosComponent, ForgotPasswordComponent, CrearMarcaComponent, ProductosClienteComponent, ProductosAdministradorComponent, SubirProductoComponent, CrearProductoComponent, CambiarStockComponent, ComprarProductoComponent],
   imports: [
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,

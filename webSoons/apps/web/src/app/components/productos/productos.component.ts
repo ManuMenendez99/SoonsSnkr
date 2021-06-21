@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from '../../services/firebase/login.service';
+import { UsuarioService } from '../../services/usuario/usuario.service';
 
 @Component({
   selector: 'Soons-productos',
@@ -7,9 +9,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductosComponent implements OnInit {
 
-  constructor() { }
+  constructor(public loginService: LoginService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }

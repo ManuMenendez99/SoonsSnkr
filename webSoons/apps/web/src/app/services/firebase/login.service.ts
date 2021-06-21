@@ -12,10 +12,10 @@ import { Habilitacion, GoogleUser } from '@Soons/interfaces-sql';
 import { DeteccionErrorService } from './deteccion-error.service';
 import { SqlProcedure } from "@Soons/interfaces-sql";
 import { UsuarioService } from "../usuario/usuario.service";
-import { EncriptacionService } from '../encriptacion/encriptacion.service';
 import { DatosService } from '../datos/datos.service';
 import { Router } from '@angular/router';
 import { BottomsService } from '../bottoms/bottoms.service';
+import { EncriptacionService } from '../encriptacion/encriptacion.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +33,9 @@ export class LoginService {
     private bottom: BottomsService,
     private getterSetter: GetterSetterService,
     private toastr: ToastrService,
-    private encriptacion: EncriptacionService,
     private usuario: UsuarioService,
-    public router: Router
+    public router: Router,
+    private encriptacion: EncriptacionService
   ) {
   }
 
@@ -194,12 +194,10 @@ export class LoginService {
   postRegistro(logInWith: number, keepSesion: boolean, credentials: { email: string, contrasena: string }) {
     this.toastr.success(logInWith === 1 ? "Verifica tu correo electrónico para continuar" : "Completa tus datos para continuar", "CUENTA CREADA")
     if (logInWith === 1) {
-      this.getterSetter.ResetPassword.subscribe(
-        resResetPassword => {
-          this.getterSetter.Usuarios.subscribe(
-            resUsuarios => {
-              const passwordOriginal = resResetPassword.find(y => y.usuarioId === resUsuarios.find(x => x.email === credentials.email).id).contrasenaOriginal
-              firebase.auth().signInWithEmailAndPassword(credentials.email,passwordOriginal).then(
+      
+          this.getterSetter.UsuariosRegistrandose.subscribe(
+            resUsuariosRegistrandose => {
+              firebase.auth().signInWithEmailAndPassword(credentials.email,credentials.contrasena).then(
                 () => {
                   if (!firebase.auth().currentUser.emailVerified) {
                     firebase.auth().currentUser.sendEmailVerification()
@@ -219,12 +217,6 @@ export class LoginService {
               console.log(err)
             }
           )
-        },
-        err => {
-          this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
-          console.log(err)
-        }
-      )
     }
     const dialogo = this.dialog.abrirPostRegistro(logInWith)
     dialogo.afterClosed().subscribe(
@@ -457,12 +449,8 @@ export class LoginService {
   private loginAtemporal(usuario: Usuarios, social: number, keepSesion: boolean, file: File, mensajeriasAceptadas: MensajeriasAceptadas, credentials?: { email: string, contrasena: string }) {
     if (social === 1) {
       this.keepSesion(keepSesion)
-      this.getterSetter.ResetPassword.subscribe(
-        resResetPassword => {
-          this.getterSetter.Usuarios.subscribe(
-            resUsuarios => {
-              const passwordOriginal = resResetPassword.find(y => y.usuarioId === resUsuarios.find(x => x.email === credentials.email).id).contrasenaOriginal
-              firebase.auth().signInWithEmailAndPassword(credentials.email, passwordOriginal).then(
+      
+              firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.contrasena).then(
                 RESFirebase => {
                   this.firebaseUser = RESFirebase.user
                   usuario.uid = RESFirebase.user.uid
@@ -477,18 +465,6 @@ export class LoginService {
                   }
                 }
               )
-            },
-            err => {
-              this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
-              console.log(err)
-            }
-          )
-        },
-        err => {
-          this.toastr.error("Error al obtener las antiguas contraseñas", "ERROR")
-          console.log(err)
-        }
-      )
     } else {
       this.procedimientoCreacionUsuario(this.firebaseUser, usuario, keepSesion, file, social, mensajeriasAceptadas)
     }

@@ -14,7 +14,7 @@ export class AuthGuardAdminService implements CanActivate {
     route: ActivatedRouteSnapshot
   ) {
     const categoria = null
-    const categoriasEsperadas: string[] = route.data.categoriasEsperadas
+    const rolesEsperados: string[] = route.data.rolesEsperados
 
 
     if (this.security.takeSecurityAdmin()) {

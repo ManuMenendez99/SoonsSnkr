@@ -22,13 +22,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './post-registro.component.html',
   styleUrls: ['./post-registro.component.scss'],
   providers: [
-    // The locale would typically be provided on the root module of your application. We do it at
-    // the component level here, due to limitations of our example generation script.
     { provide: MAT_DATE_LOCALE, useValue: 'es-ES' },
-
-    // `MomentDateAdapter` and `MAT_MOMENT_DATE_FORMATS` can be automatically provided by importing
-    // `MatMomentDateModule` in your applications root module. We provide it at the component level
-    // here, due to limitations of our example generation script.
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,

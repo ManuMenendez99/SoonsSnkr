@@ -95,11 +95,9 @@ export interface Categorias {
 export interface Productos {
   id?: number
   nombre: String
+  marca: number
   categoria: number
   sku?: String
-  precio: number
-  descuento?: number
-  descripcion?: String
   genero: number
   creado?: Date
   modificado?: Date
@@ -136,6 +134,10 @@ export interface Stock {
   talla: number
   productoId: number
   cantidad?: number
+  precio: number
+  descuento?: number
+  descripcion?: String
+  owner: number
   creado?: Date
   modificado?: Date
 };

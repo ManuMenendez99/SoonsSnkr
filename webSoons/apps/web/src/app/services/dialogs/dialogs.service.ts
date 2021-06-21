@@ -5,6 +5,10 @@ import { RegisterComponent } from '../../components/dialogs/usuario/sesion/regis
 import { ComponentType } from 'ngx-toastr';
 import { PostRegistroComponent } from '../../components/dialogs/usuario/sesion/post-registro/post-registro.component';
 import { CrearGrupoComponent } from '../../components/dialogs/chat/crear-grupo/crear-grupo.component';
+import { ComprarProductoComponent } from '../../components/dialogs/comprar-producto/comprar-producto.component';
+import { Productos } from '@Soons/models';
+import { CrearProductoComponent } from '../../components/dialogs/crear-producto/crear-producto.component';
+import { SubirProductoComponent } from '../../components/dialogs/subir-producto/subir-producto.component';
 // import { Amigos, Personas } from '@Soons/models';
 
 @Injectable({
@@ -28,6 +32,18 @@ export class DialogsService {
 
   abrirPostRegistro(social: number) {
     return this.abrirDialog(PostRegistroComponent, { SignInWith: social }, true)
+  }
+
+  abrirComprarProducto(producto: Productos) {
+    return this.abrirDialog(ComprarProductoComponent, { producto: producto }, true)
+  }
+
+  abrirCrearProducto() {
+    return this.abrirDialog(CrearProductoComponent, null, true)
+  }
+
+  abrirSubirProducto() {
+    return this.abrirDialog(SubirProductoComponent, null, true)
   }
 
   // abrirCrearGrupoChat(personasAmigos: Personas[], amigos: Amigos[], administrador: Personas) {

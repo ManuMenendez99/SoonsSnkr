@@ -7,6 +7,7 @@ import { ChatComponent } from '../../../components/chat/chat.component';
 import { AuthGuardService as AuthGuard } from '../../../services/authGuard/auth-guard.service';
 import { UserInfoComponent } from '../../../components/dialogs/usuario/user-info/user-info.component';
 import { ConfiguracionMarcasComponent } from '../../../components/configuracion-marcas/configuracion-marcas.component';
+import { ProductosComponent } from '../../../components/productos/productos.component';
 
 const appRoutes: Routes = [
   {
@@ -17,18 +18,23 @@ const appRoutes: Routes = [
   // {
   //   path: 'chat',
   //   component: ChatComponent,
-  //   data: { title: 'Chat', categoriasEsperadas: [null] },
+  //   data: { title: 'Chat', rolesEsperados: [null] },
   //   canActivate: [AuthGuard],
   // },
   {
     path: 'userInfo',
     component: UserInfoComponent,
-    data: { title: 'User Info', categoriasEsperadas: [null] }
+    data: { title: 'User Info', rolesEsperados: [null] }
   },
   {
     path: 'configuracionMarcas',
     component: ConfiguracionMarcasComponent,
-    data: { title: 'Configuración Marcas', categoriasEsperadas: [null]}
+    data: { title: 'Configuración Marcas', rolesEsperados: [null]}
+  },
+  {
+    path: 'productos',
+    component: ProductosComponent,
+    data: { title: 'Productos',  rolesEsperados: [null]}
   },
   {
     path: '',

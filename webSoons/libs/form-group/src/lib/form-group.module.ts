@@ -62,6 +62,10 @@ export class FormGroupsModule {
     descripcion: new FormControl(null)
   })
 
+  formularioBusqueda = new FormGroup({
+    buscador: new FormControl(null)
+  })
+
   // chatFormulario = new FormGroup({
   //   texto: new FormControl('')
   // })

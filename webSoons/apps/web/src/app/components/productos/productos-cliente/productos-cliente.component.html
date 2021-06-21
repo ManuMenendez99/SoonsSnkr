@@ -1,0 +1,45 @@
+<section id="team" class="team section-bg">
+    <div class="container">
+        <form [formGroup]="formularioBusqueda" autocomplete="off">
+            <div class="row d-flex justify-content-center">
+                <mat-form-field class="col-md-11" appearance="outline" id="inputGrupal">
+                    <mat-label>Filtrar</mat-label>
+                    <input matInput (keyup)="calcularFiltro()" formControlName="buscador"
+                        placeholder="Introduzca carácteres que quiera usted filtrar">
+                </mat-form-field>
+
+            </div>
+        </form>
+        <div class="row">
+
+            <div class="col-lg-3 col-md-6 d-flex align-items-stretch" *ngFor="let producto of productosCompletoMostrar">
+                <div class="member" data-aos="fade-up" data-aos-delay="100">
+                    <div class="member-img">
+                        <img src="../../../../assets/components/welcome/team/team-1.jpg" class="img-fluid" alt="">
+                        <div class="social">
+                            <a href=""><i class="icofont-ui-add"></i></a>
+                            <a href=""><i class="icofont-ui-search"></i></a>
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <span>{{producto.marca.nombre}}</span>
+                        <h4>{{producto.producto.nombre}}</h4>
+                        <p class="display-h4 float-right">{{ mediaProducto(producto) }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container justify-content-center" *ngIf="productosCompletoMostrar.length === 0" data-aos="fade-up" data-aos-delay="100" >
+            <div class="row my-5 d-flex justify-content-center">
+                <div class="w-50">
+                    <img src="../../../../assets/components/common/nodata.svg" class="w-75">
+                </div>
+            </div>
+            <div class="w-100 row">
+                <p class="col-12" align="center"><em>No hay productos
+                        disponibles</em></p>
+            </div>
+        </div>
+
+    </div>
+</section>
