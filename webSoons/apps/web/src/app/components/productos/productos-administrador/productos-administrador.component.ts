@@ -3,9 +3,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { FormGroupsModule } from '@Soons/form-group';
-import { Marcas, Productos, ProductosCompletoAdministracion, Stock, TagsProducto, Usuarios } from '@Soons/models';
+import { Categorias, Marcas, Productos, ProductosCompletoAdministracion, Stock, Tags, TagsProducto, Usuarios } from '@Soons/models';
 import { ToastrService } from 'ngx-toastr';
+import { CategoriasService } from '../../../services/categorias/categorias.service';
 import { GetterSetterService } from '../../../services/getterSetter/getter-setter.service';
+import { MarcasService } from '../../../services/marcas/marcas.service';
+import { ProductosService } from '../../../services/productos/productos.service';
+import { StockService } from '../../../services/stock/stock.service';
+import { TagsService } from '../../../services/tags/tags.service';
+import { TagsProductosService } from '../../../services/tagsProductos/tags-productos.service';
+import { UsuariosService } from '../../../services/usuario/usuarios.service';
 
 @Component({
   selector: 'Soons-productos-administrador',
@@ -26,6 +33,8 @@ export class ProductosAdministradorComponent implements OnInit {
   stock: Array<Stock>
   tagsProductos: Array<TagsProducto>
   usuarios: Array<Usuarios>
+  tags: Array<Tags>
+  categorias: Array<Categorias>
 
   productosCompletoAdministracion = new Array<ProductosCompletoAdministracion>();
 
@@ -35,7 +44,15 @@ export class ProductosAdministradorComponent implements OnInit {
 
   @ViewChild('MatPaginatorProductos', { static: true }) paginatorProductos: MatPaginator;
 
-  constructor(private getterSetter: GetterSetterService, private formGroups: FormGroupsModule, private toastr: ToastrService) { }
+  constructor(private formGroups: FormGroupsModule,
+    private toastr: ToastrService,
+    private marcasService: MarcasService,
+    private productosService: ProductosService,
+    private stockService: StockService,
+    private tagsProductosService: TagsProductosService,
+    private tagsService: TagsService,
+    private usuariosService: UsuariosService,
+    private categoriasService: CategoriasService) { }
 
   ngOnInit(): void {
     this.inicializarValores()
@@ -48,10 +65,12 @@ export class ProductosAdministradorComponent implements OnInit {
     this.productos = new Array<Productos>();
     this.stock = new Array<Stock>();
     this.tagsProductos = new Array<TagsProducto>()
+    this.tags = new Array<Tags>()
+    this.categorias = new Array<Categorias>()
   }
 
   obtenerStock() {
-    this.getterSetter.Stock.subscribe(
+    this.stockService.getStock.subscribe(
       res => {
         this.stock = res as Stock[]
         this.obtenerProductos();
@@ -60,10 +79,10 @@ export class ProductosAdministradorComponent implements OnInit {
   }
 
   obtenerProductos() {
-    this.getterSetter.Productos.subscribe(
+    this.productosService.getProductos.subscribe(
       res => {
         this.productos = res as Productos[];
-        this.obtenerMarcas()
+        this.obtenerCategorias()
       },
       err => {
         console.log(err)
@@ -71,8 +90,17 @@ export class ProductosAdministradorComponent implements OnInit {
     )
   }
 
+  obtenerCategorias() {
+    this.categoriasService.getCategorias.subscribe(
+      res => {
+        this.categorias = res as Categorias[];
+        this.obtenerMarcas()
+      }
+    )
+  }
+
   obtenerMarcas() {
-    this.getterSetter.Marcas.subscribe(
+    this.marcasService.getMarcas.subscribe(
       res => {
         this.marcas = res as Marcas[];
         this.obtenerUsuarios()
@@ -81,7 +109,7 @@ export class ProductosAdministradorComponent implements OnInit {
   }
 
   obtenerUsuarios() {
-    this.getterSetter.Usuarios.subscribe(
+    this.usuariosService.getUsuarios.subscribe(
       res => {
         this.usuarios = res as Usuarios[];
         this.obtenerTagsProducto()
@@ -90,9 +118,18 @@ export class ProductosAdministradorComponent implements OnInit {
   }
 
   obtenerTagsProducto() {
-    this.getterSetter.TagsProducto.subscribe(
+    this.tagsProductosService.getTagsProductos.subscribe(
       res => {
         this.tagsProductos = res as TagsProducto[]
+        this.obtenerTags()
+      }
+    )
+  }
+
+  obtenerTags() {
+    this.tagsService.getTags.subscribe(
+      res => {
+        this.tags = res as Tags[]
         const ProductosCompletoAdministracion: Array<ProductosCompletoAdministracion> = this.stock.map(x => {
 
           const producto = this.productos.find(y => y.id === x.productoId)
@@ -101,8 +138,9 @@ export class ProductosAdministradorComponent implements OnInit {
             marca: this.marcas.find(y => y.id === producto.marca),
             producto: producto,
             stockProducto: x,
-            tagsProducto: this.tagsProductos.filter(y => y.productoId === producto.id),
-            usuario: this.usuarios.find(y => y.id === x.owner)
+            tags: this.tags.filter(z => this.tagsProductos.filter(y => y.productoId === x.id).map(y => y.tagId).includes(z.id)),
+            usuario: this.usuarios.find(y => y.id === x.owner),
+            categorias: this.categorias.find(y => y.id === producto.categoria)
           }
           return productoCompleto;
         })
@@ -133,12 +171,23 @@ export class ProductosAdministradorComponent implements OnInit {
           let palabraFiltrada: boolean = false;
           Object.keys(o).forEach(x => {
             if (palabraFiltrada === false) {
-              Object.keys(o[x]).forEach(y => {
-                if (String(o[x][y]).toLowerCase().includes(filtro.toLowerCase()) && palabraFiltrada === false) {
-                  palabraFiltrada = true;
-                  filtrosCumplidos = filtrosCumplidos + 1;
-                }
-              })
+              if (x === "tags") {
+                o[x].forEach(z => {
+                  Object.keys(z).forEach(y => {
+                    if (String(z[y]).toLowerCase().includes(filtro.toLowerCase()) && palabraFiltrada === false) {
+                      palabraFiltrada = true;
+                      filtrosCumplidos = filtrosCumplidos + 1;
+                    }
+                  })
+                })
+              } else {
+                Object.keys(o[x]).forEach(y => {
+                  if (String(o[x][y]).toLowerCase().includes(filtro.toLowerCase()) && palabraFiltrada === false) {
+                    palabraFiltrada = true;
+                    filtrosCumplidos = filtrosCumplidos + 1;
+                  }
+                })
+              }
             }
           })
         })

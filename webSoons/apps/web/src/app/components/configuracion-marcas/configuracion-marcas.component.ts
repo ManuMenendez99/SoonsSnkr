@@ -38,7 +38,7 @@ export class ConfiguracionMarcasComponent implements OnInit {
   }
 
   obtenerMarcas() {
-    this.marcasService.marcas.subscribe(
+    this.marcasService.getMarcas.subscribe(
       res => {
         this.marcas = res as Marcas[];
         this.dataSourceMarcas = new MatTableDataSource(this.marcas)

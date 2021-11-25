@@ -13,7 +13,7 @@ export class MarcasService {
 
   constructor(private getterSetter: GetterSetterService, private api: APIService, private toastr: ToastrService) { }
 
-  get marcas() {
+  get getMarcas() {
     return this.getterSetter.Marcas
   }
 

@@ -1,4 +1,4 @@
-import { Marcas, Productos, Stock, TagsProducto, Usuarios } from "./models";
+import { Categorias, Marcas, Productos, Stock, Tags, TagsProducto, Usuarios } from "./models";
 
 export interface Links {
     href: string
@@ -11,13 +11,15 @@ export interface ProductosCompleto {
     producto: Productos
     marca: Marcas
     stockProducto: Stock[]
-    tagsProducto: TagsProducto[]
+    tags: Tags[]
+    categoria: Categorias
 }
 
 export interface ProductosCompletoAdministracion {
     producto: Productos
     marca: Marcas
     stockProducto: Stock
-    tagsProducto: TagsProducto[]
+    tags: Tags[]
     usuario: Usuarios
+    categorias: Categorias
 }
